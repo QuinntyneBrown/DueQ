@@ -1,0 +1,22 @@
+:host { display: block; }
+
+.page-head {
+  margin-bottom: var(--s-5);
+}
+
+h1 {
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s-1);
+  font-weight: 600;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  h1 { font-size: 28px; }
+}

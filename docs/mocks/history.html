@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — History</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>History</span>
+      </div>
+      <a href="#" class="header-action" aria-label="Filter">⌕</a>
+    </header>
+
+    <aside class="app-sidebar">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a class="nav-link" href="dashboard.html"><span class="icon">⌂</span> Dashboard</a>
+      <a class="nav-link" href="bills.html"><span class="icon">▤</span> Bills</a>
+      <a class="nav-link is-active" href="history.html"><span class="icon">↻</span> History</a>
+      <a class="nav-link" href="add-bill.html"><span class="icon">＋</span> Add bill</a>
+      <a class="nav-link" href="record-payment.html"><span class="icon">↓</span> Record payment</a>
+      <a class="nav-link" href="settings.html"><span class="icon">◔</span> Settings</a>
+      <div class="footer">
+        <span class="avatar">QB</span>
+        <div style="color:var(--ink); font-weight:500;">Quinntyne Brown</div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="container">
+
+        <div class="page-head">
+          <h1>History</h1>
+          <p class="sub">Every bill and payment, newest first.</p>
+        </div>
+
+        <!-- Running balance summary -->
+        <div class="card" style="padding:var(--s-5);">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:var(--s-3);">
+            <div>
+              <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em;">Running balance</div>
+              <div style="font-family:var(--font-num); font-size:28px; font-weight:600; letter-spacing:-0.02em; margin-top:4px;">$327.50</div>
+              <div style="font-size:12px; color:var(--muted); margin-top:2px;">Sam owes you</div>
+            </div>
+            <div style="display:flex; gap:var(--s-5);">
+              <div>
+                <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em;">Logged</div>
+                <div style="font-family:var(--font-num); font-weight:600; margin-top:2px;">$1,847.66</div>
+              </div>
+              <div>
+                <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em;">Paid back</div>
+                <div style="font-family:var(--font-num); font-weight:600; margin-top:2px; color:var(--owed-to-you);">$596.33</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- chips for filter -->
+        <div class="chips" style="margin-top:var(--s-5);">
+          <button class="chip is-active">All</button>
+          <button class="chip">Bills only</button>
+          <button class="chip">Payments only</button>
+        </div>
+
+        <!-- May 2026 -->
+        <div class="timeline-group" style="margin-top:0;">
+          <h3>May 2026 <span class="month-total">+$198.50</span></h3>
+          <div class="card">
+            <div class="list">
+              <div class="row">
+                <div class="icon-tile t-bill">🛒</div>
+                <div class="body">
+                  <div class="title">Groceries — Loblaws</div>
+                  <div class="meta">May 22 · $84.20</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$42.10</div>
+                  <div class="sub">balance $327.50</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon-tile t-bill">⚡</div>
+                <div class="body">
+                  <div class="title">Hydro bill</div>
+                  <div class="meta">May 18 · $156.40</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$78.20</div>
+                  <div class="sub">balance $285.40</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon-tile t-payment">↓</div>
+                <div class="body">
+                  <div class="title">Payment from Sam</div>
+                  <div class="meta">May 12 · e-Transfer</div>
+                </div>
+                <div class="right">
+                  <div class="amount" style="color:var(--owed-to-you);">−$140.00</div>
+                  <div class="sub">balance $207.20</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon-tile t-bill">📱</div>
+                <div class="body">
+                  <div class="title">Internet — Bell</div>
+                  <div class="meta">May 8 · $94.00</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$47.00</div>
+                  <div class="sub">balance $347.20</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon-tile t-bill">🍕</div>
+                <div class="body">
+                  <div class="title">Dinner — Pizzeria Libretto</div>
+                  <div class="meta">May 4 · $62.40</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$31.20</div>
+                  <div class="sub">balance $300.20</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- April 2026 -->
+        <div class="timeline-group">
+          <h3>April 2026 <span class="month-total">+$1,425.38</span></h3>
+          <div class="card">
+            <div class="list">
+              <div class="row">
+                <div class="icon-tile t-bill">🛒</div>
+                <div class="body">
+                  <div class="title">Groceries — Costco run</div>
+                  <div class="meta">Apr 28 · $214.66</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$107.33</div>
+                  <div class="sub">balance $269.00</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon-tile t-bill">🏠</div>
+                <div class="body">
+                  <div class="title">Rent — May</div>
+                  <div class="meta">Apr 27 · $2,400.00</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$1,200.00</div>
+                  <div class="sub">balance $161.67</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon-tile t-payment">↓</div>
+                <div class="body">
+                  <div class="title">Payment from Sam</div>
+                  <div class="meta">Apr 22 · e-Transfer</div>
+                </div>
+                <div class="right">
+                  <div class="amount" style="color:var(--owed-to-you);">−$300.00</div>
+                  <div class="sub">balance −$1,038.33</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon-tile t-bill">⚡</div>
+                <div class="body">
+                  <div class="title">Hydro bill</div>
+                  <div class="meta">Apr 18 · $142.10</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$71.05</div>
+                  <div class="sub">balance −$738.33</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">⌂</span>
+        <span>Home</span>
+      </a>
+      <a href="bills.html" class="nav-item">
+        <span class="icon">▤</span>
+        <span>Bills</span>
+      </a>
+      <a href="add-bill.html" class="nav-item action">
+        <span class="fab">＋</span>
+      </a>
+      <a href="history.html" class="nav-item is-active">
+        <span class="icon">↻</span>
+        <span>History</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <span class="icon">◔</span>
+        <span>You</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

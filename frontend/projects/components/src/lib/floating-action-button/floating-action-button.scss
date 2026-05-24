@@ -1,0 +1,19 @@
+:host { display: inline-block; }
+
+.fab {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-2);
+  font-size: 22px;
+  font-weight: 300;
+  font-family: inherit;
+
+  &:active { transform: scale(0.96); }
+}

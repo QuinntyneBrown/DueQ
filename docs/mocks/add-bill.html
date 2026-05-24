@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Add bill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <a href="dashboard.html" class="header-action" aria-label="Back" style="margin-right:8px;">←</a>
+        <span>Add bill</span>
+      </div>
+      <a href="#" style="font-size:14px; color:var(--muted);">Cancel</a>
+    </header>
+
+    <aside class="app-sidebar">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a class="nav-link" href="dashboard.html"><span class="icon">⌂</span> Dashboard</a>
+      <a class="nav-link" href="bills.html"><span class="icon">▤</span> Bills</a>
+      <a class="nav-link" href="history.html"><span class="icon">↻</span> History</a>
+      <a class="nav-link is-active" href="add-bill.html"><span class="icon">＋</span> Add bill</a>
+      <a class="nav-link" href="record-payment.html"><span class="icon">↓</span> Record payment</a>
+      <a class="nav-link" href="settings.html"><span class="icon">◔</span> Settings</a>
+      <div class="footer">
+        <span class="avatar">QB</span>
+        <div style="color:var(--ink); font-weight:500;">Quinntyne Brown</div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="container">
+
+        <div class="page-head">
+          <a class="back-link" href="dashboard.html">← Back</a>
+          <h1>Add a bill</h1>
+          <p class="sub">Split it 50/50 between you and Sam.</p>
+        </div>
+
+        <form class="form">
+
+          <div class="field">
+            <label for="amount">Amount</label>
+            <div class="input-amount">
+              <span class="currency">$</span>
+              <input class="input" id="amount" type="text" inputmode="decimal" value="84.20" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="name">What was it for?</label>
+            <input class="input" id="name" type="text" value="Groceries — Loblaws" placeholder="e.g. Hydro bill, Groceries" />
+          </div>
+
+          <div class="field">
+            <label for="date">Date</label>
+            <input class="input" id="date" type="date" value="2026-05-22" />
+          </div>
+
+          <div class="field">
+            <label for="note">Note <span class="hint">(optional)</span></label>
+            <textarea class="textarea" id="note" placeholder="Anything to remember about this bill?"></textarea>
+          </div>
+
+          <hr class="hr-soft" />
+
+          <div class="preview-block">
+            <div>
+              <div class="lbl">Sam owes</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:2px;">50% of $84.20</div>
+            </div>
+            <div class="val positive">+$42.10</div>
+          </div>
+
+          <div style="display:flex; gap:var(--s-3); margin-top:var(--s-3);">
+            <button type="button" class="btn btn-outline" style="flex:1;">Save &amp; add another</button>
+            <button type="submit" class="btn btn-primary btn-lg" style="flex:2;">Save bill</button>
+          </div>
+
+        </form>
+
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">⌂</span>
+        <span>Home</span>
+      </a>
+      <a href="bills.html" class="nav-item">
+        <span class="icon">▤</span>
+        <span>Bills</span>
+      </a>
+      <a href="add-bill.html" class="nav-item action">
+        <span class="fab">＋</span>
+      </a>
+      <a href="history.html" class="nav-item">
+        <span class="icon">↻</span>
+        <span>History</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <span class="icon">◔</span>
+        <span>You</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

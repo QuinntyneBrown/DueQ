@@ -1,0 +1,45 @@
+@DueQ.Api_HostAddress = http://localhost:5054
+
+### Get settings
+GET {{DueQ.Api_HostAddress}}/api/settings
+Accept: application/json
+
+### Update settings
+PUT {{DueQ.Api_HostAddress}}/api/settings
+Content-Type: application/json
+
+{
+  "yourName": "Quinntyne Brown",
+  "partnerName": "Sam"
+}
+
+### List bills
+GET {{DueQ.Api_HostAddress}}/api/bills
+
+### Create bill
+POST {{DueQ.Api_HostAddress}}/api/bills
+Content-Type: application/json
+
+{
+  "description": "Groceries — Loblaws",
+  "amount": 84.20,
+  "date": "2026-05-22",
+  "note": null
+}
+
+### Record payment
+POST {{DueQ.Api_HostAddress}}/api/payments
+Content-Type: application/json
+
+{
+  "amount": 140.00,
+  "date": "2026-05-24",
+  "method": 0,
+  "note": null
+}
+
+### Dashboard
+GET {{DueQ.Api_HostAddress}}/api/dashboard
+
+### History
+GET {{DueQ.Api_HostAddress}}/api/history

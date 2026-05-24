@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Mobile header -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a href="settings.html" class="header-action" aria-label="Settings">⚙</a>
+    </header>
+
+    <!-- Sidebar (md+) -->
+    <aside class="app-sidebar">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a class="nav-link is-active" href="dashboard.html"><span class="icon">⌂</span> Dashboard</a>
+      <a class="nav-link" href="bills.html"><span class="icon">▤</span> Bills</a>
+      <a class="nav-link" href="history.html"><span class="icon">↻</span> History</a>
+      <a class="nav-link" href="add-bill.html"><span class="icon">＋</span> Add bill</a>
+      <a class="nav-link" href="record-payment.html"><span class="icon">↓</span> Record payment</a>
+      <a class="nav-link" href="settings.html"><span class="icon">◔</span> Settings</a>
+      <div class="footer">
+        <span class="avatar">QB</span>
+        <div style="color:var(--ink); font-weight:500;">Quinntyne Brown</div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="container">
+
+        <div class="page-head">
+          <h1>Good evening, Quinntyne</h1>
+          <p class="sub">Here's where things stand with Sam.</p>
+        </div>
+
+        <!-- Balance card -->
+        <section class="balance-card">
+          <div class="label">Sam owes you</div>
+          <div class="amount">$327.50</div>
+          <div class="meta">Last settled May 2 · 4 bills outstanding</div>
+          <div class="actions">
+            <a href="add-bill.html" class="btn btn-secondary">＋ Add bill</a>
+            <a href="record-payment.html" class="btn btn-secondary">↓ Record payment</a>
+          </div>
+        </section>
+
+        <!-- Stats -->
+        <div class="stat-row">
+          <div class="stat">
+            <div class="lbl">This month</div>
+            <div class="val">$612.80</div>
+          </div>
+          <div class="stat">
+            <div class="lbl">Received</div>
+            <div class="val">$140.00</div>
+          </div>
+          <div class="stat">
+            <div class="lbl">Behind by</div>
+            <div class="val" style="color:var(--owed-by-you);">19 days</div>
+          </div>
+        </div>
+
+        <!-- Recent activity -->
+        <section class="section">
+          <div class="section-head">
+            <h2>Recent activity</h2>
+            <a href="history.html">View all</a>
+          </div>
+          <div class="card">
+            <div class="list">
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">🛒</div>
+                <div class="body">
+                  <div class="title">Groceries — Loblaws</div>
+                  <div class="meta">May 22 · $84.20</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$42.10</div>
+                  <div class="sub">Sam's share</div>
+                </div>
+              </a>
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">⚡</div>
+                <div class="body">
+                  <div class="title">Hydro bill</div>
+                  <div class="meta">May 18 · $156.40</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$78.20</div>
+                  <div class="sub">Sam's share</div>
+                </div>
+              </a>
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-payment">↓</div>
+                <div class="body">
+                  <div class="title">Payment from Sam</div>
+                  <div class="meta">May 12 · e-Transfer</div>
+                </div>
+                <div class="right">
+                  <div class="amount" style="color:var(--owed-to-you);">−$140.00</div>
+                  <div class="sub">Received</div>
+                </div>
+              </a>
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">📱</div>
+                <div class="body">
+                  <div class="title">Internet — Bell</div>
+                  <div class="meta">May 8 · $94.00</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$47.00</div>
+                  <div class="sub">Sam's share</div>
+                </div>
+              </a>
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">🍕</div>
+                <div class="body">
+                  <div class="title">Dinner — Pizzeria Libretto</div>
+                  <div class="meta">May 4 · $62.40</div>
+                </div>
+                <div class="right">
+                  <div class="amount">+$31.20</div>
+                  <div class="sub">Sam's share</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Bottom nav (mobile only) -->
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item is-active">
+        <span class="icon">⌂</span>
+        <span>Home</span>
+      </a>
+      <a href="bills.html" class="nav-item">
+        <span class="icon">▤</span>
+        <span>Bills</span>
+      </a>
+      <a href="add-bill.html" class="nav-item action">
+        <span class="fab">＋</span>
+      </a>
+      <a href="history.html" class="nav-item">
+        <span class="icon">↻</span>
+        <span>History</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <span class="icon">◔</span>
+        <span>You</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

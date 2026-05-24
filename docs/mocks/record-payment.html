@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Record payment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <a href="dashboard.html" class="header-action" aria-label="Back" style="margin-right:8px;">←</a>
+        <span>Record payment</span>
+      </div>
+      <a href="#" style="font-size:14px; color:var(--muted);">Cancel</a>
+    </header>
+
+    <aside class="app-sidebar">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a class="nav-link" href="dashboard.html"><span class="icon">⌂</span> Dashboard</a>
+      <a class="nav-link" href="bills.html"><span class="icon">▤</span> Bills</a>
+      <a class="nav-link" href="history.html"><span class="icon">↻</span> History</a>
+      <a class="nav-link" href="add-bill.html"><span class="icon">＋</span> Add bill</a>
+      <a class="nav-link is-active" href="record-payment.html"><span class="icon">↓</span> Record payment</a>
+      <a class="nav-link" href="settings.html"><span class="icon">◔</span> Settings</a>
+      <div class="footer">
+        <span class="avatar">QB</span>
+        <div style="color:var(--ink); font-weight:500;">Quinntyne Brown</div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="container">
+
+        <div class="page-head">
+          <a class="back-link" href="dashboard.html">← Back</a>
+          <h1>Record a payment from Sam</h1>
+          <p class="sub">Log money Sam sent you toward what they owe.</p>
+        </div>
+
+        <!-- current balance reminder -->
+        <div class="preview-block" style="background:var(--ink); color:var(--bg); border:none; margin-bottom:var(--s-5);">
+          <div>
+            <div class="lbl" style="color:rgba(255,255,255,0.7);">Sam currently owes</div>
+            <div style="font-size:11px; opacity:0.6; margin-top:2px;">As of today</div>
+          </div>
+          <div class="val" style="color:var(--bg); font-size:22px;">$327.50</div>
+        </div>
+
+        <form class="form">
+
+          <div class="field">
+            <label for="amount">Amount received</label>
+            <div class="input-amount">
+              <span class="currency">$</span>
+              <input class="input" id="amount" type="text" inputmode="decimal" value="140.00" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="date">Date received</label>
+            <input class="input" id="date" type="date" value="2026-05-24" />
+          </div>
+
+          <div class="field">
+            <label>Method <span class="hint">(optional)</span></label>
+            <div class="segmented" role="tablist">
+              <button type="button" class="seg is-active">e-Transfer</button>
+              <button type="button" class="seg">Cash</button>
+              <button type="button" class="seg">Other</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">Note <span class="hint">(optional)</span></label>
+            <textarea class="textarea" id="note" placeholder="e.g. partial — rest by Friday"></textarea>
+          </div>
+
+          <hr class="hr-soft" />
+
+          <div class="preview-block">
+            <div>
+              <div class="lbl">New balance after payment</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:2px;">$327.50 − $140.00</div>
+            </div>
+            <div class="val positive">$187.50</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top:var(--s-3);">Save payment</button>
+
+        </form>
+
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">⌂</span>
+        <span>Home</span>
+      </a>
+      <a href="bills.html" class="nav-item">
+        <span class="icon">▤</span>
+        <span>Bills</span>
+      </a>
+      <a href="add-bill.html" class="nav-item action">
+        <span class="fab">＋</span>
+      </a>
+      <a href="history.html" class="nav-item">
+        <span class="icon">↻</span>
+        <span>History</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <span class="icon">◔</span>
+        <span>You</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

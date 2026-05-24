@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Mock screens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { background: var(--bg); }
+    .top-bar {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: var(--s-4) var(--s-5);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky; top: 0; z-index: 5;
+    }
+    .top-bar .brand { display:flex; align-items:center; gap:var(--s-2); font-weight:600; }
+    .top-bar .meta { font-size:12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="brand">
+      <span class="brand-mark">D</span>
+      <span>DueQ — Mock screens</span>
+    </div>
+    <div class="meta">8 screens · mobile-first · responsive xs → xl</div>
+  </div>
+
+  <div class="gallery-head">
+    <h1>Radically simple bill-splitting.</h1>
+    <p>A two-person ledger. Log bills you both share, split each one in half, and track what your partner still owes — even when they fall behind. Tap any screen to open it full size.</p>
+  </div>
+
+  <div class="gallery-grid">
+
+    <a class="gallery-card" href="dashboard.html">
+      <div class="thumb"><iframe src="dashboard.html" title="Dashboard preview"></iframe></div>
+      <div class="info">
+        <h3>Dashboard</h3>
+        <p>Outstanding balance, quick actions, recent activity.</p>
+      </div>
+    </a>
+
+    <a class="gallery-card" href="bills.html">
+      <div class="thumb"><iframe src="bills.html" title="Bills list preview"></iframe></div>
+      <div class="info">
+        <h3>Bills</h3>
+        <p>All bills grouped by month, with settled/unsettled status.</p>
+      </div>
+    </a>
+
+    <a class="gallery-card" href="bill-detail.html">
+      <div class="thumb"><iframe src="bill-detail.html" title="Bill detail preview"></iframe></div>
+      <div class="info">
+        <h3>Bill detail</h3>
+        <p>Single bill with split breakdown and settle action.</p>
+      </div>
+    </a>
+
+    <a class="gallery-card" href="add-bill.html">
+      <div class="thumb"><iframe src="add-bill.html" title="Add bill preview"></iframe></div>
+      <div class="info">
+        <h3>Add bill</h3>
+        <p>Log a new bill — amount, name, date, optional note.</p>
+      </div>
+    </a>
+
+    <a class="gallery-card" href="record-payment.html">
+      <div class="thumb"><iframe src="record-payment.html" title="Record payment preview"></iframe></div>
+      <div class="info">
+        <h3>Record payment</h3>
+        <p>Log money received from your partner toward what they owe.</p>
+      </div>
+    </a>
+
+    <a class="gallery-card" href="history.html">
+      <div class="thumb"><iframe src="history.html" title="History preview"></iframe></div>
+      <div class="info">
+        <h3>History</h3>
+        <p>Combined timeline of bills and payments, with running balance.</p>
+      </div>
+    </a>
+
+    <a class="gallery-card" href="settings.html">
+      <div class="thumb"><iframe src="settings.html" title="Settings preview"></iframe></div>
+      <div class="info">
+        <h3>Settings</h3>
+        <p>Set your name and your partner's name.</p>
+      </div>
+    </a>
+
+  </div>
+
+  <div style="text-align:center; color:var(--muted); font-size:12px; padding: 0 var(--s-4) var(--s-7);">
+    Mocks live in <code>docs/</code>. Built with hand-rolled CSS — no framework.
+  </div>
+
+</body>
+</html>

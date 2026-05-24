@@ -1,0 +1,7 @@
+- log bills
+- collect half of the amount of the bills from my partner
+- track how much money was given to me as my partner tends to fall behind
+- web app
+- mobile first
+- viewable on extra-small, small, medium, large and extra large screens
+- radically simple and very narrowly scope features

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Bill detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <a href="bills.html" class="header-action" aria-label="Back" style="margin-right:8px;">←</a>
+        <span>Bill</span>
+      </div>
+      <a href="#" class="header-action" aria-label="More">⋯</a>
+    </header>
+
+    <aside class="app-sidebar">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a class="nav-link" href="dashboard.html"><span class="icon">⌂</span> Dashboard</a>
+      <a class="nav-link is-active" href="bills.html"><span class="icon">▤</span> Bills</a>
+      <a class="nav-link" href="history.html"><span class="icon">↻</span> History</a>
+      <a class="nav-link" href="add-bill.html"><span class="icon">＋</span> Add bill</a>
+      <a class="nav-link" href="record-payment.html"><span class="icon">↓</span> Record payment</a>
+      <a class="nav-link" href="settings.html"><span class="icon">◔</span> Settings</a>
+      <div class="footer">
+        <span class="avatar">QB</span>
+        <div style="color:var(--ink); font-weight:500;">Quinntyne Brown</div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="container">
+
+        <a class="back-link" href="bills.html">← All bills</a>
+
+        <div style="display:flex; align-items:center; gap:var(--s-4); margin-bottom:var(--s-4);">
+          <div class="icon-tile t-bill" style="width:56px; height:56px; font-size:24px;">🛒</div>
+          <div>
+            <div style="font-size:22px; font-weight:600; letter-spacing:-0.02em;">Groceries — Loblaws</div>
+            <div style="font-size:13px; color:var(--muted); margin-top:2px;">
+              <span class="badge unsettled">Unsettled</span>
+              &nbsp;Logged May 22, 2026
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-amount">$84.20</div>
+        <div class="detail-meta">May 22, 2026 · 🛒 Groceries</div>
+
+        <hr class="hr-soft" />
+
+        <h2 style="font-size:14px; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); margin:0 0 var(--s-3);">Split</h2>
+
+        <div class="split-bar">
+          <div class="seg you" style="flex:1;"></div>
+          <div class="seg partner" style="flex:1;"></div>
+        </div>
+        <div class="split-legend">
+          <div><span class="dot you"></span>You — $42.10</div>
+          <div><span class="dot partner"></span>Sam — $42.10</div>
+        </div>
+
+        <div class="kv-list">
+          <div class="kv"><span class="k">Date</span><span class="v">May 22, 2026</span></div>
+          <div class="kv"><span class="k">Category</span><span class="v">🛒 Groceries</span></div>
+          <div class="kv"><span class="k">Sam's share</span><span class="v" style="color:var(--owed-to-you);">+$42.10</span></div>
+          <div class="kv"><span class="k">Status</span><span class="v">Unsettled</span></div>
+        </div>
+
+        <h2 style="font-size:14px; text-transform:uppercase; letter-spacing:0.04em; color:var(--muted); margin:var(--s-6) 0 var(--s-3);">Note</h2>
+        <div class="card" style="padding:var(--s-4); font-size:14px; color:var(--ink-2); line-height:1.5;">
+          Weekly grocery run. Includes Sam's brand of oat milk and the produce we both share.
+        </div>
+
+        <div style="display:flex; gap:var(--s-3); margin-top:var(--s-6);">
+          <button class="btn btn-outline" style="flex:1;">Edit</button>
+          <button class="btn btn-primary btn-lg" style="flex:2;">Mark as settled</button>
+        </div>
+
+        <div style="text-align:center; margin-top:var(--s-5);">
+          <button class="btn btn-danger">Delete bill</button>
+        </div>
+
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">⌂</span>
+        <span>Home</span>
+      </a>
+      <a href="bills.html" class="nav-item is-active">
+        <span class="icon">▤</span>
+        <span>Bills</span>
+      </a>
+      <a href="add-bill.html" class="nav-item action">
+        <span class="fab">＋</span>
+      </a>
+      <a href="history.html" class="nav-item">
+        <span class="icon">↻</span>
+        <span>History</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <span class="icon">◔</span>
+        <span>You</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

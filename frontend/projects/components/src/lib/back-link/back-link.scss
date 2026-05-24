@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  margin-bottom: var(--s-3);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+
+  &:hover { color: var(--ink-2); }
+}

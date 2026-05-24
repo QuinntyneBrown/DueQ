@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .people-pair {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-3);
+    }
+    @media (min-width: 576px) {
+      .people-pair { grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+    }
+    .person-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-3);
+      padding: var(--s-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+    }
+    .person-card .role {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .person-card .big-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      font-size: 24px;
+    }
+    .big-avatar.you {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .big-avatar.partner {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .avatar-row {
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+    }
+    .avatar-row .hint-small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <a href="dashboard.html" class="header-action" aria-label="Back" style="margin-right:8px;">←</a>
+        <span>Settings</span>
+      </div>
+      <a href="#" style="font-size:14px; color:var(--muted);">Skip</a>
+    </header>
+
+    <aside class="app-sidebar">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a class="nav-link" href="dashboard.html"><span class="icon">⌂</span> Dashboard</a>
+      <a class="nav-link" href="bills.html"><span class="icon">▤</span> Bills</a>
+      <a class="nav-link" href="history.html"><span class="icon">↻</span> History</a>
+      <a class="nav-link" href="add-bill.html"><span class="icon">＋</span> Add bill</a>
+      <a class="nav-link" href="record-payment.html"><span class="icon">↓</span> Record payment</a>
+      <a class="nav-link is-active" href="settings.html"><span class="icon">◔</span> Settings</a>
+      <div class="footer">
+        <span class="avatar">QB</span>
+        <div style="color:var(--ink); font-weight:500;">Quinntyne Brown</div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="container">
+
+        <div class="page-head">
+          <a class="back-link" href="dashboard.html">← Back</a>
+          <h1>Who's splitting?</h1>
+          <p class="sub">Tell us your name and your partner's name. Every bill is split 50/50 between the two of you.</p>
+        </div>
+
+        <form class="form">
+
+          <div class="people-pair">
+
+            <div class="person-card">
+              <div class="role">You</div>
+              <div class="avatar-row">
+                <div class="big-avatar you" id="you-avatar">QB</div>
+                <div class="hint-small">Initial shown on receipts and the split bar.</div>
+              </div>
+              <div class="field">
+                <label for="you-name">Your name</label>
+                <input class="input" id="you-name" type="text" value="Quinntyne Brown" placeholder="e.g. Quinntyne Brown" />
+              </div>
+            </div>
+
+            <div class="person-card">
+              <div class="role">Partner</div>
+              <div class="avatar-row">
+                <div class="big-avatar partner" id="partner-avatar">S</div>
+                <div class="hint-small">This is who owes you half of every bill you log.</div>
+              </div>
+              <div class="field">
+                <label for="partner-name">Partner's name</label>
+                <input class="input" id="partner-name" type="text" value="Sam" placeholder="e.g. Sam" />
+              </div>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top:var(--s-3);">Save</button>
+
+        </form>
+
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">⌂</span>
+        <span>Home</span>
+      </a>
+      <a href="bills.html" class="nav-item">
+        <span class="icon">▤</span>
+        <span>Bills</span>
+      </a>
+      <a href="add-bill.html" class="nav-item action">
+        <span class="fab">＋</span>
+      </a>
+      <a href="history.html" class="nav-item">
+        <span class="icon">↻</span>
+        <span>History</span>
+      </a>
+      <a href="settings.html" class="nav-item is-active">
+        <span class="icon">◔</span>
+        <span>You</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Bills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>Bills</span>
+      </div>
+      <a href="add-bill.html" class="header-action" aria-label="Add bill">＋</a>
+    </header>
+
+    <aside class="app-sidebar">
+      <div class="brand">
+        <span class="brand-mark">D</span>
+        <span>DueQ</span>
+      </div>
+      <a class="nav-link" href="dashboard.html"><span class="icon">⌂</span> Dashboard</a>
+      <a class="nav-link is-active" href="bills.html"><span class="icon">▤</span> Bills</a>
+      <a class="nav-link" href="history.html"><span class="icon">↻</span> History</a>
+      <a class="nav-link" href="add-bill.html"><span class="icon">＋</span> Add bill</a>
+      <a class="nav-link" href="record-payment.html"><span class="icon">↓</span> Record payment</a>
+      <a class="nav-link" href="settings.html"><span class="icon">◔</span> Settings</a>
+      <div class="footer">
+        <span class="avatar">QB</span>
+        <div style="color:var(--ink); font-weight:500;">Quinntyne Brown</div>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <div class="container">
+
+        <div class="page-head">
+          <h1>Bills</h1>
+          <p class="sub">All bills logged between you and Sam.</p>
+        </div>
+
+        <!-- filter chips -->
+        <div class="chips">
+          <button class="chip is-active">All <span class="count">28</span></button>
+          <button class="chip">Unsettled <span class="count">4</span></button>
+          <button class="chip">Settled <span class="count">24</span></button>
+        </div>
+
+        <!-- May -->
+        <div class="section" style="margin-top:0;">
+          <div class="section-head">
+            <h2>May 2026</h2>
+            <span style="font-size:12px; color:var(--muted); font-family:var(--font-num);">+$198.50 owed</span>
+          </div>
+
+          <div class="card">
+            <div class="list">
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">🛒</div>
+                <div class="body">
+                  <div class="title">Groceries — Loblaws</div>
+                  <div class="meta">May 22 · <span class="badge unsettled">Unsettled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$84.20</div>
+                  <div class="sub">+$42.10</div>
+                </div>
+              </a>
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">⚡</div>
+                <div class="body">
+                  <div class="title">Hydro bill</div>
+                  <div class="meta">May 18 · <span class="badge unsettled">Unsettled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$156.40</div>
+                  <div class="sub">+$78.20</div>
+                </div>
+              </a>
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">📱</div>
+                <div class="body">
+                  <div class="title">Internet — Bell</div>
+                  <div class="meta">May 8 · <span class="badge unsettled">Unsettled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$94.00</div>
+                  <div class="sub">+$47.00</div>
+                </div>
+              </a>
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">🍕</div>
+                <div class="body">
+                  <div class="title">Dinner — Pizzeria Libretto</div>
+                  <div class="meta">May 4 · <span class="badge unsettled">Unsettled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$62.40</div>
+                  <div class="sub">+$31.20</div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- April -->
+        <div class="section">
+          <div class="section-head">
+            <h2>April 2026</h2>
+            <span style="font-size:12px; color:var(--muted); font-family:var(--font-num);">All settled</span>
+          </div>
+
+          <div class="card">
+            <div class="list">
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">🛒</div>
+                <div class="body">
+                  <div class="title">Groceries — Costco run</div>
+                  <div class="meta">Apr 28 · <span class="badge settled">Settled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$214.66</div>
+                  <div class="sub">+$107.33</div>
+                </div>
+              </a>
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">🏠</div>
+                <div class="body">
+                  <div class="title">Rent — May</div>
+                  <div class="meta">Apr 27 · <span class="badge settled">Settled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$2,400.00</div>
+                  <div class="sub">+$1,200.00</div>
+                </div>
+              </a>
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">⚡</div>
+                <div class="body">
+                  <div class="title">Hydro bill</div>
+                  <div class="meta">Apr 18 · <span class="badge settled">Settled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$142.10</div>
+                  <div class="sub">+$71.05</div>
+                </div>
+              </a>
+
+              <a href="bill-detail.html" class="row">
+                <div class="icon-tile t-bill">📱</div>
+                <div class="body">
+                  <div class="title">Internet — Bell</div>
+                  <div class="meta">Apr 8 · <span class="badge settled">Settled</span></div>
+                </div>
+                <div class="right">
+                  <div class="amount">$94.00</div>
+                  <div class="sub">+$47.00</div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="icon">⌂</span>
+        <span>Home</span>
+      </a>
+      <a href="bills.html" class="nav-item is-active">
+        <span class="icon">▤</span>
+        <span>Bills</span>
+      </a>
+      <a href="add-bill.html" class="nav-item action">
+        <span class="fab">＋</span>
+      </a>
+      <a href="history.html" class="nav-item">
+        <span class="icon">↻</span>
+        <span>History</span>
+      </a>
+      <a href="settings.html" class="nav-item">
+        <span class="icon">◔</span>
+        <span>You</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

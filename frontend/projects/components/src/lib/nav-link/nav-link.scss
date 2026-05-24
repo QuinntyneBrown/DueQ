@@ -1,0 +1,30 @@
+:host { display: block; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border-radius: var(--r-2);
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+
+  &.is-active {
+    background: var(--ink);
+    color: var(--bg);
+  }
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+}

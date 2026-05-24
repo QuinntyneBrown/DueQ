@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DueQ — Angular Component Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --surface: #ffffff;
+      --ink: #1a1916;
+      --ink-2: #4a4842;
+      --muted: #8a8780;
+      --border: #ebe8e1;
+      --border-2: #d9d5cb;
+      --accent: #5b6cff;
+      --accent-soft: #eef0ff;
+      --domain: #b45309;
+      --domain-soft: #fef3c7;
+      --presentation: #047857;
+      --presentation-soft: #d1fae5;
+      --r-2: 8px;
+      --r-3: 12px;
+      --r-4: 16px;
+      --font: 'Inter', -apple-system, system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 24px 96px;
+    }
+    header.doc-head {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 28px;
+      margin-bottom: 40px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    h1 {
+      font-size: 40px;
+      letter-spacing: -0.025em;
+      margin: 8px 0 12px;
+      font-weight: 700;
+    }
+    h2 {
+      font-size: 24px;
+      letter-spacing: -0.015em;
+      margin: 56px 0 16px;
+      font-weight: 600;
+    }
+    h3 {
+      font-size: 16px;
+      margin: 0 0 12px;
+      font-weight: 600;
+    }
+    p { margin: 0 0 12px; color: var(--ink-2); }
+    .sub { font-size: 17px; color: var(--muted); max-width: 700px; }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 20px 0 0;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--ink-2);
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.dom { background: var(--domain); }
+    .dot.pres { background: var(--presentation); }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-3);
+      padding: 20px 24px;
+      margin-bottom: 40px;
+    }
+    .toc ol { margin: 8px 0 0; padding-left: 22px; color: var(--ink-2); }
+    .toc li { margin: 4px 0; }
+    .toc a { color: var(--ink-2); text-decoration: none; }
+    .toc a:hover { color: var(--accent); }
+
+    /* Tables */
+    .table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--r-3);
+      overflow: hidden;
+      background: var(--surface);
+      margin: 16px 0 28px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th {
+      text-align: left;
+      background: #f6f4ee;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--ink-2);
+    }
+    tr:last-child td { border-bottom: none; }
+    td code, p code, li code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      background: #f1eee5;
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--ink);
+    }
+    td.name {
+      font-family: var(--mono);
+      font-weight: 500;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    td.deps {
+      font-family: var(--mono);
+      font-size: 12.5px;
+    }
+    td.deps span {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin: 2px 4px 2px 0;
+      font-size: 11.5px;
+    }
+
+    /* Section bands */
+    .band {
+      border-left: 4px solid;
+      padding-left: 18px;
+      margin-top: 56px;
+    }
+    .band.domain { border-color: var(--domain); }
+    .band.pres { border-color: var(--presentation); }
+    .band h2 { margin-top: 0; }
+    .band .label {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .band.domain .label { background: var(--domain-soft); color: var(--domain); }
+    .band.pres   .label { background: var(--presentation-soft); color: var(--presentation); }
+
+    /* Summary cards */
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 24px 0 8px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-3);
+      padding: 18px 20px;
+    }
+    .stat-card .num {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-family: var(--mono);
+    }
+    .stat-card .lbl {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+    .stat-card.d .num { color: var(--domain); }
+    .stat-card.p .num { color: var(--presentation); }
+
+    /* Screen mapping grid */
+    .screen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .screen {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-3);
+      padding: 18px 20px;
+    }
+    .screen h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .screen .route {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .screen ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 13px;
+      color: var(--ink-2);
+    }
+    .screen ul li { margin: 2px 0; }
+    .screen .pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin: 2px 3px 2px 0;
+    }
+    .pill.d { background: var(--domain-soft); color: var(--domain); }
+    .pill.p { background: var(--presentation-soft); color: var(--presentation); }
+
+    /* Services section */
+    .svc-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .svc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-3);
+      padding: 16px 18px;
+    }
+    .svc .name {
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .svc p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Notes */
+    .callout {
+      background: var(--accent-soft);
+      border: 1px solid #dfe4ff;
+      border-radius: var(--r-3);
+      padding: 16px 18px;
+      font-size: 14px;
+      color: #2d3a99;
+      margin: 24px 0;
+    }
+    .callout strong { color: #1a256e; }
+
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="doc-head">
+      <div class="eyebrow">DueQ · Component analysis</div>
+      <h1>Angular components needed to build DueQ</h1>
+      <p class="sub">Derived from the 7 HTML mocks in <code>docs/mocks/</code>. Components are split into two kinds: <strong>domain</strong> components (smart — receive injected services, route params, manage state) and <strong>presentation</strong> components (dumb — driven only by <code>@Input()</code> / <code>@Output()</code>, no DI beyond Angular primitives).</p>
+      <div class="legend">
+        <span class="legend-item"><span class="dot dom"></span> Domain (smart, container)</span>
+        <span class="legend-item"><span class="dot pres"></span> Presentation (dumb, reusable)</span>
+      </div>
+    </header>
+
+    <div class="summary">
+      <div class="stat-card d">
+        <div class="num">9</div>
+        <div class="lbl">Domain components</div>
+      </div>
+      <div class="stat-card p">
+        <div class="num">31</div>
+        <div class="lbl">Presentation components</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">5</div>
+        <div class="lbl">Services injected</div>
+      </div>
+    </div>
+
+    <div class="toc">
+      <strong>Contents</strong>
+      <ol>
+        <li><a href="#principles">Splitting principles</a></li>
+        <li><a href="#screens">Screen → component mapping</a></li>
+        <li><a href="#domain">Domain components (smart)</a></li>
+        <li><a href="#presentation">Presentation components (dumb)</a></li>
+        <li><a href="#services">Services &amp; cross-cutting providers</a></li>
+        <li><a href="#routes">Suggested route map</a></li>
+      </ol>
+    </div>
+
+    <!-- PRINCIPLES -->
+    <h2 id="principles">1 · Splitting principles</h2>
+    <p>Following the smart / dumb (container / presenter) pattern:</p>
+    <ul>
+      <li><strong>Presentation components</strong> never inject <code>HttpClient</code>, <code>Router</code>, <code>ActivatedRoute</code>, or any feature service. They take data via <code>input()</code> and emit events via <code>output()</code>. They are pure, easy to test in isolation, and reusable across screens.</li>
+      <li><strong>Domain components</strong> are wired to routes. They inject services (HTTP, router, signals/state), translate route params into queries, orchestrate child presentation components, and translate child events back into service calls.</li>
+      <li>Layout shells (header / sidebar / bottom nav) consume a tiny amount of state (current user, active route) — kept as <strong>domain</strong> so the dumb pieces beneath stay pure.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Heuristic:</strong> If swapping the component into a Storybook story without mocking any service is awkward, it belongs in the <em>domain</em> tier. If you could ship the component to a design-system package without touching the rest of the app, it belongs in <em>presentation</em>.
+    </div>
+
+    <!-- SCREENS -->
+    <h2 id="screens">2 · Screen → component mapping</h2>
+    <p>Each mock screen becomes one routed <strong>page</strong> component (domain) that composes presentation children. Layout chrome (<code>AppShell</code>) wraps every page.</p>
+
+    <div class="screen-grid">
+
+      <div class="screen">
+        <h4>Dashboard</h4>
+        <div class="route">/dashboard</div>
+        <span class="pill d">DashboardPage</span>
+        <span class="pill p">BalanceCard</span>
+        <span class="pill p">StatRow</span>
+        <span class="pill p">SectionHead</span>
+        <span class="pill p">ActivityList</span>
+        <span class="pill p">ActivityRow</span>
+        <span class="pill p">IconTile</span>
+        <span class="pill p">PageHead</span>
+      </div>
+
+      <div class="screen">
+        <h4>Bills</h4>
+        <div class="route">/bills</div>
+        <span class="pill d">BillsPage</span>
+        <span class="pill p">PageHead</span>
+        <span class="pill p">ChipGroup</span>
+        <span class="pill p">Chip</span>
+        <span class="pill p">BillMonthGroup</span>
+        <span class="pill p">BillListItem</span>
+        <span class="pill p">Badge</span>
+        <span class="pill p">IconTile</span>
+      </div>
+
+      <div class="screen">
+        <h4>Bill detail</h4>
+        <div class="route">/bills/:id</div>
+        <span class="pill d">BillDetailPage</span>
+        <span class="pill p">BackLink</span>
+        <span class="pill p">DetailHeader</span>
+        <span class="pill p">DetailAmount</span>
+        <span class="pill p">Badge</span>
+        <span class="pill p">SplitBar</span>
+        <span class="pill p">SplitLegend</span>
+        <span class="pill p">KeyValueList</span>
+        <span class="pill p">NoteCard</span>
+        <span class="pill p">Button</span>
+        <span class="pill p">IconTile</span>
+        <span class="pill d">ConfirmDialog</span>
+      </div>
+
+      <div class="screen">
+        <h4>Add bill</h4>
+        <div class="route">/bills/new</div>
+        <span class="pill d">AddBillPage</span>
+        <span class="pill p">PageHead</span>
+        <span class="pill p">BackLink</span>
+        <span class="pill p">FormField</span>
+        <span class="pill p">AmountInput</span>
+        <span class="pill p">TextInput</span>
+        <span class="pill p">DateInput</span>
+        <span class="pill p">TextArea</span>
+        <span class="pill p">PreviewBlock</span>
+        <span class="pill p">Button</span>
+      </div>
+
+      <div class="screen">
+        <h4>Record payment</h4>
+        <div class="route">/payments/new</div>
+        <span class="pill d">RecordPaymentPage</span>
+        <span class="pill p">PageHead</span>
+        <span class="pill p">PreviewBlock</span>
+        <span class="pill p">FormField</span>
+        <span class="pill p">AmountInput</span>
+        <span class="pill p">DateInput</span>
+        <span class="pill p">SegmentedControl</span>
+        <span class="pill p">TextArea</span>
+        <span class="pill p">Button</span>
+      </div>
+
+      <div class="screen">
+        <h4>History</h4>
+        <div class="route">/history</div>
+        <span class="pill d">HistoryPage</span>
+        <span class="pill p">PageHead</span>
+        <span class="pill p">RunningBalanceCard</span>
+        <span class="pill p">ChipGroup</span>
+        <span class="pill p">TimelineGroup</span>
+        <span class="pill p">TimelineRow</span>
+        <span class="pill p">IconTile</span>
+      </div>
+
+      <div class="screen">
+        <h4>Settings</h4>
+        <div class="route">/settings</div>
+        <span class="pill d">SettingsPage</span>
+        <span class="pill p">PageHead</span>
+        <span class="pill p">BackLink</span>
+        <span class="pill p">PersonCard</span>
+        <span class="pill p">AvatarLarge</span>
+        <span class="pill p">FormField</span>
+        <span class="pill p">TextInput</span>
+        <span class="pill p">Button</span>
+      </div>
+
+      <div class="screen">
+        <h4>App shell (all screens)</h4>
+        <div class="route">layout</div>
+        <span class="pill d">AppShell</span>
+        <span class="pill d">AppHeader</span>
+        <span class="pill d">AppSidebar</span>
+        <span class="pill d">BottomNav</span>
+        <span class="pill p">BrandMark</span>
+        <span class="pill p">NavLink</span>
+        <span class="pill p">NavItem</span>
+        <span class="pill p">Avatar</span>
+        <span class="pill p">FloatingActionButton</span>
+      </div>
+
+    </div>
+
+    <!-- DOMAIN -->
+    <div class="band domain">
+      <span class="label">Domain</span>
+      <h2 id="domain">3 · Domain components (smart)</h2>
+      <p>These are routable pages, layout shells holding session state, and dialog containers. They inject services and drive presentation children.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:22%;">Component</th>
+              <th style="width:36%;">Responsibility</th>
+              <th style="width:42%;">Injected dependencies</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">AppShell</td>
+              <td>Top-level layout that switches between mobile header + bottom-nav and desktop sidebar based on breakpoint. Resolves current user / partner names for the chrome.</td>
+              <td class="deps"><span>Router</span><span>ProfileService</span><span>BreakpointObserver</span></td>
+            </tr>
+            <tr>
+              <td class="name">AppHeader</td>
+              <td>Mobile sticky header. Reads the active route to choose title &amp; right-side action; emits navigation.</td>
+              <td class="deps"><span>Router</span><span>ActivatedRoute</span></td>
+            </tr>
+            <tr>
+              <td class="name">AppSidebar</td>
+              <td>Desktop sidebar with active link highlighting and signed-in user footer.</td>
+              <td class="deps"><span>Router</span><span>ProfileService</span></td>
+            </tr>
+            <tr>
+              <td class="name">BottomNav</td>
+              <td>Mobile bottom nav with active link state &amp; FAB navigation.</td>
+              <td class="deps"><span>Router</span></td>
+            </tr>
+            <tr>
+              <td class="name">DashboardPage</td>
+              <td>Loads outstanding balance, monthly stats and the 5-row recent activity feed.</td>
+              <td class="deps"><span>BalanceService</span><span>ActivityService</span><span>ProfileService</span></td>
+            </tr>
+            <tr>
+              <td class="name">BillsPage</td>
+              <td>Loads bills, groups by month, owns the All/Unsettled/Settled filter state, navigates to bill detail.</td>
+              <td class="deps"><span>BillService</span><span>Router</span></td>
+            </tr>
+            <tr>
+              <td class="name">BillDetailPage</td>
+              <td>Loads one bill by <code>:id</code>, handles Edit / Mark-settled / Delete actions (delete opens confirm dialog).</td>
+              <td class="deps"><span>BillService</span><span>ActivatedRoute</span><span>Router</span><span>DialogService</span></td>
+            </tr>
+            <tr>
+              <td class="name">AddBillPage</td>
+              <td>Reactive form for a new bill, derives the partner-share preview reactively, submits via service.</td>
+              <td class="deps"><span>BillService</span><span>FormBuilder</span><span>Router</span></td>
+            </tr>
+            <tr>
+              <td class="name">RecordPaymentPage</td>
+              <td>Reactive form for payment received; reads current outstanding balance to render the “new balance” preview.</td>
+              <td class="deps"><span>PaymentService</span><span>BalanceService</span><span>FormBuilder</span><span>Router</span></td>
+            </tr>
+            <tr>
+              <td class="name">HistoryPage</td>
+              <td>Loads combined timeline of bills + payments with running balances and totals; owns the All/Bills/Payments filter.</td>
+              <td class="deps"><span>ActivityService</span></td>
+            </tr>
+            <tr>
+              <td class="name">SettingsPage</td>
+              <td>Loads profile + partner, reactive form to rename either; derives avatar initials.</td>
+              <td class="deps"><span>ProfileService</span><span>FormBuilder</span></td>
+            </tr>
+            <tr>
+              <td class="name">ConfirmDialog</td>
+              <td>Generic confirmation dialog (used for Delete bill). Smart because it interacts with the dialog service.</td>
+              <td class="deps"><span>DialogRef</span><span>DIALOG_DATA</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRESENTATION -->
+    <div class="band pres">
+      <span class="label">Presentation</span>
+      <h2 id="presentation">4 · Presentation components (dumb)</h2>
+      <p>Standalone, <code>OnPush</code>, no DI beyond Angular primitives. Each exposes a small <code>input()</code> / <code>output()</code> surface and is safe to render in Storybook with hand-written props.</p>
+
+      <h3 style="margin-top:24px;">Chrome &amp; navigation primitives</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:22%;">Component</th><th style="width:50%;">Purpose</th><th>Inputs / Outputs</th></tr></thead>
+          <tbody>
+            <tr><td class="name">BrandMark</td><td>Square D logo tile used in header, sidebar, top bar.</td><td><code>size?</code></td></tr>
+            <tr><td class="name">NavLink</td><td>One row in the desktop sidebar (icon + label + active state).</td><td><code>icon</code>, <code>label</code>, <code>href</code>, <code>active</code></td></tr>
+            <tr><td class="name">NavItem</td><td>One item in the mobile bottom nav.</td><td><code>icon</code>, <code>label</code>, <code>href</code>, <code>active</code></td></tr>
+            <tr><td class="name">FloatingActionButton</td><td>The center “+” FAB in the bottom nav.</td><td><code>icon</code>, <code>(click)</code></td></tr>
+            <tr><td class="name">Avatar</td><td>Small initials chip used in sidebar footer.</td><td><code>initials</code>, <code>variant</code></td></tr>
+            <tr><td class="name">AvatarLarge</td><td>64-px circle used on Settings person cards.</td><td><code>initials</code>, <code>variant</code> ('you' | 'partner')</td></tr>
+            <tr><td class="name">PageHead</td><td>Title + subtitle pair at top of every page.</td><td><code>title</code>, <code>subtitle?</code></td></tr>
+            <tr><td class="name">SectionHead</td><td>Section title with a right-aligned link/meta slot.</td><td><code>title</code>, content projection</td></tr>
+            <tr><td class="name">BackLink</td><td>“← Back” link above page heads on detail/form screens.</td><td><code>label</code>, <code>href</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Display / list primitives</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:22%;">Component</th><th style="width:50%;">Purpose</th><th>Inputs / Outputs</th></tr></thead>
+          <tbody>
+            <tr><td class="name">IconTile</td><td>Rounded colored tile that holds the emoji/symbol for a bill or payment row.</td><td><code>icon</code>, <code>kind</code> ('bill' | 'payment')</td></tr>
+            <tr><td class="name">Badge</td><td>Settled / Unsettled pill.</td><td><code>kind</code> ('settled' | 'unsettled')</td></tr>
+            <tr><td class="name">BalanceCard</td><td>Dark hero card on dashboard: label, big amount, meta line, two quick-action buttons.</td><td><code>label</code>, <code>amount</code>, <code>meta</code>, <code>(addBill)</code>, <code>(recordPayment)</code></td></tr>
+            <tr><td class="name">StatRow</td><td>Three-up stat strip wrapper.</td><td>content projection</td></tr>
+            <tr><td class="name">Stat</td><td>Single labeled numeric stat.</td><td><code>label</code>, <code>value</code>, <code>tone?</code></td></tr>
+            <tr><td class="name">ActivityList</td><td>Card-wrapped list of <code>ActivityRow</code>s for the dashboard “Recent activity” section.</td><td><code>items</code>, <code>(rowClick)</code></td></tr>
+            <tr><td class="name">ActivityRow</td><td>One bill/payment row with icon, title, meta, right-aligned amount.</td><td><code>item</code>, <code>(click)</code></td></tr>
+            <tr><td class="name">BillListItem</td><td>Row variant used on Bills list — shows badge, total &amp; partner-share.</td><td><code>bill</code>, <code>(click)</code></td></tr>
+            <tr><td class="name">BillMonthGroup</td><td>Section wrapper grouping bills by month with a header total.</td><td><code>month</code>, <code>total</code>, content projection</td></tr>
+            <tr><td class="name">ChipGroup</td><td>Horizontal scroll container for filter chips.</td><td>content projection</td></tr>
+            <tr><td class="name">Chip</td><td>Single filter chip with active state and optional count.</td><td><code>label</code>, <code>count?</code>, <code>active</code>, <code>(toggle)</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Bill-detail specifics</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:22%;">Component</th><th style="width:50%;">Purpose</th><th>Inputs / Outputs</th></tr></thead>
+          <tbody>
+            <tr><td class="name">DetailHeader</td><td>Large icon tile + title + status row on bill detail.</td><td><code>icon</code>, <code>title</code>, <code>status</code>, <code>loggedOn</code></td></tr>
+            <tr><td class="name">DetailAmount</td><td>The very large dollar figure rendered in monospace.</td><td><code>value</code></td></tr>
+            <tr><td class="name">SplitBar</td><td>Two-segment color bar showing the 50/50 split.</td><td><code>youPct</code>, <code>partnerPct</code></td></tr>
+            <tr><td class="name">SplitLegend</td><td>Legend row paired with <code>SplitBar</code>.</td><td><code>you</code>, <code>partner</code></td></tr>
+            <tr><td class="name">KeyValueList</td><td>List wrapper for vertical key/value pairs.</td><td>content projection</td></tr>
+            <tr><td class="name">KeyValueRow</td><td>One labeled row (Date / Category / Share / Status).</td><td><code>label</code>, <code>value</code>, <code>tone?</code></td></tr>
+            <tr><td class="name">NoteCard</td><td>Soft card displaying free-text notes.</td><td><code>text</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Form primitives</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:22%;">Component</th><th style="width:50%;">Purpose</th><th>Inputs / Outputs</th></tr></thead>
+          <tbody>
+            <tr><td class="name">FormField</td><td>Label + control + hint wrapper (used by every input).</td><td><code>label</code>, <code>hint?</code>, <code>for</code>, content projection</td></tr>
+            <tr><td class="name">TextInput</td><td>Plain text input, <code>ControlValueAccessor</code>.</td><td><code>placeholder</code>, value via CVA</td></tr>
+            <tr><td class="name">AmountInput</td><td>Currency-prefixed numeric input, <code>ControlValueAccessor</code>.</td><td><code>currency</code>, value via CVA</td></tr>
+            <tr><td class="name">DateInput</td><td>Native <code>type=date</code> wrapped as CVA.</td><td>value via CVA</td></tr>
+            <tr><td class="name">TextArea</td><td>Multi-line input, CVA.</td><td><code>placeholder</code>, value via CVA</td></tr>
+            <tr><td class="name">SegmentedControl</td><td>Single-select pill segment (e-Transfer / Cash / Other), CVA.</td><td><code>options</code>, value via CVA</td></tr>
+            <tr><td class="name">PreviewBlock</td><td>Right-aligned preview row inside forms (“Sam owes”, “New balance”).</td><td><code>label</code>, <code>sublabel?</code>, <code>amount</code>, <code>variant?</code></td></tr>
+            <tr><td class="name">Button</td><td>Themed button with variants (<code>primary</code>, <code>secondary</code>, <code>outline</code>, <code>danger</code>) and sizes.</td><td><code>variant</code>, <code>size?</code>, <code>block?</code>, <code>(click)</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>History &amp; settings specifics</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:22%;">Component</th><th style="width:50%;">Purpose</th><th>Inputs / Outputs</th></tr></thead>
+          <tbody>
+            <tr><td class="name">RunningBalanceCard</td><td>Top card on History — running balance, logged total, paid-back total.</td><td><code>balance</code>, <code>logged</code>, <code>paidBack</code></td></tr>
+            <tr><td class="name">TimelineGroup</td><td>Month-grouped wrapper with title + month total used on History.</td><td><code>month</code>, <code>total</code>, content projection</td></tr>
+            <tr><td class="name">TimelineRow</td><td>Row variant for History showing running balance after each event.</td><td><code>entry</code></td></tr>
+            <tr><td class="name">PersonCard</td><td>Settings person card (You / Partner) holding the avatar, role label and name field.</td><td><code>role</code>, <code>initials</code>, <code>variant</code>, content projection</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <h2 id="services">5 · Services &amp; cross-cutting providers</h2>
+    <p>Injected only into domain components — never into presentation components. Each is a <code>providedIn: 'root'</code> singleton backed by Angular signals.</p>
+    <div class="svc-list">
+      <div class="svc">
+        <div class="name">BillService</div>
+        <p><code>list()</code>, <code>getById(id)</code>, <code>create(dto)</code>, <code>update(id, dto)</code>, <code>delete(id)</code>, <code>markSettled(id)</code>. Wraps <code>HttpClient</code> calls to <code>/api/bills</code>.</p>
+      </div>
+      <div class="svc">
+        <div class="name">PaymentService</div>
+        <p><code>list()</code>, <code>create(dto)</code>. Wraps <code>/api/payments</code>.</p>
+      </div>
+      <div class="svc">
+        <div class="name">BalanceService</div>
+        <p>Derives outstanding balance and monthly stats from the bill + payment streams; exposes <code>balance</code>, <code>thisMonth</code>, <code>received</code>, <code>behindByDays</code> as signals.</p>
+      </div>
+      <div class="svc">
+        <div class="name">ActivityService</div>
+        <p>Merges bills + payments into a single chronological feed with running-balance projection. Used by Dashboard (recent 5) and History (full timeline).</p>
+      </div>
+      <div class="svc">
+        <div class="name">ProfileService</div>
+        <p>Holds the user + partner names and avatar initials; persisted via <code>/api/profile</code>. Consumed by sidebar, settings page and form previews.</p>
+      </div>
+      <div class="svc">
+        <div class="name">DialogService</div>
+        <p>Thin wrapper over Angular CDK <code>Dialog</code> for the delete-bill confirmation. Opened from <code>BillDetailPage</code>.</p>
+      </div>
+    </div>
+
+    <!-- ROUTES -->
+    <h2 id="routes">6 · Suggested route map</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Path</th><th>Component</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>/</code></td><td class="name">→ redirect to /dashboard</td><td>—</td></tr>
+          <tr><td><code>/dashboard</code></td><td class="name">DashboardPage</td><td>Default landing.</td></tr>
+          <tr><td><code>/bills</code></td><td class="name">BillsPage</td><td>Filter via query param <code>?status=unsettled</code>.</td></tr>
+          <tr><td><code>/bills/new</code></td><td class="name">AddBillPage</td><td>—</td></tr>
+          <tr><td><code>/bills/:id</code></td><td class="name">BillDetailPage</td><td><code>:id</code> resolved via <code>ActivatedRoute</code>.</td></tr>
+          <tr><td><code>/payments/new</code></td><td class="name">RecordPaymentPage</td><td>—</td></tr>
+          <tr><td><code>/history</code></td><td class="name">HistoryPage</td><td>Filter via query param <code>?kind=bills|payments</code>.</td></tr>
+          <tr><td><code>/settings</code></td><td class="name">SettingsPage</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Generated from <code>docs/mocks/</code> · 7 screens · 9 domain components · 31 presentation components · 6 services.
+    </footer>
+
+  </div>
+</body>
+</html>

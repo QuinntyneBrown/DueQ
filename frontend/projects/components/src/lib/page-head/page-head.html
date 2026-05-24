@@ -1,0 +1,7 @@
+<div class="page-head">
+  <ng-content select="[slot=back]"></ng-content>
+  <h1>{{ title() }}</h1>
+  @if (subtitle()) {
+    <p class="sub">{{ subtitle() }}</p>
+  }
+</div>
