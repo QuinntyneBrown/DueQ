@@ -1,0 +1,22 @@
+@if (data(); as d) {
+  <lib-page-head [title]="greeting()" [subtitle]="subtitle()" />
+
+  <lib-balance-card
+    [label]="balanceLabel()"
+    [amount]="balanceAmount()"
+    [meta]="balanceMeta()"
+  />
+
+  <lib-stat-row>
+    <lib-stat label="This month" [value]="formatStatCurrency(d.thisMonthLogged)" />
+    <lib-stat label="Received" [value]="formatStatCurrency(d.thisMonthReceived)" />
+    <lib-stat label="Behind by" [value]="behindByValue()" [tone]="behindByTone()" />
+  </lib-stat-row>
+
+  <section class="section" aria-label="Recent activity">
+    <lib-section-head title="Recent activity">
+      <a routerLink="/history">View all</a>
+    </lib-section-head>
+    <lib-activity-list [items]="activityItems()" />
+  </section>
+}

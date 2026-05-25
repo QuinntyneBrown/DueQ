@@ -1,12 +1,91 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  resource,
+  signal,
+} from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { firstValueFrom } from 'rxjs';
+import {
+  ISettingsService,
+  SETTINGS_SERVICE,
+  Settings,
+} from 'api';
+import { PageHead } from 'components';
 
 @Component({
   selector: 'app-settings-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="page-head">
-      <h1>Who's splitting?</h1>
-    </div>
-  `,
+  imports: [ReactiveFormsModule, PageHead],
+  templateUrl: './settings-page.html',
+  styleUrl: './settings-page.scss',
 })
-export class SettingsPage {}
+export class SettingsPage {
+  private readonly settingsService = inject<ISettingsService>(SETTINGS_SERVICE);
+  private readonly fb = inject(FormBuilder);
+
+  protected readonly form = this.fb.nonNullable.group({
+    yourName: ['', Validators.required],
+    partnerName: ['', Validators.required],
+  });
+
+  protected readonly submitted = signal(false);
+  protected readonly ready = signal(false);
+
+  private readonly initial = resource<Settings, void>({
+    loader: () => firstValueFrom(this.settingsService.get()),
+  });
+
+  private readonly value = toSignal(
+    this.form.valueChanges.pipe(takeUntilDestroyed()),
+    { initialValue: this.form.getRawValue() },
+  );
+
+  protected readonly yourInitials = computed(() => initialsFor(this.value().yourName ?? ''));
+  protected readonly partnerInitials = computed(() => initialsFor(this.value().partnerName ?? ''));
+
+  protected readonly yourError = computed(
+    () =>
+      this.submitted() &&
+      this.form.controls.yourName.invalid &&
+      'Please enter your name.',
+  );
+  protected readonly partnerError = computed(
+    () =>
+      this.submitted() &&
+      this.form.controls.partnerName.invalid &&
+      "Please enter your partner's name.",
+  );
+
+  constructor() {
+    effect(() => {
+      if (this.ready()) return;
+      const loaded = this.initial.value();
+      if (loaded) {
+        this.form.patchValue({
+          yourName: loaded.yourName,
+          partnerName: loaded.partnerName,
+        });
+        this.ready.set(true);
+      }
+    });
+  }
+
+  async save(): Promise<void> {
+    this.submitted.set(true);
+    if (this.form.invalid) return;
+    const { yourName, partnerName } = this.form.getRawValue();
+    await firstValueFrom(this.settingsService.update({ yourName, partnerName }));
+  }
+}
+
+export function initialsFor(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '';
+  if (parts.length === 1) return parts[0].slice(0, 1).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}

@@ -5,8 +5,7 @@
   "compilerOptions": {
     "paths": {
       "api": ["./dist/api"],
-      "components": ["./dist/components"],
-      "domain": ["./dist/domain"]
+      "components": ["./dist/components"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -39,12 +38,6 @@
     },
     {
       "path": "./projects/components/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/domain/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/domain/tsconfig.spec.json"
     },
     {
       "path": "./projects/due-q/tsconfig.app.json"

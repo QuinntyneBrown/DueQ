@@ -10,4 +10,5 @@ import { AvatarVariant } from '../models';
 export class AvatarLarge {
   initials = input.required<string>();
   variant = input<AvatarVariant>('default');
+  testId = input<string | null>(null);
 }

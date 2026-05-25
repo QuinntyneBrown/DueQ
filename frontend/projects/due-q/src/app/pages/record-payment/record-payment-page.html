@@ -1,0 +1,91 @@
+<lib-page-head
+  title="Record a payment from Sam"
+  subtitle="Log money Sam sent you toward what they owe."
+/>
+
+<div class="current-balance-block">
+  <div>
+    <div class="lbl">Sam currently owes</div>
+    <div class="sub">As of today</div>
+  </div>
+  <div class="val" data-testid="current-balance">{{ currentBalanceText() }}</div>
+</div>
+
+<form class="form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+
+  <div class="field">
+    <label for="payment-amount">Amount received</label>
+    <div class="input-amount">
+      <span class="currency">$</span>
+      <input
+        class="input"
+        id="payment-amount"
+        type="text"
+        inputmode="decimal"
+        formControlName="amount"
+        placeholder="0.00"
+      />
+    </div>
+    @if (amountError(); as msg) {
+      <div class="error" data-testid="error-amount">{{ msg }}</div>
+    }
+  </div>
+
+  <div class="field">
+    <label for="payment-date">Date received</label>
+    <input
+      class="input"
+      id="payment-date"
+      type="date"
+      formControlName="date"
+    />
+    @if (dateError(); as msg) {
+      <div class="error" data-testid="error-date">{{ msg }}</div>
+    }
+  </div>
+
+  <div class="field">
+    <label>Method <span class="hint">(optional)</span></label>
+    <div class="segmented" role="tablist" aria-label="Payment method">
+      @for (m of methods; track m) {
+        <button
+          type="button"
+          class="seg"
+          role="tab"
+          [class.is-active]="isMethod(m)"
+          [attr.aria-selected]="isMethod(m)"
+          (click)="selectMethod(m)"
+        >{{ m }}</button>
+      }
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="payment-note">Note <span class="hint">(optional)</span></label>
+    <textarea
+      class="textarea"
+      id="payment-note"
+      formControlName="note"
+      placeholder="e.g. partial — rest by Friday"
+    ></textarea>
+  </div>
+
+  <hr class="hr-soft" />
+
+  <div class="preview-block" data-testid="new-balance-preview">
+    <div>
+      <div class="lbl">New balance after payment</div>
+      <div class="preview-sub">{{ previewSubtitle() }}</div>
+    </div>
+    <div class="val" [class.positive]="!overpayment()" [class.negative]="overpayment()">{{ newBalanceText() }}</div>
+  </div>
+
+  @if (overpayment()) {
+    <div class="overpayment" data-testid="overpayment-warning">
+      This payment is more than what Sam currently owes.
+    </div>
+  }
+
+  <button type="submit" class="btn btn-primary btn-lg btn-block save-btn" [disabled]="saving()">Save payment</button>
+
+</form>

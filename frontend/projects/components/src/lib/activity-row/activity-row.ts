@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { IconTile } from '../icon-tile/icon-tile';
 import { ActivityItem } from '../models';
 
 @Component({
   selector: 'lib-activity-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IconTile],
+  imports: [IconTile, RouterLink],
   templateUrl: './activity-row.html',
   styleUrl: './activity-row.scss',
 })
@@ -26,10 +27,7 @@ export class ActivityRow {
     return prefix + formatter.format(Math.abs(i.amount));
   });
 
-  onClick(event: Event) {
-    if (!this.item().href) {
-      event.preventDefault();
-    }
+  onClick() {
     this.clicked.emit(this.item());
   }
 }

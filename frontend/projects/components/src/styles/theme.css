@@ -2,23 +2,24 @@
    Consumers must import this once in their global styles. */
 
 :root {
-  --bg: #FBFAF7;
-  --surface: #FFFFFF;
-  --surface-2: #F5F3EE;
-  --ink: #1A1A1A;
-  --ink-2: #4A4A4A;
-  --muted: #8A857C;
-  --border: #ECE9E1;
-  --border-strong: #D9D5CB;
-  --brand: #2D2A26;
-  --accent: #B45309;
-  --accent-soft: #FEF3C7;
-  --owed-to-you: #166534;
-  --owed-by-you: #B91C1C;
-  --tint-green: #ECFDF5;
-  --tint-red: #FEF2F2;
-  --tint-blue: #E0E7FF;
-  --tint-blue-ink: #3730A3;
+  /* Palette — Adobe "dark monochrome" (shared with /tab and docs/mocks) */
+  --bg:            #2E2E30;
+  --surface:       #313133;
+  --surface-2:     #3A3A3D;
+  --ink:           #E6E6EA;   /* high-contrast color: text on dark bg, fill on inverted surfaces */
+  --ink-2:         #B4B4BC;
+  --muted:         #77777C;
+  --border:        rgba(180, 180, 188, 0.08);
+  --border-strong: rgba(180, 180, 188, 0.16);
+  --brand:         #E6E6EA;
+  --accent:        #E6E6EA;
+  --accent-soft:   rgba(230, 230, 234, 0.10);
+  --owed-to-you:   #9FCFAE;
+  --owed-by-you:   #D67E7E;
+  --tint-green:    rgba(159, 207, 174, 0.12);
+  --tint-red:      rgba(214, 126, 126, 0.12);
+  --tint-blue:     rgba(180, 188, 230, 0.12);
+  --tint-blue-ink: #B4BCE6;
 
   --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-num: "Inter", "SF Mono", ui-monospace, monospace;
@@ -38,6 +39,8 @@
   --r-4: 20px;
   --r-pill: 999px;
 
-  --shadow-1: 0 1px 2px rgba(20, 18, 14, 0.04), 0 1px 1px rgba(20, 18, 14, 0.03);
-  --shadow-2: 0 4px 12px rgba(20, 18, 14, 0.06), 0 1px 2px rgba(20, 18, 14, 0.04);
+  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.02) inset,
+              0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 1px 0 rgba(255, 255, 255, 0.03) inset,
+              0 8px 24px rgba(0, 0, 0, 0.45);
 }

@@ -1,13 +1,29 @@
-<a class="row" [attr.href]="item().href" (click)="onClick($event)">
-  <lib-icon-tile [icon]="item().icon" [kind]="item().kind"></lib-icon-tile>
-  <div class="body">
-    <div class="title">{{ item().title }}</div>
-    <div class="meta">{{ item().meta }}</div>
+@if (item().href) {
+  <a class="row" [routerLink]="item().href" (click)="onClick()">
+    <lib-icon-tile [icon]="item().icon" [kind]="item().kind" />
+    <div class="body">
+      <div class="title">{{ item().title }}</div>
+      <div class="meta">{{ item().meta }}</div>
+    </div>
+    <div class="right">
+      <div class="amount" [class.received]="isPayment()">{{ displayAmount() }}</div>
+      @if (item().sub) {
+        <div class="sub">{{ item().sub }}</div>
+      }
+    </div>
+  </a>
+} @else {
+  <div class="row">
+    <lib-icon-tile [icon]="item().icon" [kind]="item().kind" />
+    <div class="body">
+      <div class="title">{{ item().title }}</div>
+      <div class="meta">{{ item().meta }}</div>
+    </div>
+    <div class="right">
+      <div class="amount" [class.received]="isPayment()">{{ displayAmount() }}</div>
+      @if (item().sub) {
+        <div class="sub">{{ item().sub }}</div>
+      }
+    </div>
   </div>
-  <div class="right">
-    <div class="amount" [class.received]="isPayment()">{{ displayAmount() }}</div>
-    @if (item().sub) {
-      <div class="sub">{{ item().sub }}</div>
-    }
-  </div>
-</a>
+}

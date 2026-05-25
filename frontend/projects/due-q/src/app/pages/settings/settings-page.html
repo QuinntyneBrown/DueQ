@@ -1,0 +1,56 @@
+<lib-page-head
+  title="Who's splitting?"
+  subtitle="Tell us your name and your partner's name. Every bill is split 50/50 between the two of you."
+/>
+
+@if (ready()) {
+  <form class="form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+    <div class="people-pair">
+
+      <div class="person-card">
+        <div class="role">You</div>
+        <div class="avatar-row">
+          <span class="big-avatar you" data-testid="avatar-you">{{ yourInitials() }}</span>
+          <div class="hint-small">Initial shown on receipts and the split bar.</div>
+        </div>
+        <div class="field">
+          <label for="you-name">Your name</label>
+          <input
+            class="input"
+            id="you-name"
+            type="text"
+            formControlName="yourName"
+            placeholder="e.g. Quinntyne Brown"
+          />
+          @if (yourError(); as msg) {
+            <div class="error" data-testid="error-you-name">{{ msg }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="person-card">
+        <div class="role">Partner</div>
+        <div class="avatar-row">
+          <span class="big-avatar partner" data-testid="avatar-partner">{{ partnerInitials() }}</span>
+          <div class="hint-small">This is who owes you half of every bill you log.</div>
+        </div>
+        <div class="field">
+          <label for="partner-name">Partner's name</label>
+          <input
+            class="input"
+            id="partner-name"
+            type="text"
+            formControlName="partnerName"
+            placeholder="e.g. Sam"
+          />
+          @if (partnerError(); as msg) {
+            <div class="error" data-testid="error-partner-name">{{ msg }}</div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+  </form>
+}

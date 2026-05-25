@@ -1,0 +1,77 @@
+@if (notFound()) {
+  <div class="not-found" data-testid="not-found">
+    <h1>Bill not found</h1>
+    <p>That bill doesn't exist anymore.</p>
+    <a class="btn btn-outline" routerLink="/bills">Back to bills</a>
+  </div>
+} @else if (value(); as bill) {
+
+  <a class="back-link" routerLink="/bills">← All bills</a>
+
+  <div class="title-row">
+    <span class="icon-tile t-bill big">{{ icon() }}</span>
+    <div>
+      <div class="big-title" data-testid="bill-title">{{ bill.description }}</div>
+      <div class="title-sub">
+        <span
+          class="badge"
+          [class.settled]="isSettled()"
+          [class.unsettled]="!isSettled()"
+          data-testid="status-badge"
+        >{{ statusLabel() }}</span>
+        &nbsp;{{ loggedLine() }}
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-amount" data-testid="bill-amount">{{ amountText() }}</div>
+  <div class="detail-meta" data-testid="bill-date">{{ metaLine() }}</div>
+
+  <hr class="hr-soft" />
+
+  <h2 class="section-label">Split</h2>
+
+  <div class="split-bar">
+    <div class="seg you" style="flex:1;"></div>
+    <div class="seg partner" style="flex:1;"></div>
+  </div>
+  <div class="split-legend">
+    <div><span class="dot you"></span>{{ yourName() }} — <span data-testid="share-you">{{ yourShareText() }}</span></div>
+    <div><span class="dot partner"></span>{{ partnerName() }} — <span data-testid="share-partner">{{ partnerShareText() }}</span></div>
+  </div>
+
+  <div class="kv-list">
+    <div class="kv"><span class="k">Date</span><span class="v">{{ dateLong() }}</span></div>
+    <div class="kv"><span class="k">Category</span><span class="v">{{ icon() }} {{ category() }}</span></div>
+    <div class="kv"><span class="k">{{ partnerName() }}'s share</span><span class="v" style="color: var(--owed-to-you);">{{ partnerShareSigned() }}</span></div>
+    <div class="kv"><span class="k">Status</span><span class="v">{{ statusLabel() }}</span></div>
+  </div>
+
+  @if (bill.note) {
+    <h2 class="section-label">Note</h2>
+    <div class="card note-card" data-testid="bill-note">{{ bill.note }}</div>
+  }
+
+  <div class="action-row">
+    <button type="button" class="btn btn-outline">Edit</button>
+    <button type="button" class="btn btn-primary btn-lg" (click)="toggleSettled()" [disabled]="working()">
+      @if (isSettled()) { Mark as unsettled } @else { Mark as settled }
+    </button>
+  </div>
+
+  <div class="delete-row">
+    <button type="button" class="btn btn-danger" (click)="openDeleteConfirm()">Delete bill</button>
+  </div>
+
+  @if (confirmingDelete()) {
+    <div class="dialog-backdrop" (click)="closeDeleteConfirm()"></div>
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-delete-title">
+      <h3 id="confirm-delete-title">Delete this bill?</h3>
+      <p>This can't be undone.</p>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-outline" (click)="closeDeleteConfirm()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="confirmDelete()" [disabled]="working()">Delete</button>
+      </div>
+    </div>
+  }
+}

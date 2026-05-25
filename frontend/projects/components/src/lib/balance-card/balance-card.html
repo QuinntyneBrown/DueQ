@@ -5,7 +5,7 @@
     <div class="meta" data-testid="balance-meta">{{ meta() }}</div>
   }
   <div class="actions">
-    <button type="button" class="btn btn-secondary" (click)="addBill.emit()">＋ Add bill</button>
-    <button type="button" class="btn btn-secondary" (click)="recordPayment.emit()">↓ Record payment</button>
+    <a class="btn btn-secondary" [routerLink]="addBillHref()">＋ Add bill</a>
+    <a class="btn btn-secondary" [routerLink]="recordPaymentHref()">↓ Record payment</a>
   </div>
 </section>

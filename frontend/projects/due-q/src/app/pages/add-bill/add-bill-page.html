@@ -1,0 +1,73 @@
+<lib-page-head title="Add a bill" subtitle="Split it 50/50 between you and Sam." />
+
+<form class="form" [formGroup]="form" (ngSubmit)="save(false)" novalidate>
+
+  <div class="field">
+    <label for="amount">Amount</label>
+    <div class="input-amount">
+      <span class="currency">$</span>
+      <input
+        class="input"
+        id="amount"
+        type="text"
+        inputmode="decimal"
+        formControlName="amount"
+        placeholder="0.00"
+      />
+    </div>
+    @if (amountError(); as msg) {
+      <div class="error" data-testid="error-amount">{{ msg }}</div>
+    }
+  </div>
+
+  <div class="field">
+    <label for="bill-name">What was it for?</label>
+    <input
+      class="input"
+      id="bill-name"
+      type="text"
+      formControlName="name"
+      placeholder="e.g. Hydro bill, Groceries"
+      aria-label="What was it for?"
+    />
+    @if (nameError(); as msg) {
+      <div class="error" data-testid="error-name">{{ msg }}</div>
+    }
+  </div>
+
+  <div class="field">
+    <label for="bill-date">Date</label>
+    <input
+      class="input"
+      id="bill-date"
+      type="date"
+      formControlName="date"
+    />
+  </div>
+
+  <div class="field">
+    <label for="bill-note">Note <span class="hint">(optional)</span></label>
+    <textarea
+      class="textarea"
+      id="bill-note"
+      formControlName="note"
+      placeholder="Anything to remember about this bill?"
+    ></textarea>
+  </div>
+
+  <hr class="hr-soft" />
+
+  <div class="preview-block" data-testid="partner-share-preview">
+    <div>
+      <div class="lbl">Sam owes</div>
+      <div class="preview-sub">{{ previewSubtitle() }}</div>
+    </div>
+    <div class="val positive">+{{ partnerShareText() }}</div>
+  </div>
+
+  <div class="action-row">
+    <button type="button" class="btn btn-outline" (click)="save(true)" [disabled]="saving()">Save &amp; add another</button>
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="saving()">Save bill</button>
+  </div>
+
+</form>

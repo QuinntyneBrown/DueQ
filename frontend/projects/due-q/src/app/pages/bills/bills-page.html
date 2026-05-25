@@ -1,0 +1,74 @@
+<lib-page-head title="Bills" subtitle="All bills logged between you and Sam." />
+
+<div class="chips" role="tablist" aria-label="Bill filter">
+  <button
+    type="button"
+    class="chip"
+    role="tab"
+    [class.is-active]="isActive('All')"
+    [attr.aria-selected]="isActive('All')"
+    (click)="select('All')"
+  >
+    All <span class="count" data-testid="chip-count">{{ counts().all }}</span>
+  </button>
+  <button
+    type="button"
+    class="chip"
+    role="tab"
+    [class.is-active]="isActive('Unsettled')"
+    [attr.aria-selected]="isActive('Unsettled')"
+    (click)="select('Unsettled')"
+  >
+    Unsettled <span class="count" data-testid="chip-count">{{ counts().unsettled }}</span>
+  </button>
+  <button
+    type="button"
+    class="chip"
+    role="tab"
+    [class.is-active]="isActive('Settled')"
+    [attr.aria-selected]="isActive('Settled')"
+    (click)="select('Settled')"
+  >
+    Settled <span class="count" data-testid="chip-count">{{ counts().settled }}</span>
+  </button>
+</div>
+
+@if (isEmpty()) {
+  <div class="empty" data-testid="empty-state">No bills yet — add your first one.</div>
+} @else {
+  @for (group of months(); track group.key) {
+    <section class="section" [attr.aria-label]="group.label">
+      <div class="section-head">
+        <h2>{{ group.label }}</h2>
+        <span class="month-total" data-testid="month-total">{{ group.total }}</span>
+      </div>
+      <div class="card">
+        <ul class="list" role="list">
+          @for (bill of group.bills; track bill.id) {
+            <li>
+              <a class="row" [routerLink]="['/bills', bill.id]">
+                <span class="icon-tile t-bill">{{ bill.icon }}</span>
+                <div class="body">
+                  <div class="title">{{ bill.title }}</div>
+                  <div class="meta">
+                    {{ bill.dateLabel }} ·
+                    <span
+                      class="badge"
+                      [class.settled]="bill.status === 1"
+                      [class.unsettled]="bill.status === 0"
+                      data-testid="status-badge"
+                    >{{ bill.statusLabel }}</span>
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="amount">{{ bill.total }}</div>
+                  <div class="sub">{{ bill.partnerShare }}</div>
+                </div>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+  }
+}
