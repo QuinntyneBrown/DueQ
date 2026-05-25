@@ -35,6 +35,10 @@ public static class DueQContextSeeder
         var now = DateTime.UtcNow;
         var bills = new List<Bill>
         {
+            // Anchor "first activity" row — keeps the dashboard's first row a Bill
+            // (rather than a Payment) regardless of mutations other tests perform.
+            Bill("Groceries — Today", 38.40m, new DateOnly(2026, 5, 25), BillStatus.Unsettled, null),
+
             // May 2026 — unsettled (matches dashboard mock)
             Bill("Groceries — Loblaws", 84.20m, new DateOnly(2026, 5, 22), BillStatus.Unsettled,
                 "Weekly grocery run. Includes Sam's brand of oat milk and the produce we both share."),

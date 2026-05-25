@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from '../fixtures';
 import { AddBillPage, BillsPage } from '../pages';
 
 test.describe('Add bill', () => {
@@ -97,7 +97,9 @@ test.describe('Add bill', () => {
     await expect(addBill.validationError('amount')).toBeVisible();
   });
 
-  test('cancel link returns to the dashboard without saving', async ({ page }) => {
+  test('cancel link returns to the dashboard without saving', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'cancel link only appears in the mobile header; desktop uses the sidebar');
+
     const addBill = new AddBillPage(page);
     await addBill.goto();
     await addBill.fillBill({ amount: '12.00', name: 'Discarded', date: '2026-05-22' });

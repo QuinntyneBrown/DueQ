@@ -1,10 +1,5 @@
 <div class="field">
-  <label [attr.for]="for()">
-    {{ label() }}
-    @if (hint()) {
-      <span class="hint">({{ hint() }})</span>
-    }
-  </label>
+  <label [attr.for]="for()">{{ label() }}@if (hint()) { <span class="hint"> ({{ hint() }})</span> }</label>
   <ng-content></ng-content>
   @if (error(); as message) {
     <div class="error" [attr.data-testid]="errorTestId()">{{ message }}</div>

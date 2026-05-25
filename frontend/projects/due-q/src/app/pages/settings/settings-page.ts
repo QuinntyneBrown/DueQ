@@ -81,14 +81,16 @@ export class SettingsPage {
     this.submitted.set(true);
     if (this.form.invalid) return;
     const { yourName, partnerName } = this.form.getRawValue();
-    // Synchronous XHR — keeps the click handler on the stack until the PUT
-    // has actually persisted. Async HttpClient was racing with the next
-    // `page.reload()` in the Playwright suite, which would abort the in-flight
-    // request and lose the save.
-    const xhr = new XMLHttpRequest();
-    xhr.open('PUT', `${this.baseUrl}/api/settings`, false);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({ yourName, partnerName }));
+    // Fire-and-forget with `keepalive: true` so the PUT survives any
+    // subsequent `page.reload()` (Chromium otherwise aborts in-flight fetches
+    // on navigation). Not awaited so the click handler returns immediately
+    // and Playwright workers shut down cleanly between tests.
+    void fetch(`${this.baseUrl}/api/settings`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ yourName, partnerName }),
+      keepalive: true,
+    });
   }
 }
 
