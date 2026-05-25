@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IconTile } from '../icon-tile/icon-tile';
 import { Badge } from '../badge/badge';
-import { BillStatus } from '../models';
+import { BillStatusValue } from '../models';
 
 @Component({
   selector: 'lib-detail-header',
@@ -13,6 +13,8 @@ import { BillStatus } from '../models';
 export class DetailHeader {
   icon = input.required<string>();
   title = input.required<string>();
-  status = input<BillStatus>('unsettled');
+  status = input<BillStatusValue>('unsettled');
   loggedOn = input<string | null>(null);
+  titleTestId = input<string | null>(null);
+  statusTestId = input<string | null>(null);
 }

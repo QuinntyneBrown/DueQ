@@ -1,18 +1,24 @@
-<div class="card">
+<div class="card" [attr.data-testid]="testId()">
   <div class="row">
     <div class="primary">
       <div class="caption">Running balance</div>
-      <div class="value">{{ balance() | currency }}</div>
+      <div class="value" [attr.data-testid]="balanceTestId()">
+        {{ balanceLabel() ?? (balance() | currency:'USD':'symbol':'1.2-2') }}
+      </div>
       <div class="sub">{{ partnerName() }} owes you</div>
     </div>
     <div class="secondary">
       <div>
         <div class="caption">Logged</div>
-        <div class="num">{{ logged() | currency }}</div>
+        <div class="num" [attr.data-testid]="loggedTestId()">
+          {{ loggedLabel() ?? (logged() | currency:'USD':'symbol':'1.2-2') }}
+        </div>
       </div>
       <div>
         <div class="caption">Paid back</div>
-        <div class="num positive">{{ paidBack() | currency }}</div>
+        <div class="num positive" [attr.data-testid]="paidBackTestId()">
+          {{ paidBackLabel() ?? (paidBack() | currency:'USD':'symbol':'1.2-2') }}
+        </div>
       </div>
     </div>
   </div>

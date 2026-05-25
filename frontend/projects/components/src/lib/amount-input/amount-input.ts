@@ -18,11 +18,15 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 export class AmountInput implements ControlValueAccessor {
   currency = input<string>('$');
   inputId = input<string | null>(null);
+  placeholder = input<string>('0.00');
+  ariaLabel = input<string | null>(null);
+  testId = input<string | null>(null);
+  valueMode = input<'number' | 'string'>('number');
 
   display = signal<string>('');
   disabled = signal<boolean>(false);
 
-  private onChangeFn: (v: number | null) => void = () => {};
+  private onChangeFn: (v: number | string | null) => void = () => {};
   onTouched: () => void = () => {};
 
   writeValue(value: number | string | null): void {
@@ -32,7 +36,7 @@ export class AmountInput implements ControlValueAccessor {
       this.display.set(typeof value === 'number' ? value.toFixed(2) : String(value));
     }
   }
-  registerOnChange(fn: (v: number | null) => void): void {
+  registerOnChange(fn: (v: number | string | null) => void): void {
     this.onChangeFn = fn;
   }
   registerOnTouched(fn: () => void): void {
@@ -44,6 +48,11 @@ export class AmountInput implements ControlValueAccessor {
 
   onChange(raw: string) {
     this.display.set(raw);
+    if (this.valueMode() === 'string') {
+      this.onChangeFn(raw);
+      return;
+    }
+
     const cleaned = raw.replace(/[^\d.-]/g, '');
     if (cleaned === '' || cleaned === '-' || cleaned === '.') {
       this.onChangeFn(null);

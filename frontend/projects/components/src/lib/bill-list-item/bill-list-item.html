@@ -1,11 +1,26 @@
-<a class="row" (click)="onClick($event)">
+@if (linkTarget(); as target) {
+  <a class="row" [routerLink]="target" (click)="onClick()">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </a>
+} @else {
+  <button type="button" class="row" (click)="onClick()">
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+  </button>
+}
+
+<ng-template #content>
   <lib-icon-tile [icon]="bill().icon" kind="bill"></lib-icon-tile>
   <div class="body">
     <div class="title">{{ bill().title }}</div>
-    <div class="meta">{{ bill().date }} · <lib-badge [kind]="bill().status"></lib-badge></div>
+    <div class="meta">
+      {{ bill().dateLabel ?? bill().date }} ·
+      <lib-badge [kind]="bill().status" [testId]="statusTestId()">{{ statusLabel() }}</lib-badge>
+    </div>
   </div>
   <div class="right">
-    <div class="amount">{{ bill().total | currency }}</div>
-    <div class="sub">+{{ bill().partnerShare | currency }}</div>
+    <div class="amount">{{ bill().totalLabel ?? (bill().total | currency:'USD':'symbol':'1.2-2') }}</div>
+    <div class="sub">
+      {{ bill().partnerShareLabel ?? ('+' + (bill().partnerShare | currency:'USD':'symbol':'1.2-2')) }}
+    </div>
   </div>
-</a>
+</ng-template>

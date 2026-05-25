@@ -1,60 +1,28 @@
 <lib-page-head title="History" subtitle="Every bill and payment, newest first." />
 
-<div class="card running-balance-card">
-  <div class="primary">
-    <div class="lbl">Running balance</div>
-    <div class="val" data-testid="running-balance">{{ runningBalance() }}</div>
-    <div class="sub">{{ partnerName() }} owes you</div>
-  </div>
-  <div class="stats">
-    <div>
-      <div class="lbl">Logged</div>
-      <div class="val" data-testid="total-logged">{{ totalLogged() }}</div>
-    </div>
-    <div>
-      <div class="lbl">Paid back</div>
-      <div class="val paid-back" data-testid="total-paid-back">{{ totalPaidBack() }}</div>
-    </div>
-  </div>
-</div>
+<lib-running-balance-card
+  [balance]="runningBalanceAmount()"
+  [balanceLabel]="runningBalance()"
+  balanceTestId="running-balance"
+  [logged]="totalLoggedAmount()"
+  [loggedLabel]="totalLogged()"
+  loggedTestId="total-logged"
+  [paidBack]="totalPaidBackAmount()"
+  [paidBackLabel]="totalPaidBack()"
+  paidBackTestId="total-paid-back"
+  [partnerName]="partnerName()"
+/>
 
-<div class="chips" role="tablist" aria-label="History filter">
+<lib-chip-group class="history-filter" ariaLabel="History filter">
   @for (f of filters; track f) {
-    <button
-      type="button"
-      class="chip"
-      role="tab"
-      [class.is-active]="isActive(f)"
-      [attr.aria-selected]="isActive(f)"
-      (click)="select(f)"
-    >{{ f }}</button>
+    <lib-chip [label]="f" [active]="isActive(f)" (toggle)="select(f)" />
   }
-</div>
+</lib-chip-group>
 
 @for (month of months(); track month.key) {
-  <section class="timeline-group" [attr.aria-label]="month.label">
-    <h3>
-      {{ month.label }}
-      <span class="month-total" data-testid="month-total">{{ month.monthTotalText }}</span>
-    </h3>
-    <div class="card">
-      <ul class="list" role="list">
-        @for (entry of month.entries; track entry.id) {
-          <li>
-            <div class="row">
-              <span class="icon-tile" [class.t-bill]="!entry.isPayment" [class.t-payment]="entry.isPayment">{{ entry.icon }}</span>
-              <div class="body">
-                <div class="title">{{ entry.title }}</div>
-                <div class="meta">{{ entry.meta }}</div>
-              </div>
-              <div class="right">
-                <div class="amount" [class.received]="entry.isPayment">{{ entry.deltaText }}</div>
-                <div class="sub" data-testid="row-running-balance">{{ entry.runningBalanceText }}</div>
-              </div>
-            </div>
-          </li>
-        }
-      </ul>
-    </div>
-  </section>
+  <lib-timeline-group [month]="month.label" [total]="month.monthTotalText" totalTestId="month-total">
+    @for (entry of month.entries; track entry.id) {
+      <lib-timeline-row [entry]="entry" balanceTestId="row-running-balance" />
+    }
+  </lib-timeline-group>
 }

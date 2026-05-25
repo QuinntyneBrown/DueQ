@@ -1,1 +1,9 @@
-<span class="badge" [class]="kind()"><ng-content>{{ defaultLabel() }}</ng-content></span>
+<span
+  class="badge"
+  [class.settled]="status() === 'settled'"
+  [class.unsettled]="status() === 'unsettled'"
+  [class.partial]="status() === 'partial'"
+  [attr.data-testid]="testId()"
+>
+  <ng-content>{{ defaultLabel() }}</ng-content>
+</span>

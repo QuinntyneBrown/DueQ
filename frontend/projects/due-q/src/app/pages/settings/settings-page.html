@@ -7,50 +7,32 @@
   <form class="form" [formGroup]="form" (ngSubmit)="save()" novalidate>
     <div class="people-pair">
 
-      <div class="person-card">
-        <div class="role">You</div>
-        <div class="avatar-row">
-          <span class="big-avatar you" data-testid="avatar-you">{{ yourInitials() }}</span>
-          <div class="hint-small">Initial shown on receipts and the split bar.</div>
-        </div>
-        <div class="field">
-          <label for="you-name">Your name</label>
-          <input
-            class="input"
-            id="you-name"
-            type="text"
-            formControlName="yourName"
-            placeholder="e.g. Quinntyne Brown"
-          />
-          @if (yourError(); as msg) {
-            <div class="error" data-testid="error-you-name">{{ msg }}</div>
-          }
-        </div>
-      </div>
+      <lib-person-card
+        role="You"
+        [initials]="yourInitials()"
+        variant="you"
+        hint="Initial shown on receipts and the split bar."
+        avatarTestId="avatar-you"
+      >
+        <lib-form-field label="Your name" for="you-name" [error]="yourError()" errorTestId="error-you-name">
+          <lib-text-input inputId="you-name" formControlName="yourName" placeholder="e.g. Quinntyne Brown" />
+        </lib-form-field>
+      </lib-person-card>
 
-      <div class="person-card">
-        <div class="role">Partner</div>
-        <div class="avatar-row">
-          <span class="big-avatar partner" data-testid="avatar-partner">{{ partnerInitials() }}</span>
-          <div class="hint-small">This is who owes you half of every bill you log.</div>
-        </div>
-        <div class="field">
-          <label for="partner-name">Partner's name</label>
-          <input
-            class="input"
-            id="partner-name"
-            type="text"
-            formControlName="partnerName"
-            placeholder="e.g. Sam"
-          />
-          @if (partnerError(); as msg) {
-            <div class="error" data-testid="error-partner-name">{{ msg }}</div>
-          }
-        </div>
-      </div>
+      <lib-person-card
+        role="Partner"
+        [initials]="partnerInitials()"
+        variant="partner"
+        hint="This is who owes you half of every bill you log."
+        avatarTestId="avatar-partner"
+      >
+        <lib-form-field label="Partner's name" for="partner-name" [error]="partnerError()" errorTestId="error-partner-name">
+          <lib-text-input inputId="partner-name" formControlName="partnerName" placeholder="e.g. Sam" />
+        </lib-form-field>
+      </lib-person-card>
 
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
+    <lib-button class="save-button" type="submit" size="lg" [block]="true">Save</lib-button>
   </form>
 }

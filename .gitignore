@@ -76,3 +76,4 @@ Desktop.ini
 !.env.example
 appsettings.*.Local.json
 secrets.json
+.claude/

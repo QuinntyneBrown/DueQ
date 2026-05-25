@@ -11,4 +11,6 @@ export class KeyValueRow {
   label = input.required<string>();
   value = input.required<string>();
   tone = input<Tone>('default');
+  testId = input<string | null>(null);
+  valueTestId = input<string | null>(null);
 }

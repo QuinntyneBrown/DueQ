@@ -1,7 +1,7 @@
-<div class="person-card">
+<div class="person-card" [attr.data-testid]="testId()">
   <div class="role">{{ role() }}</div>
   <div class="avatar-row">
-    <lib-avatar-large [initials]="initials()" [variant]="variant()"></lib-avatar-large>
+    <lib-avatar-large [initials]="initials()" [variant]="variant()" [testId]="avatarTestId()"></lib-avatar-large>
     @if (hint()) {
       <div class="hint">{{ hint() }}</div>
     }

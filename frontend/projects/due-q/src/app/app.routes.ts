@@ -26,7 +26,7 @@ export const routes: Routes = [
         path: 'bills/new',
         loadComponent: () =>
           import('./pages/add-bill/add-bill-page').then((m) => m.AddBillPage),
-        data: headerData({ title: 'Add bill', action: { kind: 'cancel', route: '/dashboard' } }),
+        data: headerData({ title: 'Add Bill', action: { kind: 'cancel', route: '/dashboard' } }),
       },
       {
         path: 'bills/:id',
@@ -40,7 +40,7 @@ export const routes: Routes = [
           import('./pages/record-payment/record-payment-page').then(
             (m) => m.RecordPaymentPage,
           ),
-        data: headerData({ title: 'Record payment', action: { kind: 'cancel', route: '/dashboard' } }),
+        data: headerData({ title: 'Record Payment', action: { kind: 'cancel', route: '/dashboard' } }),
       },
       {
         path: 'history',

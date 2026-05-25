@@ -1,4 +1,14 @@
-<a class="nav-link" [class.is-active]="active()" [attr.href]="href()">
-  <span class="icon">{{ icon() }}</span>
+<a
+  class="nav-link"
+  [class.is-active]="active()"
+  [routerLink]="routerLink()"
+  routerLinkActive="is-active"
+  [routerLinkActiveOptions]="{ exact: exact() }"
+  [ariaCurrentWhenActive]="ariaCurrentWhenActive()"
+  [attr.href]="routerLink() ? null : href()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.data-testid]="testId()"
+>
+  <span class="icon" aria-hidden="true">{{ icon() }}</span>
   <span>{{ label() }}</span>
 </a>

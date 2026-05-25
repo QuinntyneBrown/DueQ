@@ -17,33 +17,30 @@ import {
   ISettingsService,
   SETTINGS_SERVICE,
 } from 'api';
-import { PageHead } from 'components';
+import {
+  Chip,
+  ChipGroup,
+  PageHead,
+  RunningBalanceCard,
+  TimelineEntry,
+  TimelineGroup,
+  TimelineRow,
+} from 'components';
 import { iconForBill } from '../bills/bills-page';
 
 type Filter = 'All' | 'Bills only' | 'Payments only';
-
-interface DisplayEntry {
-  readonly id: string;
-  readonly icon: string;
-  readonly iconKind: 'bill' | 'payment';
-  readonly title: string;
-  readonly meta: string;
-  readonly deltaText: string;
-  readonly isPayment: boolean;
-  readonly runningBalanceText: string;
-}
 
 interface MonthSection {
   readonly key: string;
   readonly label: string;
   readonly monthTotalText: string;
-  readonly entries: readonly DisplayEntry[];
+  readonly entries: readonly TimelineEntry[];
 }
 
 @Component({
   selector: 'app-history-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PageHead],
+  imports: [PageHead, RunningBalanceCard, ChipGroup, Chip, TimelineGroup, TimelineRow],
   templateUrl: './history-page.html',
   styleUrl: './history-page.scss',
 })
@@ -64,6 +61,16 @@ export class HistoryPage {
 
   protected readonly partnerName = computed(
     () => this.settings.value()?.partnerName ?? 'Partner',
+  );
+
+  protected readonly runningBalanceAmount = computed(() =>
+    Math.max(0, this.history.value()?.runningBalance ?? 0),
+  );
+  protected readonly totalLoggedAmount = computed(() =>
+    this.history.value()?.totalLogged ?? 0,
+  );
+  protected readonly totalPaidBackAmount = computed(() =>
+    this.history.value()?.totalReceived ?? 0,
   );
 
   protected readonly runningBalance = computed(() =>
@@ -111,20 +118,21 @@ function filterEntry(e: HistoryEntry, f: Filter): boolean {
   return e.kind === ActivityKind.Payment;
 }
 
-function toDisplayEntry(e: HistoryEntry, partnerName: string): DisplayEntry {
+function toDisplayEntry(e: HistoryEntry, partnerName: string): TimelineEntry {
   const isPayment = e.kind === ActivityKind.Payment;
   const date = e.date.length === 10 ? `${e.date}T00:00:00` : e.date;
   const dateLabel = new DatePipe('en-US').transform(date, 'MMM d') ?? e.date;
   const amountLabel = formatCurrency(e.amount);
   return {
     id: e.id,
+    kind: e.kind,
     icon: isPayment ? '↓' : iconForBill(e.title),
-    iconKind: isPayment ? 'payment' : 'bill',
     title: isPayment ? `Payment from ${partnerName}` : e.title,
     meta: `${dateLabel} · ${amountLabel}`,
-    deltaText: isPayment ? `−${formatCurrency(Math.abs(e.balanceDelta))}` : `+${formatCurrency(e.balanceDelta)}`,
-    isPayment,
-    runningBalanceText: `balance ${formatSignedCurrency(e.runningBalance)}`,
+    delta: e.balanceDelta,
+    deltaLabel: isPayment ? `−${formatCurrency(Math.abs(e.balanceDelta))}` : `+${formatCurrency(e.balanceDelta)}`,
+    balanceAfter: e.runningBalance,
+    balanceLabel: `balance ${formatSignedCurrency(e.runningBalance)}`,
   };
 }
 

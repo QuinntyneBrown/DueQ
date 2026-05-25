@@ -2,7 +2,7 @@
 
   <header class="app-header">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true">D</span>
+      <lib-brand-mark ariaHidden />
       <span>{{ title() }}</span>
     </div>
     @switch (action()?.kind) {
@@ -10,7 +10,7 @@
         <a class="header-action" [routerLink]="action()!.route" aria-label="Settings">⚙</a>
       }
       @case ('add-bill') {
-        <a class="header-action" [routerLink]="action()!.route" aria-label="Add bill">＋</a>
+        <a class="header-action" [routerLink]="action()!.route" aria-label="Add Bill">＋</a>
       }
       @case ('cancel') {
         <a class="header-text-action" [routerLink]="action()!.route">Cancel</a>
@@ -23,27 +23,18 @@
 
   <aside class="app-sidebar" aria-label="Main">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true">D</span>
-      <span>DueQ</span>
+      <lib-brand-mark label="DueQ" ariaHidden />
     </div>
-    <a class="nav-link" routerLink="/dashboard" routerLinkActive="is-active" ariaCurrentWhenActive="page" #rlaDash="routerLinkActive">
-      <span class="icon" aria-hidden="true">⌂</span> Dashboard
-    </a>
-    <a class="nav-link" routerLink="/bills" routerLinkActive="is-active" ariaCurrentWhenActive="page">
-      <span class="icon" aria-hidden="true">▤</span> Bills
-    </a>
-    <a class="nav-link" routerLink="/history" routerLinkActive="is-active" ariaCurrentWhenActive="page">
-      <span class="icon" aria-hidden="true">↻</span> History
-    </a>
-    <a class="nav-link" routerLink="/bills/new" routerLinkActive="is-active" ariaCurrentWhenActive="page">
-      <span class="icon" aria-hidden="true">＋</span> Add bill
-    </a>
-    <a class="nav-link" routerLink="/payments/new" routerLinkActive="is-active" ariaCurrentWhenActive="page">
-      <span class="icon" aria-hidden="true">↓</span> Record payment
-    </a>
-    <a class="nav-link" routerLink="/settings" routerLinkActive="is-active" ariaCurrentWhenActive="page">
-      <span class="icon" aria-hidden="true">◔</span> Settings
-    </a>
+    <lib-nav-link icon="⌂" label="Dashboard" routerLink="/dashboard" />
+    <lib-nav-link icon="▤" label="Bills" routerLink="/bills" [exact]="true" />
+    <lib-nav-link icon="↻" label="History" routerLink="/history" />
+    <lib-nav-link icon="＋" label="Add Bill" routerLink="/bills/new" />
+    <lib-nav-link icon="↓" label="Record Payment" routerLink="/payments/new" />
+    <lib-nav-link icon="◔" label="Settings" routerLink="/settings" />
+    <div class="footer">
+      <lib-avatar [initials]="yourInitials()" ariaHidden />
+      <div class="name">{{ yourName() }}</div>
+    </div>
   </aside>
 
   <main class="app-main">
@@ -53,24 +44,12 @@
   </main>
 
   <nav class="bottom-nav" aria-label="Primary">
-    <a class="nav-item" routerLink="/dashboard" routerLinkActive="is-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">
-      <span class="icon" aria-hidden="true">⌂</span>
-      <span>Home</span>
-    </a>
-    <a class="nav-item" routerLink="/bills" routerLinkActive="is-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">
-      <span class="icon" aria-hidden="true">▤</span>
-      <span>Bills</span>
-    </a>
-    <a class="nav-item action" routerLink="/bills/new" aria-label="Add bill">
-      <span class="fab" aria-hidden="true">＋</span>
-    </a>
-    <a class="nav-item" routerLink="/history" routerLinkActive="is-active" ariaCurrentWhenActive="page">
-      <span class="icon" aria-hidden="true">↻</span>
-      <span>History</span>
-    </a>
-    <a class="nav-item" routerLink="/settings" routerLinkActive="is-active" ariaCurrentWhenActive="page">
-      <span class="icon" aria-hidden="true">◔</span>
-      <span>You</span>
-    </a>
+    <lib-nav-item icon="⌂" label="Home" routerLink="/dashboard" [exact]="true" />
+    <lib-nav-item icon="▤" label="Bills" routerLink="/bills" [exact]="true" />
+    <div class="bottom-action">
+      <lib-floating-action-button icon="＋" ariaLabel="Add Bill" routerLink="/bills/new" />
+    </div>
+    <lib-nav-item icon="↻" label="History" routerLink="/history" />
+    <lib-nav-item icon="◔" label="You" routerLink="/settings" />
   </nav>
 </div>

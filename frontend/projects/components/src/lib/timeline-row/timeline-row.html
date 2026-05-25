@@ -1,11 +1,11 @@
-<div class="row">
-  <lib-icon-tile [icon]="entry().icon" [kind]="entry().kind"></lib-icon-tile>
+<div class="row" [attr.data-testid]="testId()">
+  <lib-icon-tile [icon]="entry().icon" [kind]="kind()"></lib-icon-tile>
   <div class="body">
     <div class="title">{{ entry().title }}</div>
     <div class="meta">{{ entry().meta }}</div>
   </div>
   <div class="right">
     <div class="amount" [class.received]="isPayment()">{{ deltaLabel() }}</div>
-    <div class="sub">balance {{ entry().balanceAfter | currency }}</div>
+    <div class="sub" [attr.data-testid]="balanceTestId()">{{ balanceLabel() }}</div>
   </div>
 </div>

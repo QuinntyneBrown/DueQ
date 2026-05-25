@@ -17,15 +17,33 @@ import { Router } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
 import { BILLS_SERVICE, IBillsService } from 'api';
-import { PageHead } from 'components';
+import {
+  AmountInput,
+  Button,
+  DateInput,
+  FormField,
+  PageHead,
+  PreviewBlock,
+  TextArea,
+  TextInput,
+} from 'components';
 
 @Component({
   selector: 'app-add-bill-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, PageHead],
+  imports: [
+    ReactiveFormsModule,
+    PageHead,
+    FormField,
+    AmountInput,
+    TextInput,
+    DateInput,
+    TextArea,
+    PreviewBlock,
+    Button,
+  ],
   templateUrl: './add-bill-page.html',
   styleUrl: './add-bill-page.scss',
-  // touch
 })
 export class AddBillPage {
   private readonly billsService = inject<IBillsService>(BILLS_SERVICE);

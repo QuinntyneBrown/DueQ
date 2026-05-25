@@ -11,6 +11,16 @@
   cursor: pointer;
 }
 
+button.row {
+  width: 100%;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+}
+
 :host(:last-child) .row { border-bottom: none; }
 
 .body {

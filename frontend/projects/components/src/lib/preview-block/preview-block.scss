@@ -21,14 +21,14 @@
   font-size: 13px;
   color: var(--ink-2);
 }
-.preview-block.dark .lbl { color: rgba(255, 255, 255, 0.7); }
+.preview-block.dark .lbl { color: rgba(46, 46, 48, 0.7); }
 
 .sub {
   font-size: 11px;
   color: var(--muted);
   margin-top: 2px;
 }
-.preview-block.dark .sub { color: rgba(255, 255, 255, 0.6); }
+.preview-block.dark .sub { color: rgba(46, 46, 48, 0.6); }
 
 .val {
   font-family: var(--font-num);

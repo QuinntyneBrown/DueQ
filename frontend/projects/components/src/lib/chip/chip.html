@@ -1,6 +1,15 @@
-<button type="button" class="chip" [class.is-active]="active()" (click)="toggle.emit()">
+<button
+  type="button"
+  class="chip"
+  [class.is-active]="active()"
+  [disabled]="disabled()"
+  [attr.role]="role()"
+  [attr.aria-selected]="ariaSelected() ?? active()"
+  [attr.data-testid]="testId()"
+  (click)="toggle.emit()"
+>
   {{ label() }}
   @if (count() !== null) {
-    <span class="count">{{ count() }}</span>
+    <span class="count" [attr.data-testid]="countTestId()">{{ count() }}</span>
   }
 </button>

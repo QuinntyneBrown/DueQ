@@ -4,8 +4,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--surface-2);
+  color: var(--ink);
   display: grid;
   place-items: center;
   font-weight: 600;
@@ -18,7 +18,7 @@
   }
 
   &.partner {
-    background: var(--accent-soft);
-    color: var(--accent);
+    background: var(--surface-2);
+    color: var(--ink-2);
   }
 }

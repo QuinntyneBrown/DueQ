@@ -1,9 +1,16 @@
-<div class="segmented" role="tablist">
+<div
+  class="segmented"
+  role="tablist"
+  [attr.aria-label]="ariaLabel()"
+  [attr.data-testid]="testId()"
+>
   @for (opt of options(); track opt.value) {
     <button
       type="button"
       class="seg"
+      role="tab"
       [class.is-active]="opt.value === value()"
+      [attr.aria-selected]="opt.value === value()"
       [disabled]="disabled()"
       (click)="select(opt.value)"
     >

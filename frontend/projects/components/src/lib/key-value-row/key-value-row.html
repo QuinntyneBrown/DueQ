@@ -1,4 +1,4 @@
-<div class="kv">
+<div class="kv" [attr.data-testid]="testId()">
   <span class="k">{{ label() }}</span>
-  <span class="v" [class]="tone()">{{ value() }}</span>
+  <span class="v" [class]="tone()" [attr.data-testid]="valueTestId()">{{ value() }}</span>
 </div>

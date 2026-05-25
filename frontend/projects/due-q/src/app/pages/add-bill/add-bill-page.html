@@ -2,72 +2,49 @@
 
 <form class="form" [formGroup]="form" (ngSubmit)="save(false)" novalidate>
 
-  <div class="field">
-    <label for="amount">Amount</label>
-    <div class="input-amount">
-      <span class="currency">$</span>
-      <input
-        class="input"
-        id="amount"
-        type="text"
-        inputmode="decimal"
-        formControlName="amount"
-        placeholder="0.00"
-      />
-    </div>
-    @if (amountError(); as msg) {
-      <div class="error" data-testid="error-amount">{{ msg }}</div>
-    }
-  </div>
+  <lib-form-field label="Amount" for="amount" [error]="amountError()" errorTestId="error-amount">
+    <lib-amount-input inputId="amount" formControlName="amount" valueMode="string" />
+  </lib-form-field>
 
-  <div class="field">
-    <label for="bill-name">What was it for?</label>
-    <input
-      class="input"
-      id="bill-name"
-      type="text"
+  <lib-form-field label="What was it for?" for="bill-name" [error]="nameError()" errorTestId="error-name">
+    <lib-text-input
+      inputId="bill-name"
       formControlName="name"
       placeholder="e.g. Hydro bill, Groceries"
-      aria-label="What was it for?"
+      ariaLabel="What was it for?"
     />
-    @if (nameError(); as msg) {
-      <div class="error" data-testid="error-name">{{ msg }}</div>
-    }
-  </div>
+  </lib-form-field>
 
-  <div class="field">
-    <label for="bill-date">Date</label>
-    <input
-      class="input"
-      id="bill-date"
-      type="date"
-      formControlName="date"
-    />
-  </div>
+  <lib-form-field label="Date" for="bill-date">
+    <lib-date-input inputId="bill-date" formControlName="date" />
+  </lib-form-field>
 
-  <div class="field">
-    <label for="bill-note">Note <span class="hint">(optional)</span></label>
-    <textarea
-      class="textarea"
-      id="bill-note"
+  <lib-form-field label="Note" hint="optional" for="bill-note">
+    <lib-text-area
+      inputId="bill-note"
       formControlName="note"
       placeholder="Anything to remember about this bill?"
-    ></textarea>
-  </div>
+    />
+  </lib-form-field>
 
   <hr class="hr-soft" />
 
-  <div class="preview-block" data-testid="partner-share-preview">
-    <div>
-      <div class="lbl">Sam owes</div>
-      <div class="preview-sub">{{ previewSubtitle() }}</div>
-    </div>
-    <div class="val positive">+{{ partnerShareText() }}</div>
-  </div>
+  <lib-preview-block
+    label="Sam owes"
+    [sublabel]="previewSubtitle()"
+    [amount]="partnerShare() ?? 0"
+    [amountLabel]="'+' + partnerShareText()"
+    tone="positive"
+    testId="partner-share-preview"
+  />
 
   <div class="action-row">
-    <button type="button" class="btn btn-outline" (click)="save(true)" [disabled]="saving()">Save &amp; add another</button>
-    <button type="submit" class="btn btn-primary btn-lg" [disabled]="saving()">Save bill</button>
+    <lib-button class="save-another" variant="outline" [block]="true" [disabled]="saving()" (clicked)="save(true)">
+      Save &amp; add another
+    </lib-button>
+    <lib-button class="save-bill" type="submit" size="lg" [block]="true" [disabled]="saving()">
+      Save bill
+    </lib-button>
   </div>
 
 </form>

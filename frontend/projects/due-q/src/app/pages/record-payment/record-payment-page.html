@@ -1,84 +1,50 @@
+<lib-back-link label="Back" routerLink="/dashboard" />
+
 <lib-page-head
   title="Record a payment from Sam"
   subtitle="Log money Sam sent you toward what they owe."
 />
 
-<div class="current-balance-block">
-  <div>
-    <div class="lbl">Sam currently owes</div>
-    <div class="sub">As of today</div>
-  </div>
-  <div class="val" data-testid="current-balance">{{ currentBalanceText() }}</div>
-</div>
+@if (loaded()) {
+  <lib-preview-block
+    class="current-balance-block"
+    label="Sam currently owes"
+    sublabel="As of today"
+    [amount]="currentBalance()"
+    [amountLabel]="currentBalanceText()"
+    amountTestId="current-balance"
+    dark
+  />
+}
 
 <form class="form" [formGroup]="form" (ngSubmit)="save()" novalidate>
 
-  <div class="field">
-    <label for="payment-amount">Amount received</label>
-    <div class="input-amount">
-      <span class="currency">$</span>
-      <input
-        class="input"
-        id="payment-amount"
-        type="text"
-        inputmode="decimal"
-        formControlName="amount"
-        placeholder="0.00"
-      />
-    </div>
-    @if (amountError(); as msg) {
-      <div class="error" data-testid="error-amount">{{ msg }}</div>
-    }
-  </div>
+  <lib-form-field label="Amount received" for="payment-amount" [error]="amountError()" errorTestId="error-amount">
+    <lib-amount-input inputId="payment-amount" formControlName="amount" valueMode="string" />
+  </lib-form-field>
 
-  <div class="field">
-    <label for="payment-date">Date received</label>
-    <input
-      class="input"
-      id="payment-date"
-      type="date"
-      formControlName="date"
-    />
-    @if (dateError(); as msg) {
-      <div class="error" data-testid="error-date">{{ msg }}</div>
-    }
-  </div>
+  <lib-form-field label="Date received" for="payment-date" [error]="dateError()" errorTestId="error-date">
+    <lib-date-input inputId="payment-date" formControlName="date" />
+  </lib-form-field>
 
-  <div class="field">
-    <label>Method <span class="hint">(optional)</span></label>
-    <div class="segmented" role="tablist" aria-label="Payment method">
-      @for (m of methods; track m) {
-        <button
-          type="button"
-          class="seg"
-          role="tab"
-          [class.is-active]="isMethod(m)"
-          [attr.aria-selected]="isMethod(m)"
-          (click)="selectMethod(m)"
-        >{{ m }}</button>
-      }
-    </div>
-  </div>
+  <lib-form-field label="Method" hint="optional">
+    <lib-segmented-control [options]="methodOptions" ariaLabel="Payment method" formControlName="method" />
+  </lib-form-field>
 
-  <div class="field">
-    <label for="payment-note">Note <span class="hint">(optional)</span></label>
-    <textarea
-      class="textarea"
-      id="payment-note"
-      formControlName="note"
-      placeholder="e.g. partial — rest by Friday"
-    ></textarea>
-  </div>
+  <lib-form-field label="Note" hint="optional" for="payment-note">
+    <lib-text-area inputId="payment-note" formControlName="note" placeholder="e.g. partial — rest by Friday" />
+  </lib-form-field>
 
   <hr class="hr-soft" />
 
-  <div class="preview-block" data-testid="new-balance-preview">
-    <div>
-      <div class="lbl">New balance after payment</div>
-      <div class="preview-sub">{{ previewSubtitle() }}</div>
-    </div>
-    <div class="val" [class.positive]="!overpayment()" [class.negative]="overpayment()">{{ newBalanceText() }}</div>
-  </div>
+  <lib-preview-block
+    label="New balance after payment"
+    [sublabel]="previewSubtitle()"
+    [amount]="newBalance()"
+    [amountLabel]="newBalanceText()"
+    [tone]="overpayment() ? 'negative' : 'positive'"
+    testId="new-balance-preview"
+  />
 
   @if (overpayment()) {
     <div class="overpayment" data-testid="overpayment-warning">
@@ -86,6 +52,6 @@
     </div>
   }
 
-  <button type="submit" class="btn btn-primary btn-lg btn-block save-btn" [disabled]="saving()">Save payment</button>
+  <lib-button class="save-btn" type="submit" size="lg" [block]="true" [disabled]="saving()">Save payment</lib-button>
 
 </form>

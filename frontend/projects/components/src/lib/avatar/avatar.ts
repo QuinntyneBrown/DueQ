@@ -10,6 +10,8 @@ import { AvatarVariant } from '../models';
 export class Avatar {
   initials = input.required<string>();
   variant = input<AvatarVariant>('default');
+  ariaHidden = input<boolean>(false);
+  testId = input<string | null>(null);
 
   variantClass(): string {
     return this.variant();

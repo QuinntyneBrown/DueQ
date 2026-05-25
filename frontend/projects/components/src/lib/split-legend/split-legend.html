@@ -1,4 +1,10 @@
 <div class="split-legend">
-  <div><span class="dot you"></span>{{ youName() }} — {{ youAmount() | currency }}</div>
-  <div><span class="dot partner"></span>{{ partnerName() }} — {{ partnerAmount() | currency }}</div>
+  <div>
+    <span class="dot you"></span>{{ youName() }} —
+    <span [attr.data-testid]="youAmountTestId()">{{ youAmountLabel() ?? (youAmount() | currency:'USD':'symbol':'1.2-2') }}</span>
+  </div>
+  <div>
+    <span class="dot partner"></span>{{ partnerName() }} —
+    <span [attr.data-testid]="partnerAmountTestId()">{{ partnerAmountLabel() ?? (partnerAmount() | currency:'USD':'symbol':'1.2-2') }}</span>
+  </div>
 </div>

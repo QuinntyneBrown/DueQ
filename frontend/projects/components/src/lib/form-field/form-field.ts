@@ -10,4 +10,6 @@ export class FormField {
   label = input.required<string>();
   hint = input<string | null>(null);
   for = input<string | null>(null);
+  error = input<string | false | null>(null);
+  errorTestId = input<string | null>(null);
 }

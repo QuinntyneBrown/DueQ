@@ -17,10 +17,15 @@
   white-space: nowrap;
   cursor: pointer;
   font-family: inherit;
+  text-decoration: none;
   transition: transform 0.08s ease;
 
   &:active:not(:disabled) { transform: scale(0.98); }
-  &:disabled { opacity: 0.5; cursor: not-allowed; }
+  &:disabled,
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
   &.block { width: 100%; }
   &.lg    { height: 52px; font-size: 15px; }
@@ -31,9 +36,9 @@
   }
 
   &.secondary {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--bg);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(230, 230, 234, 0.08);
+    color: var(--ink);
+    border-color: var(--border-strong);
   }
 
   &.ghost {
@@ -42,7 +47,7 @@
   }
 
   &.outline {
-    background: var(--surface);
+    background: transparent;
     border-color: var(--border-strong);
     color: var(--ink);
   }
@@ -50,6 +55,6 @@
   &.danger {
     background: transparent;
     color: var(--owed-by-you);
-    border-color: var(--border);
+    border-color: var(--border-strong);
   }
 }

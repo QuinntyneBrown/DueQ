@@ -1,4 +1,8 @@
-<span class="brand-mark">{{ letter() }}</span>
+<span
+  class="brand-mark"
+  [attr.aria-hidden]="ariaHidden() ? 'true' : null"
+  [attr.data-testid]="testId()"
+>{{ letter() }}</span>
 @if (label()) {
   <span class="label">{{ label() }}</span>
 }

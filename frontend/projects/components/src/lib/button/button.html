@@ -1,9 +1,39 @@
-<button
-  [type]="type()"
-  class="btn"
-  [class]="cssClasses()"
-  [disabled]="disabled()"
-  (click)="clicked.emit($event)"
->
-  <ng-content></ng-content>
-</button>
+@if (routerLink()) {
+  <a
+    class="btn"
+    [class]="cssClasses()"
+    [routerLink]="routerLink()"
+    [class.is-disabled]="disabled()"
+    [attr.aria-disabled]="disabled() ? 'true' : null"
+    [attr.aria-label]="ariaLabel()"
+    [attr.data-testid]="testId()"
+    (click)="onClick($event)"
+  >
+    <ng-content></ng-content>
+  </a>
+} @else if (href()) {
+  <a
+    class="btn"
+    [class]="cssClasses()"
+    [attr.href]="disabled() ? null : href()"
+    [class.is-disabled]="disabled()"
+    [attr.aria-disabled]="disabled() ? 'true' : null"
+    [attr.aria-label]="ariaLabel()"
+    [attr.data-testid]="testId()"
+    (click)="onClick($event)"
+  >
+    <ng-content></ng-content>
+  </a>
+} @else {
+  <button
+    [type]="type()"
+    class="btn"
+    [class]="cssClasses()"
+    [disabled]="disabled()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.data-testid]="testId()"
+    (click)="onClick($event)"
+  >
+    <ng-content></ng-content>
+  </button>
+}

@@ -88,7 +88,7 @@ export class DashboardPage {
         meta: formatMeta(a.date, a.amount),
         amount: a.balanceDelta,
         sub: isPayment ? 'Received' : `${data.partnerName}'s share`,
-        href: isPayment ? undefined : `/bills/${a.id}`,
+        href: isPayment ? '/history' : `/bills/${a.id}`,
       };
     });
   });

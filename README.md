@@ -1,152 +1,149 @@
 # DueQ
 
-**A radically simple, mobile-first ledger for splitting household bills with a partner.**
+DueQ is a small, mobile-first ledger for two people who split household bills 50/50.
 
-Log a bill. DueQ splits it in half. Record what your partner pays. See what's still owed.
+Add a bill, record what your partner paid back, and keep one running balance: what is still owed.
 
-.NET 10 · Angular 21 · EF Core · Mobile-first PWA
+.NET 10 Web API · EF Core 10 + SQLite · Angular 21 · Playwright
 
-**[Documentation](docs/)** · **[UI Mocks](docs/mocks/)** · **[Contributing](CONTRIBUTING.md)**
+**[Implementation plan](docs/plan.md)** · **[UI mocks](docs/mocks/)** · **[Repo conventions](CLAUDE.md)**
 
 ---
 
-> **One bill in. One number out: what your partner owes you.**
-> No groups. No multi-currency. No settlement algorithms. Just two people, one running balance.
+## What is implemented
 
-## Why DueQ
+DueQ is intentionally narrow:
 
-Splitwise, Tricount, and Settle Up are built for trips, roommates, and group dinners — many people, many splits, many edge cases. They are overkill for the most common case: **two people splitting recurring household bills 50/50, with one partner who tends to fall behind.**
+- Bills are always split in half.
+- Payments reduce the running balance.
+- Household settings store only your name and your partner's name.
+- There is no auth, group splitting, currency conversion, or settlement algorithm.
 
-**DueQ fixes this.** A bill is one row. The split is always half. The only number that matters is how much your partner currently owes you. That's the whole product.
+The app currently includes these screens:
 
-```text
-Hydro          $142.00    ·  partner owes $71.00   ·  unsettled
-Internet        $89.99    ·  partner owes $44.99   ·  settled
-Groceries      $312.50    ·  partner owes $156.25  ·  unsettled
-─────────────────────────────────────────────────────────────
-Balance owed to you:  $227.25
-```
+- Dashboard with greeting, current balance, monthly stats, and recent activity.
+- Bills list grouped by month with All, Unsettled, and Settled filters.
+- Bill detail with 50/50 split, settle/unsettle, delete confirmation, and 404 state.
+- Add bill with validation and a live partner-share preview.
+- Record payment with method selection, new-balance preview, and overpayment warning.
+- History timeline with bill/payment filters and running balance rows.
+- Settings form for the two household names.
 
-```bash
-git clone https://github.com/<you>/DueQ && cd DueQ
-dotnet run --project backend/src/DueQ.Api    # API on https://localhost:5001
-cd frontend && npm install && npm start      # App on http://localhost:4200
-```
-
-## The three promises
-
-### 1. Radically simple
-
-The product brief is seven lines (`docs/idea.md`) and every PR is measured against it. Features that don't serve "two people, one balance" don't ship.
-
-- **One entity, one split** — bills are halved automatically; no per-bill share configuration
-- **Two states** — a bill is either `Unsettled` or `Settled`. That's the whole state machine.
-- **No accounts, no auth on day one** — the app is for you and your partner, not a marketplace
-- **No speculative abstractions** — handlers depend on `IDueQContext`, not on layers of repositories and services that nobody asked for
-
-### 2. Mobile-first by default
-
-Bills get logged on a phone, standing in the kitchen, ten seconds after the email arrives. Every screen is designed for that moment first and a desktop browser second.
-
-- **xs → xl breakpoints** — designed to be usable on small phones, then scaled up
-- **Thumb-reachable primary actions** — "Add bill" and "Record payment" sit where your thumb already is
-- **Installable PWA** — add to home screen, works offline for read, syncs when back online
-- **Static HTML mocks** under [`docs/mocks/`](docs/mocks/) are the authoritative visual reference; the Angular app must match them
-
-### 3. Own your data
-
-DueQ is self-hosted. Your bill history lives in your database, not a SaaS dashboard.
-
-- **SQL Server** today (LocalDB or SQLEXPRESS); swap providers via EF Core if you need Postgres/SQLite — handlers depend on the `IDueQContext` abstraction in `DueQ.Application/Abstractions/`
-- **CQRS via MediatR** — every command and query is one folder, easy to read, easy to extend
-- **FluentValidation** wired as a MediatR pipeline behavior — no validation runs in controllers
-- **xUnit + EF Core InMemory** — application tests run without a database, in seconds
+On startup the API migrates the SQLite database and seeds an empty database with demo household data. The local database file is `backend/src/DueQ.Api/dueq.db` and is ignored by git.
 
 ## Architecture
 
-```
-backend/                        .NET 10 solution (Clean Architecture)
+```text
+backend/                        .NET 10 solution
 ├─ src/
-│  ├─ DueQ.Domain               POCO entities (Bill, Payment, Household)
-│  ├─ DueQ.Application          CQRS use cases, IDueQContext abstraction
-│  ├─ DueQ.Infrastructure       EF Core DbContext + entity configurations + migrations
-│  └─ DueQ.Api                  ASP.NET Core controllers (Bills, Payments, Settings, Dashboard, History)
+│  ├─ DueQ.Domain               Bill, Payment, Household entities and enums
+│  ├─ DueQ.Application          CQRS commands/queries, validators, DTOs, IDueQContext
+│  ├─ DueQ.Infrastructure       EF Core SQLite DbContext, migrations, seed data
+│  └─ DueQ.Api                  ASP.NET Core controllers, CORS, error middleware
 └─ tests/
-   └─ DueQ.Application.Tests    xUnit + EF Core InMemory
+   └─ DueQ.Application.Tests    xUnit handler tests with EF Core InMemory
 
 frontend/                       Angular 21 workspace
 └─ projects/
-   ├─ due-q                     The app
-   ├─ api                       Typed HTTP client (library)
-   ├─ domain                    Shared models (library)
-   └─ components                Shared UI components (library)
+   ├─ due-q                     Routed standalone app
+   ├─ api                       Typed HTTP client library
+   └─ components                Shared presentational component library
 
-e2e/                            Playwright suite (mobile-xs through desktop breakpoints)
-└─ pages/, tests/               Page Objects + specs
+e2e/                            Playwright test suite
+└─ pages/, tests/               Page objects and specs across mobile/tablet/desktop
 
 docs/
-├─ idea.md                      The seven-line product brief
-└─ mocks/                       Static HTML mocks — visual source of truth
+├─ mocks/                       Static HTML/CSS visual reference
+└─ plan.md                      Current implementation status and remaining notes
 ```
 
-Dependency flow is one-way: `Api → Infrastructure → Application → Domain`. The Domain layer has no dependencies. The Application layer depends on abstractions; concrete EF Core wiring lives in Infrastructure. Controllers stay thin — they translate HTTP into MediatR requests and return the resulting DTO; cross-cutting concerns (validation, error mapping) run in MediatR pipeline behaviors and ASP.NET middleware.
+The backend keeps the dependency flow one-way: `Api -> Infrastructure -> Application -> Domain`. Controllers translate HTTP requests into MediatR commands/queries, validation runs in the application pipeline, and persistence is behind `IDueQContext`.
 
-## Get started
+The frontend app imports the built `api` and `components` libraries through workspace path aliases that point at `frontend/dist`.
 
-### Prerequisites
+## Prerequisites
 
-- **.NET SDK 10.0.101** or later (pinned in `backend/global.json`)
-- **Node.js 20+** and **npm 10+**
-- A SQL Server instance (LocalDB is fine for development)
+- .NET SDK 10.0.101 or later, pinned in [backend/global.json](backend/global.json).
+- Node.js 20+ and npm 10+.
+- No external database is required for local development; the API uses SQLite by default.
 
-### Run the backend
+## Run locally
+
+Start the API:
 
 ```powershell
 cd backend
-dotnet build
-dotnet run --project src/DueQ.Api
+dotnet restore
+dotnet run --project src/DueQ.Api --launch-profile http
 ```
 
-### Run the frontend
+The HTTP API runs at `http://localhost:5054`.
 
-The Angular workspace contains three libraries (`api`, `components`, `domain`) that the app imports via path aliases pointing to `dist/`. Build the libraries before serving the app:
+In a second terminal, build the Angular libraries once and start the app:
 
 ```powershell
 cd frontend
 npm install
-ng build api
-ng build components
-ng build domain
+npx ng build api
+npx ng build components
 npm start
 ```
 
-For active library development, run each in a separate terminal with `ng build <lib> --watch`.
+The web app runs at `http://localhost:4200` and points to `http://localhost:5054` through `frontend/projects/due-q/src/environments/environment.development.ts`.
 
-### Run the tests
+For active library work, keep the libraries rebuilding in watch mode:
 
 ```powershell
-# backend
-cd backend && dotnet test
-
-# single test class
-dotnet test --filter "FullyQualifiedName~CreateBillHandler"
-
-# frontend (Vitest)
-cd frontend && npm test
-
-# end-to-end (Playwright; dev server must be running)
-cd e2e && npm install && npx playwright install && npm test
+npx ng build api --watch
+npx ng build components --watch
 ```
 
-## Contributing
+## Run tests
 
-DueQ is intentionally narrow. Before opening a PR for a new feature, please open a discussion and explain how it serves the seven-line brief. Bug fixes and UI polish that match the mocks are always welcome.
+Backend:
 
-- Read [`CLAUDE.md`](CLAUDE.md) for repo conventions and the CQRS folder layout
-- Match the visual reference in [`docs/mocks/`](docs/mocks/) — pixel-level deviations count as bugs
-- One folder per use case under `DueQ.Application/<Aggregate>/Commands|Queries/<Name>/`
-- Money is rounded to two decimals at the handler boundary; strings are trimmed before persisting
+```powershell
+cd backend
+dotnet test
+```
 
-## License
+Frontend unit tests:
 
-MIT — see [`LICENSE`](LICENSE).
+```powershell
+cd frontend
+npm test
+```
+
+Production frontend build:
+
+```powershell
+cd frontend
+npx ng build api
+npx ng build components
+npx ng build due-q
+```
+
+End-to-end tests require the API to be running on `http://localhost:5054`. Playwright starts the Angular dev server itself unless `DUEQ_BASE_URL` is set.
+
+```powershell
+cd backend
+dotnet run --project src/DueQ.Api --launch-profile http
+
+# in another terminal
+cd e2e
+npm install
+npx playwright install
+npm test
+```
+
+Useful environment variables:
+
+- `DUEQ_API_BASE_URL` changes the API URL used by Playwright global setup.
+- `DUEQ_BASE_URL` points Playwright at an already-running frontend instead of starting one.
+
+## Development notes
+
+- Development CORS is wide open for the Angular dev server. Production CORS reads `Cors:AllowedOrigins`.
+- `POST /api/_test/reset` is available only in `Development`; Playwright uses it to reset seed data before the suite.
+- Static mocks in [docs/mocks](docs/mocks/) remain the visual reference for spacing, color, and component structure.
+- Generated SQLite files, Angular build output, Playwright reports, and local settings are ignored by git.

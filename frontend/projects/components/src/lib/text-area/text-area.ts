@@ -18,6 +18,9 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 export class TextArea implements ControlValueAccessor {
   placeholder = input<string>('');
   inputId = input<string | null>(null);
+  ariaLabel = input<string | null>(null);
+  rows = input<number | null>(null);
+  testId = input<string | null>(null);
 
   value = signal<string>('');
   disabled = signal<boolean>(false);

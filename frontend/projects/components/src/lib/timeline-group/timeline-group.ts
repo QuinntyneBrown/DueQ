@@ -9,4 +9,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export class TimelineGroup {
   month = input.required<string>();
   total = input<string | null>(null);
+  ariaLabel = input<string | null>(null);
+  totalTestId = input<string | null>(null);
+  testId = input<string | null>(null);
 }

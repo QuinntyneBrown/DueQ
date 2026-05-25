@@ -11,6 +11,10 @@ import { CurrencyPipe } from '@angular/common';
 export class SplitLegend {
   youName = input<string>('You');
   youAmount = input.required<number>();
+  youAmountLabel = input<string | null>(null);
+  youAmountTestId = input<string | null>(null);
   partnerName = input<string>('Partner');
   partnerAmount = input.required<number>();
+  partnerAmountLabel = input<string | null>(null);
+  partnerAmountTestId = input<string | null>(null);
 }

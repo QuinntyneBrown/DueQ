@@ -1,6 +1,6 @@
 @if (item().href) {
   <a class="row" [routerLink]="item().href" (click)="onClick()">
-    <lib-icon-tile [icon]="item().icon" [kind]="item().kind" />
+    <lib-icon-tile [icon]="item().icon" [kind]="kind()" />
     <div class="body">
       <div class="title">{{ item().title }}</div>
       <div class="meta">{{ item().meta }}</div>
@@ -14,7 +14,7 @@
   </a>
 } @else {
   <div class="row">
-    <lib-icon-tile [icon]="item().icon" [kind]="item().kind" />
+    <lib-icon-tile [icon]="item().icon" [kind]="kind()" />
     <div class="body">
       <div class="title">{{ item().title }}</div>
       <div class="meta">{{ item().meta }}</div>

@@ -77,6 +77,7 @@ public class GetDashboardHandler : IRequestHandler<GetDashboardQuery, DashboardD
 
         var recent = recentActivity
             .OrderByDescending(a => a.Date)
+            .ThenBy(a => a.Kind)
             .Take(5)
             .ToList();
 

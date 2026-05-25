@@ -4,3 +4,16 @@
   font-size: 14px;
   color: var(--muted);
 }
+
+.app-sidebar .footer .name {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.bottom-action {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  position: relative;
+  margin-top: -24px;
+}

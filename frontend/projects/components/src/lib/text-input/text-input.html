@@ -4,6 +4,8 @@
   [id]="inputId()"
   [placeholder]="placeholder()"
   [disabled]="disabled()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.data-testid]="testId()"
   [ngModel]="value()"
   (ngModelChange)="onChange($event)"
   (blur)="onTouched()"

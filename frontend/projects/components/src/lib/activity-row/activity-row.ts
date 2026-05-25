@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconTile } from '../icon-tile/icon-tile';
-import { ActivityItem } from '../models';
+import { ActivityItem, normalizeActivityKind } from '../models';
 
 @Component({
   selector: 'lib-activity-row',
@@ -14,7 +14,8 @@ export class ActivityRow {
   item = input.required<ActivityItem>();
   clicked = output<ActivityItem>();
 
-  isPayment = computed(() => this.item().kind === 'payment');
+  kind = computed(() => normalizeActivityKind(this.item().kind));
+  isPayment = computed(() => this.kind() === 'payment');
 
   displayAmount = computed(() => {
     const i = this.item();
@@ -23,7 +24,7 @@ export class ActivityRow {
       style: 'currency',
       currency: 'USD',
     });
-    const prefix = i.kind === 'payment' ? '−' : '+';
+    const prefix = this.kind() === 'payment' ? '−' : '+';
     return prefix + formatter.format(Math.abs(i.amount));
   });
 

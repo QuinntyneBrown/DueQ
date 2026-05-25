@@ -8,4 +8,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 })
 export class NoteCard {
   text = input.required<string>();
+  testId = input<string | null>(null);
 }

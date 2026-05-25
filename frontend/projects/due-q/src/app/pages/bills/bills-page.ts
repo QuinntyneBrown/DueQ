@@ -7,10 +7,16 @@ import {
   signal,
 } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { BILLS_SERVICE, Bill, BillStatus, IBillsService } from 'api';
-import { PageHead } from 'components';
+import {
+  BillListItem,
+  BillListItemData,
+  BillMonthGroup,
+  Chip,
+  ChipGroup,
+  PageHead,
+} from 'components';
 
 type Filter = 'All' | 'Unsettled' | 'Settled';
 
@@ -26,8 +32,10 @@ interface DisplayBill {
   readonly title: string;
   readonly icon: string;
   readonly dateLabel: string;
-  readonly total: string;
-  readonly partnerShare: string;
+  readonly total: number;
+  readonly totalLabel: string;
+  readonly partnerShare: number;
+  readonly partnerShareLabel: string;
   readonly status: BillStatus;
   readonly statusLabel: string;
 }
@@ -35,7 +43,7 @@ interface DisplayBill {
 @Component({
   selector: 'app-bills-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, PageHead],
+  imports: [PageHead, ChipGroup, Chip, BillMonthGroup, BillListItem],
   templateUrl: './bills-page.html',
   styleUrl: './bills-page.scss',
 })
@@ -118,11 +126,13 @@ function groupBillsByMonth(bills: readonly Bill[]): MonthGroup[] {
         title: b.description,
         icon: iconForBill(b.description),
         dateLabel: datePipe.transform(`${b.date}T00:00:00`, 'MMM d') ?? b.date,
-        total: currency.transform(b.amount, 'USD', 'symbol', '1.2-2') ?? `$${b.amount.toFixed(2)}`,
-        partnerShare: `+${currency.transform(b.partnerShare, 'USD', 'symbol', '1.2-2')}`,
+        total: b.amount,
+        totalLabel: currency.transform(b.amount, 'USD', 'symbol', '1.2-2') ?? `$${b.amount.toFixed(2)}`,
+        partnerShare: b.partnerShare,
+        partnerShareLabel: `+${currency.transform(b.partnerShare, 'USD', 'symbol', '1.2-2')}`,
         status: b.status,
         statusLabel: b.status === BillStatus.Settled ? 'Settled' : 'Unsettled',
-      })),
+      } satisfies BillListItemData)),
     };
   });
 }

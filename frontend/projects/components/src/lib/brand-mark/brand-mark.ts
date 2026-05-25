@@ -9,4 +9,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export class BrandMark {
   letter = input<string>('D');
   label = input<string | null>(null);
+  ariaHidden = input<boolean>(false);
+  testId = input<string | null>(null);
 }

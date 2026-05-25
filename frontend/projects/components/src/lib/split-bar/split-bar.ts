@@ -9,4 +9,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export class SplitBar {
   youPct = input<number>(1);
   partnerPct = input<number>(1);
+  testId = input<string | null>(null);
 }

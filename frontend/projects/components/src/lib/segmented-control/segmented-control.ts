@@ -17,6 +17,8 @@ import { SegmentedOption } from '../models';
 })
 export class SegmentedControl<T = string> implements ControlValueAccessor {
   options = input.required<SegmentedOption<T>[]>();
+  ariaLabel = input<string | null>(null);
+  testId = input<string | null>(null);
 
   value = signal<T | null>(null);
   disabled = signal<boolean>(false);

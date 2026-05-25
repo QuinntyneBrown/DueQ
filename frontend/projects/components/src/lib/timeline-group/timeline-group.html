@@ -1,8 +1,12 @@
-<div class="timeline-group">
+<section
+  class="timeline-group"
+  [attr.aria-label]="ariaLabel() ?? month()"
+  [attr.data-testid]="testId()"
+>
   <h3>
     {{ month() }}
     @if (total()) {
-      <span class="month-total">{{ total() }}</span>
+      <span class="month-total" [attr.data-testid]="totalTestId()">{{ total() }}</span>
     }
   </h3>
   <div class="card">
@@ -10,4 +14,4 @@
       <ng-content></ng-content>
     </div>
   </div>
-</div>
+</section>

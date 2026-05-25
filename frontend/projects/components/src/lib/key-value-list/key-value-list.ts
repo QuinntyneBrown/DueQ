@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'lib-key-value-list',
@@ -6,4 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './key-value-list.html',
   styleUrl: './key-value-list.scss',
 })
-export class KeyValueList {}
+export class KeyValueList {
+  testId = input<string | null>(null);
+}

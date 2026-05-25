@@ -1,1 +1,6 @@
-<span class="icon-tile" [class]="'t-' + kind()" [style.--size.px]="size()">{{ icon() }}</span>
+<span
+  class="icon-tile"
+  [class]="kindClass()"
+  [style.--size.px]="size()"
+  [attr.data-testid]="testId()"
+>{{ icon() }}</span>

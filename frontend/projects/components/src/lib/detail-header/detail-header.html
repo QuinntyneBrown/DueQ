@@ -1,9 +1,9 @@
 <div class="detail-header">
   <lib-icon-tile [icon]="icon()" kind="bill" [size]="56"></lib-icon-tile>
   <div class="text">
-    <div class="title">{{ title() }}</div>
+    <div class="title" [attr.data-testid]="titleTestId()">{{ title() }}</div>
     <div class="meta">
-      <lib-badge [kind]="status()"></lib-badge>
+      <lib-badge [kind]="status()" [testId]="statusTestId()"></lib-badge>
       @if (loggedOn()) {
         <span>&nbsp;Logged {{ loggedOn() }}</span>
       }

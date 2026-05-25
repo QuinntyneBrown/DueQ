@@ -1,8 +1,8 @@
-<div class="section">
+<section class="section" [attr.aria-label]="ariaLabel() ?? month()">
   <div class="section-head">
     <h2>{{ month() }}</h2>
     @if (total()) {
-      <span class="total">{{ total() }}</span>
+      <span class="total" [attr.data-testid]="totalTestId()">{{ total() }}</span>
     }
   </div>
   <div class="card">
@@ -10,4 +10,4 @@
       <ng-content></ng-content>
     </div>
   </div>
-</div>
+</section>

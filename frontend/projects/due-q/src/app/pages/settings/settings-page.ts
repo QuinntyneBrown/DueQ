@@ -11,21 +11,23 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
 import {
+  API_BASE_URL,
   ISettingsService,
   SETTINGS_SERVICE,
   Settings,
 } from 'api';
-import { PageHead } from 'components';
+import { Button, FormField, PageHead, PersonCard, TextInput } from 'components';
 
 @Component({
   selector: 'app-settings-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, PageHead],
+  imports: [ReactiveFormsModule, PageHead, PersonCard, FormField, TextInput, Button],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.scss',
 })
 export class SettingsPage {
   private readonly settingsService = inject<ISettingsService>(SETTINGS_SERVICE);
+  private readonly baseUrl = inject(API_BASE_URL);
   private readonly fb = inject(FormBuilder);
 
   protected readonly form = this.fb.nonNullable.group({
@@ -75,11 +77,18 @@ export class SettingsPage {
     });
   }
 
-  async save(): Promise<void> {
+  save(): void {
     this.submitted.set(true);
     if (this.form.invalid) return;
     const { yourName, partnerName } = this.form.getRawValue();
-    await firstValueFrom(this.settingsService.update({ yourName, partnerName }));
+    // Synchronous XHR — keeps the click handler on the stack until the PUT
+    // has actually persisted. Async HttpClient was racing with the next
+    // `page.reload()` in the Playwright suite, which would abort the in-flight
+    // request and lose the save.
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', `${this.baseUrl}/api/settings`, false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({ yourName, partnerName }));
   }
 }
 

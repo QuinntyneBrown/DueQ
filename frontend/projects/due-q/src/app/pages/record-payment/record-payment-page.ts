@@ -24,14 +24,36 @@ import {
   PAYMENTS_SERVICE,
   PaymentMethod,
 } from 'api';
-import { PageHead } from 'components';
+import {
+  AmountInput,
+  BackLink,
+  Button,
+  DateInput,
+  FormField,
+  PageHead,
+  PreviewBlock,
+  SegmentedControl,
+  SegmentedOption,
+  TextArea,
+} from 'components';
 
 type MethodLabel = 'e-Transfer' | 'Cash' | 'Other';
 
 @Component({
   selector: 'app-record-payment-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, PageHead],
+  imports: [
+    ReactiveFormsModule,
+    BackLink,
+    PageHead,
+    PreviewBlock,
+    FormField,
+    AmountInput,
+    DateInput,
+    SegmentedControl,
+    TextArea,
+    Button,
+  ],
   templateUrl: './record-payment-page.html',
   styleUrl: './record-payment-page.scss',
 })
@@ -42,6 +64,10 @@ export class RecordPaymentPage {
   private readonly fb = inject(FormBuilder);
 
   protected readonly methods: MethodLabel[] = ['e-Transfer', 'Cash', 'Other'];
+  protected readonly methodOptions: SegmentedOption<MethodLabel>[] = this.methods.map((method) => ({
+    label: method,
+    value: method,
+  }));
 
   protected readonly form = this.fb.nonNullable.group({
     amount: ['', [Validators.required, positiveAmount]],
@@ -59,6 +85,7 @@ export class RecordPaymentPage {
 
   protected readonly currentBalance = computed(() => Math.max(0, this.dashboard.value()?.balance ?? 0));
   protected readonly currentBalanceText = computed(() => formatCurrency(this.currentBalance()));
+  protected readonly loaded = computed(() => this.dashboard.value() !== undefined);
 
   private readonly value = toSignal(
     this.form.valueChanges.pipe(takeUntilDestroyed()),
@@ -92,16 +119,6 @@ export class RecordPaymentPage {
   protected readonly dateError = computed(
     () => this.submitted() && this.form.controls.date.invalid && 'Pick a date.',
   );
-
-  protected readonly selectedMethod = computed(() => this.value().method ?? 'e-Transfer');
-
-  protected isMethod(m: MethodLabel): boolean {
-    return this.selectedMethod() === m;
-  }
-
-  protected selectMethod(m: MethodLabel): void {
-    this.form.controls.method.setValue(m);
-  }
 
   async save(): Promise<void> {
     this.submitted.set(true);

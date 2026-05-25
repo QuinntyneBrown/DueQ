@@ -1,1 +1,6 @@
-<a class="back-link" [attr.href]="href()">← {{ label() }}</a>
+<a
+  class="back-link"
+  [routerLink]="routerLink()"
+  [attr.href]="routerLink() ? null : href()"
+  [attr.data-testid]="testId()"
+>← {{ label() }}</a>

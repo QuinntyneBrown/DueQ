@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { IconTileKind } from '../models';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { IconTileKindValue, normalizeIconTileKind } from '../models';
 
 @Component({
   selector: 'lib-icon-tile',
@@ -9,6 +9,9 @@ import { IconTileKind } from '../models';
 })
 export class IconTile {
   icon = input.required<string>();
-  kind = input<IconTileKind>('bill');
+  kind = input<IconTileKindValue>('bill');
   size = input<number>(40);
+  testId = input<string | null>(null);
+
+  kindClass = computed(() => `t-${normalizeIconTileKind(this.kind())}`);
 }

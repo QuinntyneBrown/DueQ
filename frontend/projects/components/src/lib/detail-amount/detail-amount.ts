@@ -10,5 +10,8 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class DetailAmount {
   value = input.required<number>();
+  valueLabel = input<string | null>(null);
   meta = input<string | null>(null);
+  amountTestId = input<string | null>(null);
+  metaTestId = input<string | null>(null);
 }

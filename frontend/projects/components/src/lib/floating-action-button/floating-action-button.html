@@ -1,3 +1,31 @@
-<button type="button" class="fab" [attr.aria-label]="ariaLabel()" (click)="clicked.emit()">
-  {{ icon() }}
-</button>
+@if (routerLink()) {
+  <a
+    class="fab"
+    [routerLink]="routerLink()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.data-testid]="testId()"
+    (click)="clicked.emit()"
+  >
+    {{ icon() }}
+  </a>
+} @else if (href()) {
+  <a
+    class="fab"
+    [attr.href]="href()"
+    [attr.aria-label]="ariaLabel()"
+    [attr.data-testid]="testId()"
+    (click)="clicked.emit()"
+  >
+    {{ icon() }}
+  </a>
+} @else {
+  <button
+    type="button"
+    class="fab"
+    [attr.aria-label]="ariaLabel()"
+    [attr.data-testid]="testId()"
+    (click)="clicked.emit()"
+  >
+    {{ icon() }}
+  </button>
+}

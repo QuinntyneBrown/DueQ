@@ -14,4 +14,6 @@ export class PersonCard {
   initials = input.required<string>();
   variant = input<AvatarVariant>('default');
   hint = input<string | null>(null);
+  avatarTestId = input<string | null>(null);
+  testId = input<string | null>(null);
 }

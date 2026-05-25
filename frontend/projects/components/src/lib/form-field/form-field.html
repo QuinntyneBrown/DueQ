@@ -6,4 +6,7 @@
     }
   </label>
   <ng-content></ng-content>
+  @if (error(); as message) {
+    <div class="error" [attr.data-testid]="errorTestId()">{{ message }}</div>
+  }
 </div>
