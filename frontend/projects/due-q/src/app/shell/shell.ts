@@ -8,6 +8,7 @@ import {
 import {
   NavigationEnd,
   Router,
+  RouterLink,
   RouterOutlet,
 } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
@@ -32,7 +33,7 @@ const EMPTY_SETTINGS: Settings = { yourName: '', partnerName: '' };
 @Component({
   selector: 'app-shell',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, Avatar, BrandMark, FloatingActionButton, NavItem, NavLink],
+  imports: [RouterOutlet, RouterLink, Avatar, BrandMark, FloatingActionButton, NavItem, NavLink],
   templateUrl: './shell.html',
   styleUrl: './shell.scss',
 })

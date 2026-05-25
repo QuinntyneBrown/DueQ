@@ -1,30 +1,5 @@
 :host { display: block; }
 
-.title-row {
-  display: flex;
-  align-items: center;
-  gap: var(--s-4);
-  margin-bottom: var(--s-4);
-}
-
-.icon-tile.big {
-  width: 56px;
-  height: 56px;
-  font-size: 24px;
-}
-
-.big-title {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.title-sub {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
 .section-label {
   font-size: 14px;
   text-transform: uppercase;
@@ -37,20 +12,13 @@
   margin-top: 0;
 }
 
-.note-card {
-  padding: var(--s-4);
-  font-size: 14px;
-  color: var(--ink-2);
-  line-height: 1.5;
-}
-
 .action-row {
   display: flex;
   gap: var(--s-3);
   margin-top: var(--s-6);
 
-  .btn-outline { flex: 1; }
-  .btn-primary { flex: 2; }
+  .edit-action { flex: 1; }
+  .settle-action { flex: 2; }
 }
 
 .delete-row {

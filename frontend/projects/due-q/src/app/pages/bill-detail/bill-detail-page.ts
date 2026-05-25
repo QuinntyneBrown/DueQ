@@ -8,15 +8,36 @@ import {
   signal,
 } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { BILLS_SERVICE, Bill, BillStatus, IBillsService, ISettingsService, SETTINGS_SERVICE } from 'api';
+import {
+  BackLink,
+  Button,
+  DetailAmount,
+  DetailHeader,
+  KeyValueList,
+  KeyValueRow,
+  NoteCard,
+  SplitBar,
+  SplitLegend,
+} from 'components';
 import { iconForBill } from '../bills/bills-page';
 
 @Component({
   selector: 'app-bill-detail-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [
+    BackLink,
+    Button,
+    DetailHeader,
+    DetailAmount,
+    SplitBar,
+    SplitLegend,
+    KeyValueList,
+    KeyValueRow,
+    NoteCard,
+  ],
   templateUrl: './bill-detail-page.html',
   styleUrl: './bill-detail-page.scss',
 })
@@ -70,10 +91,10 @@ export class BillDetailPage {
   protected readonly partnerShareSigned = computed(() => `+${this.partnerShareText()}`);
 
   protected readonly dateLong = computed(() => formatLongDate(this.value()?.date));
-  protected readonly loggedLine = computed(() => {
+  protected readonly loggedDate = computed(() => {
     const created = this.value()?.createdAt;
     if (!created) return '';
-    return `Logged ${formatLongDate(created)}`;
+    return formatLongDate(created);
   });
   protected readonly metaLine = computed(() => {
     const v = this.value();

@@ -2,7 +2,7 @@
 
   <header class="app-header">
     <div class="brand">
-      <lib-brand-mark ariaHidden />
+      <lib-brand-mark [ariaHidden]="true" />
       <span>{{ title() }}</span>
     </div>
     @switch (action()?.kind) {
@@ -23,7 +23,7 @@
 
   <aside class="app-sidebar" aria-label="Main">
     <div class="brand">
-      <lib-brand-mark label="DueQ" ariaHidden />
+      <lib-brand-mark label="DueQ" [ariaHidden]="true" />
     </div>
     <lib-nav-link icon="⌂" label="Dashboard" routerLink="/dashboard" />
     <lib-nav-link icon="▤" label="Bills" routerLink="/bills" [exact]="true" />
@@ -32,7 +32,7 @@
     <lib-nav-link icon="↓" label="Record Payment" routerLink="/payments/new" />
     <lib-nav-link icon="◔" label="Settings" routerLink="/settings" />
     <div class="footer">
-      <lib-avatar [initials]="yourInitials()" ariaHidden />
+      <lib-avatar [initials]="yourInitials()" [ariaHidden]="true" />
       <div class="name">{{ yourName() }}</div>
     </div>
   </aside>
