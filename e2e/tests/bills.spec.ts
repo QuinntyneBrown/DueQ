@@ -67,7 +67,9 @@ test.describe('Bills list', () => {
     await expect(bills.monthTotal('May 2026')).toBeVisible();
   });
 
-  test('header + button navigates to the add bill screen', async ({ page }) => {
+  test('header + button navigates to the add bill screen', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'header + button only appears in the mobile header; desktop uses the sidebar');
+
     const bills = new BillsPage(page);
     await bills.goto();
 

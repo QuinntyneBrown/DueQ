@@ -1,6 +1,4 @@
-<div class="amount" [attr.data-testid]="amountTestId()">
-  {{ valueLabel() ?? (value() | currency:'USD':'symbol':'1.2-2') }}
-</div>
+<div class="amount" [attr.data-testid]="amountTestId()">{{ valueLabel() ?? (value() | currency:'USD':'symbol':'1.2-2') }}</div>
 @if (meta()) {
   <div class="meta" [attr.data-testid]="metaTestId()">{{ meta() }}</div>
 }

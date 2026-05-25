@@ -22,7 +22,9 @@
 @for (month of months(); track month.key) {
   <lib-timeline-group [month]="month.label" [total]="month.monthTotalText" totalTestId="month-total">
     @for (entry of month.entries; track entry.id) {
-      <lib-timeline-row [entry]="entry" balanceTestId="row-running-balance" />
+      <li>
+        <lib-timeline-row [entry]="entry" balanceTestId="row-running-balance" />
+      </li>
     }
   </lib-timeline-group>
 }

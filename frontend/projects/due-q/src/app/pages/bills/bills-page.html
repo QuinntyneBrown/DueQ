@@ -12,7 +12,9 @@
   @for (group of months(); track group.key) {
     <lib-bill-month-group [month]="group.label" [total]="group.total" totalTestId="month-total">
       @for (bill of group.bills; track bill.id) {
-        <lib-bill-list-item [bill]="bill" [href]="['/bills', bill.id]" statusTestId="status-badge" />
+        <li>
+          <lib-bill-list-item [bill]="bill" [href]="['/bills', bill.id]" statusTestId="status-badge" />
+        </li>
       }
     </lib-bill-month-group>
   }
