@@ -1,4 +1,4 @@
-<lib-page-head title="Add a bill" subtitle="Split it 50/50 between you and Sam." />
+<lib-page-head title="Add a bill" [subtitle]="subtitle()" />
 
 <form class="form" [formGroup]="form" (ngSubmit)="save(false)" novalidate>
 
@@ -30,7 +30,7 @@
   <hr class="hr-soft" />
 
   <lib-preview-block
-    label="Sam owes"
+    [label]="previewLabel()"
     [sublabel]="previewSubtitle()"
     [amount]="partnerShare() ?? 0"
     [amountLabel]="'+' + partnerShareText()"

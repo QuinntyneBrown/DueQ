@@ -15,8 +15,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { firstValueFrom } from 'rxjs';
-import { BILLS_SERVICE, IBillsService } from 'api';
+import { catchError, firstValueFrom, of } from 'rxjs';
+import { BILLS_SERVICE, IBillsService, SETTINGS_SERVICE } from 'api';
 import {
   AmountInput,
   Button,
@@ -47,8 +47,18 @@ import {
 })
 export class AddBillPage {
   private readonly billsService = inject<IBillsService>(BILLS_SERVICE);
+  private readonly settingsService = inject(SETTINGS_SERVICE);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
+
+  private readonly settings = toSignal(
+    this.settingsService.get().pipe(catchError(() => of({ yourName: '', partnerName: '' }))),
+    { initialValue: { yourName: '', partnerName: '' } },
+  );
+
+  protected readonly partnerName = computed(() => this.settings().partnerName || 'your partner');
+  protected readonly subtitle = computed(() => `Split it 50/50 between you and ${this.partnerName()}.`);
+  protected readonly previewLabel = computed(() => `${this.partnerName()} owes`);
 
   protected readonly form = this.fb.nonNullable.group({
     amount: ['', [Validators.required, positiveAmount]],

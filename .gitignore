@@ -3,6 +3,9 @@
 *.db-shm
 *.db-wal
 
+# ---- NuGet pack outputs ----
+nupkg/
+
 # ---- .NET ----
 [Bb]in/
 [Oo]bj/

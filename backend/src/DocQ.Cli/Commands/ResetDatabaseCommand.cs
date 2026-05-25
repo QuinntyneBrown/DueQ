@@ -11,9 +11,9 @@ public sealed class ResetDatabaseCommand : ICommandDefinition
     {
         Description = "Confirm the destructive reset."
     };
-    private readonly Option<bool> _skipSeedOption = new("--skip-seed")
+    private readonly Option<bool> _seedOption = new("--seed")
     {
-        Description = "Recreate the schema without loading the default fresh-install seed data."
+        Description = "After recreating the schema, load the default fresh-install seed data."
     };
 
     public ResetDatabaseCommand(ICommandExecutor executor)
@@ -23,9 +23,9 @@ public sealed class ResetDatabaseCommand : ICommandDefinition
 
     public Command Build()
     {
-        var command = new Command("reset-database", "Drop, recreate, and optionally seed the configured database.");
+        var command = new Command("reset-database", "Drop and recreate the configured database. Empty by default; pass --seed to load fresh-install data.");
         command.Options.Add(_yesOption);
-        command.Options.Add(_skipSeedOption);
+        command.Options.Add(_seedOption);
         command.SetAction((parseResult, cancellationToken) =>
             _executor.ExecuteAsync(async (serviceProvider, ct) =>
             {
@@ -34,13 +34,13 @@ public sealed class ResetDatabaseCommand : ICommandDefinition
                     throw new CliUsageException("Refusing to reset the database without --yes.");
                 }
 
-                var seed = !parseResult.GetValue(_skipSeedOption);
+                var seed = parseResult.GetValue(_seedOption);
                 var resetter = serviceProvider.GetRequiredService<IDatabaseResetService>();
                 await resetter.ResetAsync(seed, ct);
 
-                var mode = seed ? "with fresh-install seed data" : "without seed data";
+                var mode = seed ? "with fresh-install seed data" : "empty";
                 serviceProvider.GetRequiredService<ICliConsole>()
-                    .WriteLine($"Database reset complete {mode}.");
+                    .WriteLine($"Database reset complete ({mode}).");
                 return 0;
             }, cancellationToken));
 

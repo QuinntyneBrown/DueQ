@@ -57,7 +57,6 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<DueQContext>();
     await context.Database.MigrateAsync();
-    await DueQContextSeeder.SeedAsync(context);
 }
 
 app.Run();

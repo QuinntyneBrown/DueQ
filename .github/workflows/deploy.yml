@@ -1,0 +1,78 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-api:
+    name: Deploy API to App Service
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish API
+        run: dotnet publish backend/src/DueQ.Api/DueQ.Api.csproj -c Release -o publish
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: publish
+
+  deploy-frontend:
+    name: Deploy frontend to Static Web Apps
+    runs-on: ubuntu-latest
+    needs: deploy-api
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Bake production API base URL into environment.ts
+        working-directory: frontend
+        env:
+          API_BASE_URL: ${{ secrets.DUEQ_API_BASE_URL }}
+        run: |
+          sed -i "s|http://localhost:5054|${API_BASE_URL}|g" \
+            projects/due-q/src/environments/environment.ts
+
+      - name: Build api lib
+        working-directory: frontend
+        run: npx ng build api --configuration production
+
+      - name: Build components lib
+        working-directory: frontend
+        run: npx ng build components --configuration production
+
+      - name: Build app
+        working-directory: frontend
+        run: npx ng build due-q --configuration production
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: upload
+          app_location: frontend/dist/due-q/browser
+          api_location: ''
+          output_location: ''
+          skip_app_build: true
+          skip_api_build: true

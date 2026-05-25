@@ -5,7 +5,7 @@ namespace DocQ.Cli.Configuration;
 public static class ConfigurationExtensions
 {
     private const string DueQConnectionStringKey = "ConnectionStrings:DueQ";
-    private const string DefaultConnectionString = "Data Source=dueq.db";
+    private const string DefaultConnectionString = "Server=.\\SQLEXPRESS;Database=DueQ;Trusted_Connection=True;TrustServerCertificate=True";
 
     public static IConfigurationManager AddDueQConnectionStringDefaults(
         this IConfigurationManager configuration,
