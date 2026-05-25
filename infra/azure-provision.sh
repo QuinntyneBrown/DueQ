@@ -21,7 +21,7 @@ set -euo pipefail
 
 RG="${DUEQ_RG:-dueq-rg}"
 LOCATION="${DUEQ_LOCATION:-eastus2}"
-SUFFIX="${DUEQ_SUFFIX:-$(LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 6)}"
+SUFFIX="${DUEQ_SUFFIX:-$(printf '%04x%02x' $((RANDOM % 65536)) $((RANDOM % 256)))}"
 
 SQL_SERVER="dueq-sql-${SUFFIX}"
 SQL_DB="DueQ"
