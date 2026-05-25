@@ -99,11 +99,10 @@ export class BillDetailPage {
   protected readonly metaLine = computed(() => {
     const v = this.value();
     if (!v) return '';
-    return `${formatLongDate(v.date)} · ${iconForBill(v.description)} ${categoryFor(v.description)}`;
+    return `${formatLongDate(v.date)} · ${iconForBill(v.description)}`;
   });
 
   protected readonly icon = computed(() => iconForBill(this.value()?.description ?? ''));
-  protected readonly category = computed(() => categoryFor(this.value()?.description ?? ''));
 
   async toggleSettled(): Promise<void> {
     const v = this.value();
@@ -149,14 +148,4 @@ function formatLongDate(date: string | undefined): string {
   if (!date) return '';
   const normalized = date.length === 10 ? `${date}T00:00:00` : date;
   return new DatePipe('en-US').transform(normalized, 'MMMM d, yyyy') ?? date;
-}
-
-function categoryFor(title: string): string {
-  const t = title.toLowerCase();
-  if (t.includes('grocer') || t.includes('costco') || t.includes('loblaw')) return 'Groceries';
-  if (t.includes('hydro') || t.includes('electric')) return 'Utilities';
-  if (t.includes('internet') || t.includes('bell') || t.includes('rogers')) return 'Internet';
-  if (t.includes('rent') || t.includes('mortgage')) return 'Rent';
-  if (t.includes('dinner') || t.includes('lunch') || t.includes('pizza')) return 'Dining';
-  return 'Bill';
 }

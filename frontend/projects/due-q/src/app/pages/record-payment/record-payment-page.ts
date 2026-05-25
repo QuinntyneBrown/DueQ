@@ -86,6 +86,13 @@ export class RecordPaymentPage {
   protected readonly currentBalance = computed(() => Math.max(0, this.dashboard.value()?.balance ?? 0));
   protected readonly currentBalanceText = computed(() => formatCurrency(this.currentBalance()));
   protected readonly loaded = computed(() => this.dashboard.value() !== undefined);
+  protected readonly partnerName = computed(() => this.dashboard.value()?.partnerName ?? 'your partner');
+  protected readonly pageTitle = computed(() => `Record a payment from ${this.partnerName()}`);
+  protected readonly pageSubtitle = computed(() => `Log money ${this.partnerName()} sent you toward what they owe.`);
+  protected readonly currentBalanceLabel = computed(() => `${this.partnerName()} currently owes`);
+  protected readonly overpaymentWarning = computed(
+    () => `This payment is more than what ${this.partnerName()} currently owes.`,
+  );
 
   private readonly value = toSignal(
     this.form.valueChanges.pipe(takeUntilDestroyed()),

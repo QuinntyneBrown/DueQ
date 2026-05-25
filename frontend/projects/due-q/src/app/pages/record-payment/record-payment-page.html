@@ -1,14 +1,14 @@
 <lib-back-link label="Back" routerLink="/dashboard" />
 
 <lib-page-head
-  title="Record a payment from Sam"
-  subtitle="Log money Sam sent you toward what they owe."
+  [title]="pageTitle()"
+  [subtitle]="pageSubtitle()"
 />
 
 @if (loaded()) {
   <lib-preview-block
     class="current-balance-block"
-    label="Sam currently owes"
+    [label]="currentBalanceLabel()"
     sublabel="As of today"
     [amount]="currentBalance()"
     [amountLabel]="currentBalanceText()"
@@ -48,7 +48,7 @@
 
   @if (overpayment()) {
     <div class="overpayment" data-testid="overpayment-warning">
-      This payment is more than what Sam currently owes.
+      {{ overpaymentWarning() }}
     </div>
   }
 
