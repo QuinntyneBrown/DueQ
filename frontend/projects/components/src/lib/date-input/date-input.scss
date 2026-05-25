@@ -1,7 +1,16 @@
 :host { display: block; }
 
 .input {
+  /* iOS Safari & Chrome give <input type="date"> an intrinsic min-width
+     based on the locale's date placeholder, so width:100% gets ignored and
+     the field overflows the container. Suppressing the native chrome lets
+     the box honor the layout width. */
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
   border: 1px solid var(--border-strong);
   border-radius: var(--r-2);
   background: var(--surface);
@@ -10,7 +19,19 @@
   font-size: 16px;
   font-family: inherit;
   color: var(--ink);
-  box-sizing: border-box;
+  text-align: left;
+
+  &::-webkit-date-and-time-value {
+    text-align: left;
+    min-height: 1lh;
+  }
+
+  /* Light glyph on the dark surface (default is near-black). */
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(0.85);
+    opacity: 0.6;
+    cursor: pointer;
+  }
 
   &:focus {
     outline: none;
