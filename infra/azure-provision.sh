@@ -55,6 +55,12 @@ az appservice plan create -g "$RG" -n "$PLAN_NAME" --sku F1 --is-linux -o none
 echo ">> Web app: $WEBAPP_NAME"
 az webapp create -g "$RG" -p "$PLAN_NAME" -n "$WEBAPP_NAME" --runtime "DOTNETCORE:10.0" -o none
 
+# Enable SCM basic auth so the GitHub Actions publish-profile deploy works
+# (Azure ships new web apps with this disabled by default since 2023).
+az resource update -g "$RG" --namespace Microsoft.Web \
+  --resource-type basicPublishingCredentialsPolicies --name scm \
+  --parent "sites/${WEBAPP_NAME}" --set properties.allow=true -o none
+
 CONN="Server=tcp:${SQL_SERVER}.database.windows.net,1433;Database=${SQL_DB};User ID=${SQL_ADMIN_USER};Password=${SQL_ADMIN_PASSWORD};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 
 az webapp config connection-string set -g "$RG" -n "$WEBAPP_NAME" \
