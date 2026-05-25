@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-3, 12px) var(--s-4, 16px);
+  border-bottom: 1px solid var(--border, #ece9e1);
+  background: var(--bg, #fbfaf7);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2, 8px);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.back {
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--ink, #1a1a1a);
+  padding: 4px 8px;
+}
+
+.action {
+  font-size: 14px;
+  color: var(--muted, #8a857c);
+  text-decoration: none;
+  padding: 4px 8px;
+}
+
+@media (min-width: 768px) {
+  :host {
+    display: none;
+  }
+}

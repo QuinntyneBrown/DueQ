@@ -12,33 +12,8 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
       multi: true,
     },
   ],
-  template: `
-    <input
-      class="input"
-      type="date"
-      [id]="inputId()"
-      [disabled]="disabled()"
-      [ngModel]="value()"
-      (ngModelChange)="onChange($event)"
-      (blur)="onTouched()"
-    />
-  `,
-  styles: `
-    :host { display: block; }
-    .input {
-      width: 100%;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--r-2);
-      background: var(--surface);
-      padding: 0 var(--s-4);
-      height: 48px;
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--ink);
-      box-sizing: border-box;
-    }
-    .input:focus { outline: none; border-color: var(--ink); }
-  `,
+  templateUrl: './date-input.html',
+  styleUrl: './date-input.scss',
 })
 export class DateInput implements ControlValueAccessor {
   inputId = input<string | null>(null);

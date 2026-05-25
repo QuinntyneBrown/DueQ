@@ -1,0 +1,9 @@
+<div class="preview-block" [class.dark]="dark()">
+  <div>
+    <div class="lbl">{{ label() }}</div>
+    @if (sublabel()) {
+      <div class="sub">{{ sublabel() }}</div>
+    }
+  </div>
+  <div class="val" [class]="tone()">{{ amount() | currency }}</div>
+</div>

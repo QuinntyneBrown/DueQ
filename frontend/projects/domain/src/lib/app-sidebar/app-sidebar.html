@@ -1,0 +1,18 @@
+<div class="brand">
+  <lib-brand-mark />
+  <span>DueQ</span>
+</div>
+
+@for (link of nav; track link.href) {
+  <lib-nav-link
+    [icon]="link.icon"
+    [label]="link.label"
+    [href]="link.href"
+    [active]="isActive(link.href)"
+  />
+}
+
+<div class="footer">
+  <lib-avatar [initials]="initials()" variant="you" />
+  <div class="name">{{ yourName() }}</div>
+</div>

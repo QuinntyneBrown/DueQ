@@ -1,0 +1,13 @@
+<div class="card">
+  @if (items().length > 0) {
+    <ul class="list" role="list">
+      @for (item of items(); track item.id) {
+        <li>
+          <lib-activity-row [item]="item" (clicked)="rowClick.emit($event)" />
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="empty">No activity yet.</div>
+  }
+</div>

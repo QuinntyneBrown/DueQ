@@ -1,0 +1,22 @@
+:host { display: block; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-3);
+}
+
+ul.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.empty {
+  text-align: center;
+  padding: var(--s-6) var(--s-4);
+  color: var(--muted);
+  font-size: 14px;
+}

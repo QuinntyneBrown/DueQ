@@ -14,9 +14,9 @@ public static class DependencyInjection
             ?? throw new InvalidOperationException("Connection string 'DueQ' is not configured.");
 
         services.AddDbContext<DueQContext>(options =>
-            options.UseSqlServer(connectionString, sql =>
+            options.UseSqlite(connectionString, sqlite =>
             {
-                sql.MigrationsAssembly(typeof(DueQContext).Assembly.FullName);
+                sqlite.MigrationsAssembly(typeof(DueQContext).Assembly.FullName);
             }));
 
         services.AddScoped<IDueQContext>(sp => sp.GetRequiredService<DueQContext>());

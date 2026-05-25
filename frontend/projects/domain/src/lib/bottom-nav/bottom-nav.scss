@@ -1,0 +1,20 @@
+:host {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  background: var(--surface, #fff);
+  border-top: 1px solid var(--border, #ece9e1);
+  padding: var(--s-2, 8px) var(--s-3, 12px);
+  z-index: 10;
+  padding-bottom: max(var(--s-2, 8px), env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  :host {
+    display: none;
+  }
+}

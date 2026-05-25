@@ -12,35 +12,8 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
       multi: true,
     },
   ],
-  template: `
-    <input
-      class="input"
-      type="text"
-      [id]="inputId()"
-      [placeholder]="placeholder()"
-      [disabled]="disabled()"
-      [ngModel]="value()"
-      (ngModelChange)="onChange($event)"
-      (blur)="onTouched()"
-    />
-  `,
-  styles: `
-    :host { display: block; }
-    .input {
-      width: 100%;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--r-2);
-      background: var(--surface);
-      padding: 0 var(--s-4);
-      height: 48px;
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--ink);
-      box-sizing: border-box;
-    }
-    .input:focus { outline: none; border-color: var(--ink); }
-    .input:disabled { background: var(--surface-2); color: var(--muted); }
-  `,
+  templateUrl: './text-input.html',
+  styleUrl: './text-input.scss',
 })
 export class TextInput implements ControlValueAccessor {
   placeholder = input<string>('');

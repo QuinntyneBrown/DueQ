@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  margin-bottom: var(--s-4);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.text { min-width: 0; }
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+}

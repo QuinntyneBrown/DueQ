@@ -1,0 +1,9 @@
+<input
+  class="input"
+  type="date"
+  [id]="inputId()"
+  [disabled]="disabled()"
+  [ngModel]="value()"
+  (ngModelChange)="onChange($event)"
+  (blur)="onTouched()"
+/>

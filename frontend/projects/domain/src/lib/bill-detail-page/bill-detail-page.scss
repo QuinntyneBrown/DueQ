@@ -1,0 +1,40 @@
+.not-found {
+  color: var(--muted, #8a857c);
+  text-align: center;
+  margin-top: var(--s-6, 32px);
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid var(--border, #ece9e1);
+  margin: var(--s-5, 24px) 0;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted, #8a857c);
+  margin: var(--s-5, 24px) 0 var(--s-3, 12px);
+}
+
+.actions {
+  display: flex;
+  gap: var(--s-3, 12px);
+  margin-top: var(--s-6, 32px);
+}
+
+.actions lib-button:first-child {
+  flex: 1;
+}
+
+.actions lib-button:last-child {
+  flex: 2;
+}
+
+.delete-row {
+  margin-top: var(--s-5, 24px);
+  display: flex;
+  justify-content: center;
+}

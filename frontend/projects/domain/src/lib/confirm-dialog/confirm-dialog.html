@@ -1,0 +1,14 @@
+<div class="backdrop" (click)="cancelled.emit()"></div>
+<div class="panel" (click)="$event.stopPropagation()">
+  <h2 [id]="titleId" class="title">{{ title() }}</h2>
+  @if (message()) {
+    <p class="message">{{ message() }}</p>
+  }
+  <div class="actions">
+    <lib-button variant="outline" (clicked)="cancelled.emit()">{{ cancelLabel() }}</lib-button>
+    <lib-button
+      [variant]="dangerous() ? 'danger' : 'primary'"
+      (clicked)="confirmed.emit()"
+    >{{ confirmLabel() }}</lib-button>
+  </div>
+</div>

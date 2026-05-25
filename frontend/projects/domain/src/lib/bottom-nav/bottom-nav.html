@@ -1,0 +1,11 @@
+@for (item of items; track item.href; let i = $index) {
+  @if (i === 2) {
+    <lib-floating-action-button aria-label="Add bill" (clicked)="onAddBill()" />
+  }
+  <lib-nav-item
+    [icon]="item.icon"
+    [label]="item.label"
+    [href]="item.href"
+    [active]="isActive(item.href)"
+  />
+}

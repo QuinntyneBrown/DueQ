@@ -1,0 +1,13 @@
+<div class="timeline-group">
+  <h3>
+    {{ month() }}
+    @if (total()) {
+      <span class="month-total">{{ total() }}</span>
+    }
+  </h3>
+  <div class="card">
+    <div class="list">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

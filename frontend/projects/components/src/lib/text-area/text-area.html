@@ -1,0 +1,9 @@
+<textarea
+  class="textarea"
+  [id]="inputId()"
+  [placeholder]="placeholder()"
+  [disabled]="disabled()"
+  [ngModel]="value()"
+  (ngModelChange)="onChange($event)"
+  (blur)="onTouched()"
+></textarea>

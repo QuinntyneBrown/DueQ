@@ -1,0 +1,11 @@
+<section class="balance-card" data-testid="balance-card">
+  <div class="label" data-testid="balance-label">{{ label() }}</div>
+  <div class="amount" data-testid="balance-amount">{{ amount() | currency:'USD':'symbol':'1.2-2' }}</div>
+  @if (meta()) {
+    <div class="meta" data-testid="balance-meta">{{ meta() }}</div>
+  }
+  <div class="actions">
+    <button type="button" class="btn btn-secondary" (click)="addBill.emit()">＋ Add bill</button>
+    <button type="button" class="btn btn-secondary" (click)="recordPayment.emit()">↓ Record payment</button>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+<a class="row" (click)="onClick($event)">
+  <lib-icon-tile [icon]="bill().icon" kind="bill"></lib-icon-tile>
+  <div class="body">
+    <div class="title">{{ bill().title }}</div>
+    <div class="meta">{{ bill().date }} · <lib-badge [kind]="bill().status"></lib-badge></div>
+  </div>
+  <div class="right">
+    <div class="amount">{{ bill().total | currency }}</div>
+    <div class="sub">+{{ bill().partnerShare | currency }}</div>
+  </div>
+</a>

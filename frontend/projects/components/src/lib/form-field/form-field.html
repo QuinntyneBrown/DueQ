@@ -1,0 +1,9 @@
+<div class="field">
+  <label [attr.for]="for()">
+    {{ label() }}
+    @if (hint()) {
+      <span class="hint">({{ hint() }})</span>
+    }
+  </label>
+  <ng-content></ng-content>
+</div>

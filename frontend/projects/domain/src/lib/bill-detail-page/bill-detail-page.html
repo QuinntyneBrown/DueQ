@@ -1,0 +1,60 @@
+@if (notFound()) {
+  <p class="not-found" data-testid="not-found">Bill not found.</p>
+} @else if (bill(); as b) {
+  <lib-back-link label="All bills" href="/bills" />
+
+  <lib-detail-header
+    [icon]="icon()"
+    [title]="b.description"
+    [status]="status()"
+    [loggedOn]="loggedOn()"
+  />
+
+  <lib-detail-amount [value]="b.amount" [meta]="dateLong()" />
+
+  <hr class="divider" />
+
+  <h2 class="section-label">Split</h2>
+  <lib-split-bar [youPct]="1" [partnerPct]="1" />
+  <lib-split-legend
+    [youName]="yourName()"
+    [youAmount]="yourShare()"
+    [partnerName]="partnerName()"
+    [partnerAmount]="b.partnerShare"
+  />
+
+  <lib-key-value-list>
+    <lib-key-value-row label="Date" [value]="dateLong()" />
+    <lib-key-value-row [label]="partnerShareKey()" [value]="partnerShareLabel()" tone="positive" />
+    <lib-key-value-row label="Status" [value]="statusLabel()" />
+  </lib-key-value-list>
+
+  @if (b.note) {
+    <h2 class="section-label">Note</h2>
+    <lib-note-card [text]="b.note" />
+  }
+
+  <div class="actions">
+    <lib-button variant="outline" (clicked)="onEdit()">Edit</lib-button>
+    @if (status() === 'unsettled') {
+      <lib-button variant="primary" size="lg" (clicked)="onMarkSettled()">Mark as settled</lib-button>
+    } @else {
+      <lib-button variant="primary" size="lg" (clicked)="onMarkUnsettled()">Mark as unsettled</lib-button>
+    }
+  </div>
+
+  <div class="delete-row">
+    <lib-button variant="danger" (clicked)="onDeleteClick()">Delete bill</lib-button>
+  </div>
+
+  @if (confirmingDelete()) {
+    <lib-confirm-dialog
+      title="Delete this bill?"
+      message="This cannot be undone."
+      confirmLabel="Delete"
+      [dangerous]="true"
+      (confirmed)="onConfirmDelete()"
+      (cancelled)="onCancelDelete()"
+    />
+  }
+}

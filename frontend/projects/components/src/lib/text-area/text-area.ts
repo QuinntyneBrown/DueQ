@@ -12,35 +12,8 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
       multi: true,
     },
   ],
-  template: `
-    <textarea
-      class="textarea"
-      [id]="inputId()"
-      [placeholder]="placeholder()"
-      [disabled]="disabled()"
-      [ngModel]="value()"
-      (ngModelChange)="onChange($event)"
-      (blur)="onTouched()"
-    ></textarea>
-  `,
-  styles: `
-    :host { display: block; }
-    .textarea {
-      width: 100%;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--r-2);
-      background: var(--surface);
-      padding: var(--s-3) var(--s-4);
-      min-height: 96px;
-      font-size: 16px;
-      font-family: inherit;
-      color: var(--ink);
-      box-sizing: border-box;
-      line-height: 1.5;
-      resize: vertical;
-    }
-    .textarea:focus { outline: none; border-color: var(--ink); }
-  `,
+  templateUrl: './text-area.html',
+  styleUrl: './text-area.scss',
 })
 export class TextArea implements ControlValueAccessor {
   placeholder = input<string>('');

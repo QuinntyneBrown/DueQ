@@ -1,0 +1,13 @@
+<div class="section">
+  <div class="section-head">
+    <h2>{{ month() }}</h2>
+    @if (total()) {
+      <span class="total">{{ total() }}</span>
+    }
+  </div>
+  <div class="card">
+    <div class="list">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

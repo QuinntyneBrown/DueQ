@@ -1,0 +1,33 @@
+:host { display: block; }
+
+.segmented {
+  display: flex;
+  background: var(--surface-2);
+  border-radius: var(--r-2);
+  padding: 4px;
+  gap: 2px;
+}
+
+.seg {
+  flex: 1;
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-family: inherit;
+
+  &.is-active {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-1);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,10 @@
+<div class="person-card">
+  <div class="role">{{ role() }}</div>
+  <div class="avatar-row">
+    <lib-avatar-large [initials]="initials()" [variant]="variant()"></lib-avatar-large>
+    @if (hint()) {
+      <div class="hint">{{ hint() }}</div>
+    }
+  </div>
+  <ng-content></ng-content>
+</div>

@@ -3,45 +3,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 @Component({
   selector: 'lib-timeline-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="timeline-group">
-      <h3>
-        {{ month() }}
-        @if (total()) {
-          <span class="month-total">{{ total() }}</span>
-        }
-      </h3>
-      <div class="card">
-        <div class="list">
-          <ng-content></ng-content>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: `
-    :host { display: block; margin-top: var(--s-6); }
-    :host(:first-of-type) { margin-top: 0; }
-    h3 {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      margin: 0 0 var(--s-3);
-      display: flex;
-      justify-content: space-between;
-    }
-    .month-total {
-      font-family: var(--font-num);
-      font-weight: 500;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-3);
-    }
-    .list { display: flex; flex-direction: column; }
-  `,
+  templateUrl: './timeline-group.html',
+  styleUrl: './timeline-group.scss',
 })
 export class TimelineGroup {
   month = input.required<string>();

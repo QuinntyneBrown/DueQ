@@ -1,0 +1,17 @@
+<lib-page-head title="Bills" subtitle="All bills logged between you and your partner." />
+
+<lib-chip-group>
+  <lib-chip label="All" [count]="counts().all" [active]="filter() === 'all'" (toggle)="setFilter('all')" />
+  <lib-chip label="Unsettled" [count]="counts().unsettled" [active]="filter() === 'unsettled'" (toggle)="setFilter('unsettled')" />
+  <lib-chip label="Settled" [count]="counts().settled" [active]="filter() === 'settled'" (toggle)="setFilter('settled')" />
+</lib-chip-group>
+
+@for (group of groups(); track group.key) {
+  <lib-bill-month-group [month]="group.label" [total]="group.totalLabel">
+    @for (item of group.items; track item.id) {
+      <lib-bill-list-item [bill]="item" (clicked)="openBill($event)" />
+    }
+  </lib-bill-month-group>
+} @empty {
+  <p class="empty">No bills yet.</p>
+}

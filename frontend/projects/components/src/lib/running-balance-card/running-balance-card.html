@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="row">
+    <div class="primary">
+      <div class="caption">Running balance</div>
+      <div class="value">{{ balance() | currency }}</div>
+      <div class="sub">{{ partnerName() }} owes you</div>
+    </div>
+    <div class="secondary">
+      <div>
+        <div class="caption">Logged</div>
+        <div class="num">{{ logged() | currency }}</div>
+      </div>
+      <div>
+        <div class="caption">Paid back</div>
+        <div class="num positive">{{ paidBack() | currency }}</div>
+      </div>
+    </div>
+  </div>
+</div>

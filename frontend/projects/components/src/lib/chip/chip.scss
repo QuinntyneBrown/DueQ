@@ -1,0 +1,39 @@
+:host {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+
+  &.is-active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+}
+
+.count {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface-2);
+  padding: 1px 6px;
+  border-radius: var(--r-pill);
+}
+
+.chip.is-active .count {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--bg);
+}

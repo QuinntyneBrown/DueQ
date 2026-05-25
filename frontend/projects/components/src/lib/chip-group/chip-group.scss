@@ -1,0 +1,11 @@
+:host { display: block; }
+
+.chips {
+  display: flex;
+  gap: var(--s-2);
+  overflow-x: auto;
+  padding-bottom: var(--s-1);
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}

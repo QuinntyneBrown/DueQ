@@ -8,9 +8,9 @@ public class DueQContextDesignTimeFactory : IDesignTimeDbContextFactory<DueQCont
     public DueQContext CreateDbContext(string[] args)
     {
         var options = new DbContextOptionsBuilder<DueQContext>()
-            .UseSqlServer(
-                @"Server=.\SQLEXPRESS;Database=DueQ;Trusted_Connection=True;TrustServerCertificate=True;",
-                sql => sql.MigrationsAssembly(typeof(DueQContext).Assembly.FullName))
+            .UseSqlite(
+                "Data Source=dueq.db",
+                sqlite => sqlite.MigrationsAssembly(typeof(DueQContext).Assembly.FullName))
             .Options;
 
         return new DueQContext(options);

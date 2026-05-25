@@ -1,0 +1,21 @@
+:host { display: block; }
+
+.textarea {
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-2);
+  background: var(--surface);
+  padding: var(--s-3) var(--s-4);
+  min-height: 96px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--ink);
+  box-sizing: border-box;
+  line-height: 1.5;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-color: var(--ink);
+  }
+}

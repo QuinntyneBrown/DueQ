@@ -6,7 +6,7 @@ Log a bill. DueQ splits it in half. Record what your partner pays. See what's st
 
 .NET 10 · Angular 21 · EF Core · Mobile-first PWA
 
-**[Documentation](docs/)** · **[Product Brief](docs/idea.md)** · **[UI Mocks](docs/mocks/)** · **[Contributing](CONTRIBUTING.md)**
+**[Documentation](docs/)** · **[UI Mocks](docs/mocks/)** · **[Contributing](CONTRIBUTING.md)**
 
 ---
 

@@ -12,49 +12,8 @@ import { SegmentedOption } from '../models';
       multi: true,
     },
   ],
-  template: `
-    <div class="segmented" role="tablist">
-      @for (opt of options(); track opt.value) {
-        <button
-          type="button"
-          class="seg"
-          [class.is-active]="opt.value === value()"
-          [disabled]="disabled()"
-          (click)="select(opt.value)"
-        >
-          {{ opt.label }}
-        </button>
-      }
-    </div>
-  `,
-  styles: `
-    :host { display: block; }
-    .segmented {
-      display: flex;
-      background: var(--surface-2);
-      border-radius: var(--r-2);
-      padding: 4px;
-      gap: 2px;
-    }
-    .seg {
-      flex: 1;
-      height: 40px;
-      border: none;
-      background: transparent;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink-2);
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .seg.is-active {
-      background: var(--surface);
-      color: var(--ink);
-      box-shadow: var(--shadow-1);
-    }
-    .seg:disabled { cursor: not-allowed; opacity: 0.5; }
-  `,
+  templateUrl: './segmented-control.html',
+  styleUrl: './segmented-control.scss',
 })
 export class SegmentedControl<T = string> implements ControlValueAccessor {
   options = input.required<SegmentedOption<T>[]>();

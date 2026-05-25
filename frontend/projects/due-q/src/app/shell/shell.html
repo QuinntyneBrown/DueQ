@@ -1,0 +1,76 @@
+<div class="app">
+
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span>{{ title() }}</span>
+    </div>
+    @switch (action()?.kind) {
+      @case ('gear') {
+        <a class="header-action" [routerLink]="action()!.route" aria-label="Settings">⚙</a>
+      }
+      @case ('add-bill') {
+        <a class="header-action" [routerLink]="action()!.route" aria-label="Add bill">＋</a>
+      }
+      @case ('cancel') {
+        <a class="header-text-action" [routerLink]="action()!.route">Cancel</a>
+      }
+      @case ('skip') {
+        <a class="header-text-action" [routerLink]="action()!.route">Skip</a>
+      }
+    }
+  </header>
+
+  <aside class="app-sidebar" aria-label="Main">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span>DueQ</span>
+    </div>
+    <a class="nav-link" routerLink="/dashboard" routerLinkActive="is-active" ariaCurrentWhenActive="page" #rlaDash="routerLinkActive">
+      <span class="icon" aria-hidden="true">⌂</span> Dashboard
+    </a>
+    <a class="nav-link" routerLink="/bills" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+      <span class="icon" aria-hidden="true">▤</span> Bills
+    </a>
+    <a class="nav-link" routerLink="/history" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+      <span class="icon" aria-hidden="true">↻</span> History
+    </a>
+    <a class="nav-link" routerLink="/bills/new" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+      <span class="icon" aria-hidden="true">＋</span> Add bill
+    </a>
+    <a class="nav-link" routerLink="/payments/new" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+      <span class="icon" aria-hidden="true">↓</span> Record payment
+    </a>
+    <a class="nav-link" routerLink="/settings" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+      <span class="icon" aria-hidden="true">◔</span> Settings
+    </a>
+  </aside>
+
+  <main class="app-main">
+    <div class="container">
+      <router-outlet />
+    </div>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Primary">
+    <a class="nav-item" routerLink="/dashboard" routerLinkActive="is-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon" aria-hidden="true">⌂</span>
+      <span>Home</span>
+    </a>
+    <a class="nav-item" routerLink="/bills" routerLinkActive="is-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon" aria-hidden="true">▤</span>
+      <span>Bills</span>
+    </a>
+    <a class="nav-item action" routerLink="/bills/new" aria-label="Add bill">
+      <span class="fab" aria-hidden="true">＋</span>
+    </a>
+    <a class="nav-item" routerLink="/history" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+      <span class="icon" aria-hidden="true">↻</span>
+      <span>History</span>
+    </a>
+    <a class="nav-item" routerLink="/settings" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+      <span class="icon" aria-hidden="true">◔</span>
+      <span>You</span>
+    </a>
+  </nav>
+</div>

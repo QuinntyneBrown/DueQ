@@ -1,0 +1,6 @@
+<button type="button" class="chip" [class.is-active]="active()" (click)="toggle.emit()">
+  {{ label() }}
+  @if (count() !== null) {
+    <span class="count">{{ count() }}</span>
+  }
+</button>

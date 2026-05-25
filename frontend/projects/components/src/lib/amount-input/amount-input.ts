@@ -12,51 +12,8 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
       multi: true,
     },
   ],
-  template: `
-    <div class="input-amount">
-      <span class="currency">{{ currency() }}</span>
-      <input
-        class="input"
-        type="text"
-        inputmode="decimal"
-        [id]="inputId()"
-        [disabled]="disabled()"
-        [ngModel]="display()"
-        (ngModelChange)="onChange($event)"
-        (blur)="onTouched()"
-      />
-    </div>
-  `,
-  styles: `
-    :host { display: block; }
-    .input-amount {
-      position: relative;
-    }
-    .currency {
-      position: absolute;
-      left: var(--s-4);
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 18px;
-      font-weight: 500;
-    }
-    .input {
-      width: 100%;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--r-2);
-      background: var(--surface);
-      padding: 0 var(--s-4) 0 32px;
-      height: 56px;
-      font-family: var(--font-num);
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      box-sizing: border-box;
-    }
-    .input:focus { outline: none; border-color: var(--ink); }
-  `,
+  templateUrl: './amount-input.html',
+  styleUrl: './amount-input.scss',
 })
 export class AmountInput implements ControlValueAccessor {
   currency = input<string>('$');

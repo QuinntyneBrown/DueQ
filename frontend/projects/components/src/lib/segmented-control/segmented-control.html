@@ -1,0 +1,13 @@
+<div class="segmented" role="tablist">
+  @for (opt of options(); track opt.value) {
+    <button
+      type="button"
+      class="seg"
+      [class.is-active]="opt.value === value()"
+      [disabled]="disabled()"
+      (click)="select(opt.value)"
+    >
+      {{ opt.label }}
+    </button>
+  }
+</div>

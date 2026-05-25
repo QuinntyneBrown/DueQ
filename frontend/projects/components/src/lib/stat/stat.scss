@@ -1,0 +1,27 @@
+:host { display: block; }
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+}
+
+.lbl {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--s-2);
+}
+
+.val {
+  font-family: var(--font-num);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  &.positive { color: var(--owed-to-you); }
+  &.negative { color: var(--owed-by-you); }
+  &.muted    { color: var(--muted); }
+}

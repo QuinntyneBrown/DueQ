@@ -1,0 +1,22 @@
+:host { display: block; }
+
+.kv {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+:host(:last-of-type) .kv { border-bottom: none; }
+
+.k { color: var(--muted); }
+
+.v {
+  color: var(--ink);
+  font-weight: 500;
+
+  &.positive { color: var(--owed-to-you); }
+  &.negative { color: var(--owed-by-you); }
+  &.muted    { color: var(--muted); }
+}

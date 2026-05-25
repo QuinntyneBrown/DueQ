@@ -1,0 +1,17 @@
+:host { display: block; }
+
+.split-bar {
+  height: 8px;
+  border-radius: var(--r-pill);
+  display: flex;
+  overflow: hidden;
+  background: var(--surface-2);
+  margin: var(--s-3) 0;
+}
+
+.seg {
+  height: 100%;
+
+  &.you { background: var(--ink); }
+  &.partner { background: var(--accent); }
+}

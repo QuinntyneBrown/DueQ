@@ -1,0 +1,43 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: var(--s-4, 16px);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 18, 14, 0.45);
+}
+
+.panel {
+  position: relative;
+  background: var(--surface, #fff);
+  border-radius: var(--r-3, 14px);
+  padding: var(--s-5, 24px);
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-2, 0 10px 30px rgba(0, 0, 0, 0.2));
+}
+
+.title {
+  margin: 0 0 var(--s-2, 8px);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.message {
+  margin: 0 0 var(--s-5, 24px);
+  color: var(--ink-2, #4a4a4a);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: var(--s-3, 12px);
+  justify-content: flex-end;
+}

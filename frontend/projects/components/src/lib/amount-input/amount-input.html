@@ -1,0 +1,13 @@
+<div class="input-amount">
+  <span class="currency">{{ currency() }}</span>
+  <input
+    class="input"
+    type="text"
+    inputmode="decimal"
+    [id]="inputId()"
+    [disabled]="disabled()"
+    [ngModel]="display()"
+    (ngModelChange)="onChange($event)"
+    (blur)="onTouched()"
+  />
+</div>
