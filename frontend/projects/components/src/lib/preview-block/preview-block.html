@@ -4,6 +4,4 @@
     <div class="sub">{{ sublabel() }}</div>
   }
 </div>
-<div class="val" [class]="tone()" [attr.data-testid]="amountTestId()">
-  {{ amountLabel() ?? (amount() | currency) }}
-</div>
+<div class="val" [class]="tone()" [attr.data-testid]="amountTestId()">{{ amountLabel() ?? (amount() | currency) }}</div>
