@@ -1,6 +1,4 @@
-:host { display: block; }
-
-.preview-block {
+:host {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,26 +7,31 @@
   background: var(--surface-2);
   border: 1px dashed var(--border-strong);
   gap: var(--s-3);
+}
 
-  &.dark {
-    background: var(--ink);
-    color: var(--bg);
-    border: none;
-  }
+:host(.dark) {
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
 }
 
 .lbl {
   font-size: 13px;
   color: var(--ink-2);
 }
-.preview-block.dark .lbl { color: rgba(255, 255, 255, 0.7); }
+:host(.dark) .lbl { color: rgba(46, 46, 48, 0.6); }
 
 .sub {
   font-size: 11px;
   color: var(--muted);
   margin-top: 2px;
 }
-.preview-block.dark .sub { color: rgba(255, 255, 255, 0.6); }
+:host(.dark) .sub {
+  font-size: 11px;
+  margin-top: 2px;
+  opacity: 0.6;
+  color: inherit;
+}
 
 .val {
   font-family: var(--font-num);
@@ -39,7 +42,7 @@
   &.positive { color: var(--owed-to-you); }
   &.negative { color: var(--owed-by-you); }
 }
-.preview-block.dark .val {
+:host(.dark) .val {
   color: var(--bg);
   font-size: 22px;
 }

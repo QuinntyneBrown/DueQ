@@ -31,6 +31,7 @@ interface DisplayBill {
   readonly id: string;
   readonly title: string;
   readonly icon: string;
+  readonly date: string;
   readonly dateLabel: string;
   readonly total: number;
   readonly totalLabel: string;
@@ -125,6 +126,7 @@ function groupBillsByMonth(bills: readonly Bill[]): MonthGroup[] {
         id: b.id,
         title: b.description,
         icon: iconForBill(b.description),
+        date: b.date,
         dateLabel: datePipe.transform(`${b.date}T00:00:00`, 'MMM d') ?? b.date,
         total: b.amount,
         totalLabel: currency.transform(b.amount, 'USD', 'symbol', '1.2-2') ?? `$${b.amount.toFixed(2)}`,

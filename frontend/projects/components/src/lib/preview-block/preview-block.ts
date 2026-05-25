@@ -8,6 +8,11 @@ import { Tone } from '../models';
   imports: [CurrencyPipe],
   templateUrl: './preview-block.html',
   styleUrl: './preview-block.scss',
+  host: {
+    '[class.preview-block]': 'true',
+    '[class.dark]': 'dark()',
+    '[attr.data-testid]': 'testId()',
+  },
 })
 export class PreviewBlock {
   label = input.required<string>();

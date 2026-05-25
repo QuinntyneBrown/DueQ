@@ -6,6 +6,7 @@
   [routerLinkActiveOptions]="{ exact: exact() }"
   [ariaCurrentWhenActive]="ariaCurrentWhenActive()"
   [attr.href]="routerLink() ? null : href()"
+  [attr.routerLink]="routerLink()"
   [attr.aria-label]="ariaLabel()"
   [attr.data-testid]="testId()"
 >
