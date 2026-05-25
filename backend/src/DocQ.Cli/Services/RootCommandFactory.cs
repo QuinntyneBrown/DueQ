@@ -12,6 +12,12 @@ public sealed class RootCommandFactory
         Recursive = true
     };
 
+    private readonly Option<string?> _targetOption = new("--target")
+    {
+        Description = "Database target: 'local' (default, SqlExpress) or 'azure' (uses ConnectionStrings:DueQ-Azure from user secrets).",
+        Recursive = true
+    };
+
     public RootCommandFactory(IEnumerable<ICommandDefinition> commands)
     {
         _commands = commands;
@@ -21,6 +27,7 @@ public sealed class RootCommandFactory
     {
         var root = new RootCommand("DocQ command line tools for DueQ data.");
         root.Options.Add(_connectionStringOption);
+        root.Options.Add(_targetOption);
 
         foreach (var command in _commands)
         {
