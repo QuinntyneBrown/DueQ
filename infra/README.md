@@ -67,3 +67,10 @@ and is never auto-applied.
   Add more origins by setting `Cors__AllowedOrigins__1`, `__2`, ... via
   `az webapp config appsettings set`.
 - **Tearing down**: `az group delete -n dueq-rg --yes` removes everything.
+- **SPA deep linking**: `frontend/projects/due-q/public/staticwebapp.config.json`
+  declares a `navigationFallback` so any unknown path is rewritten to `/index.html`
+  (letting the Angular router resolve `/bills/new`, `/bills/:id`, etc. on direct hits
+  and page reloads). The `exclude` list keeps real static assets — js/css/maps/images/
+  fonts — out of the fallback so they're served with the correct MIME type. The file
+  lives in `public/` so it's copied to the build output verbatim and SWA picks it up
+  from the root of the uploaded `dist/due-q/browser`.
