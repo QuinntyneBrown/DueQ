@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from './auth/auth.guard';
 import { Shell } from './shell/shell';
 import type { HeaderConfig } from './shell/shell';
 
@@ -7,8 +8,35 @@ const headerData = (header: HeaderConfig) => ({ header });
 
 export const routes: Routes = [
   {
+    path: 'sign-in',
+    loadComponent: () =>
+      import('./pages/sign-in/sign-in-page').then((m) => m.SignInPage),
+  },
+  {
+    path: 'create-account',
+    loadComponent: () =>
+      import('./pages/create-account/create-account-page').then(
+        (m) => m.CreateAccountPage,
+      ),
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./pages/forgot-password/forgot-password-page').then(
+        (m) => m.ForgotPasswordPage,
+      ),
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./pages/reset-password/reset-password-page').then(
+        (m) => m.ResetPasswordPage,
+      ),
+  },
+  {
     path: '',
     component: Shell,
+    canActivate: [authGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {

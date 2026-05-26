@@ -20,6 +20,8 @@ export class TextInput implements ControlValueAccessor {
   inputId = input<string | null>(null);
   ariaLabel = input<string | null>(null);
   testId = input<string | null>(null);
+  type = input<'text' | 'email' | 'password'>('text');
+  autocomplete = input<string | null>(null);
 
   value = signal<string>('');
   disabled = signal<boolean>(false);

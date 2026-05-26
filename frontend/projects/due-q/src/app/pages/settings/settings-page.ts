@@ -8,10 +8,12 @@ import {
   signal,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
 import {
   API_BASE_URL,
+  AuthStore,
   ISettingsService,
   SETTINGS_SERVICE,
   Settings,
@@ -29,6 +31,8 @@ export class SettingsPage {
   private readonly settingsService = inject<ISettingsService>(SETTINGS_SERVICE);
   private readonly baseUrl = inject(API_BASE_URL);
   private readonly fb = inject(FormBuilder);
+  private readonly authStore = inject(AuthStore);
+  private readonly router = inject(Router);
 
   protected readonly form = this.fb.nonNullable.group({
     yourName: ['', Validators.required],
@@ -77,6 +81,11 @@ export class SettingsPage {
     });
   }
 
+  signOut(): void {
+    this.authStore.clear();
+    void this.router.navigate(['/sign-in']);
+  }
+
   save(): void {
     this.submitted.set(true);
     if (this.form.invalid) return;
@@ -84,10 +93,15 @@ export class SettingsPage {
     // Fire-and-forget with `keepalive: true` so the PUT survives any
     // subsequent `page.reload()` (Chromium otherwise aborts in-flight fetches
     // on navigation). Not awaited so the click handler returns immediately
-    // and Playwright workers shut down cleanly between tests.
+    // and Playwright workers shut down cleanly between tests. Because raw
+    // fetch bypasses the Angular HttpClient pipeline, the bearer token must
+    // be attached here manually.
+    const token = this.authStore.token();
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
     void fetch(`${this.baseUrl}/api/settings`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({ yourName, partnerName }),
       keepalive: true,
     });

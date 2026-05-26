@@ -1,0 +1,64 @@
+<div class="auth">
+
+  <a class="auth-brand" routerLink="/sign-in" aria-label="DueQ">
+    <lib-brand-mark [ariaHidden]="true" />
+    <span>DueQ</span>
+  </a>
+
+  <div class="auth-card">
+    <h1>Create your account</h1>
+    <p class="sub">Start a household ledger in under a minute.</p>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+      <lib-form-field label="Your name" for="name">
+        <lib-text-input
+          inputId="name"
+          autocomplete="name"
+          placeholder="e.g. Quinntyne Brown"
+          formControlName="name"
+        />
+      </lib-form-field>
+
+      <lib-form-field label="Email" for="email">
+        <lib-text-input
+          inputId="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          formControlName="email"
+        />
+      </lib-form-field>
+
+      <lib-form-field label="Password" for="password" hint="at least 8 characters">
+        <lib-text-input
+          inputId="password"
+          type="password"
+          autocomplete="new-password"
+          placeholder="••••••••"
+          formControlName="password"
+        />
+      </lib-form-field>
+
+      @if (errorMessage(); as msg) {
+        <div class="auth-error" role="alert" data-testid="create-account-error">{{ msg }}</div>
+      }
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block auth-submit"
+        [disabled]="submitting()"
+      >Create account</button>
+
+      <p class="fine-print">
+        By creating an account, you agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+      </p>
+
+    </form>
+
+    <div class="auth-footer">
+      Already have an account? <a routerLink="/sign-in">Sign in</a>
+    </div>
+  </div>
+
+</div>

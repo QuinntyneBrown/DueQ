@@ -1,10 +1,12 @@
 using DueQ.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DueQ.Api.Controllers;
 
 [ApiController]
 [Route("api/_test")]
+[AllowAnonymous]
 public class TestSupportController : ControllerBase
 {
     private readonly IWebHostEnvironment _environment;

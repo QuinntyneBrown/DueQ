@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Create account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Auth shell — shared shape with sign-in.html / forgot-password.html. */
+    .auth {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-5) var(--s-4);
+    }
+    .auth-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--s-2);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--s-6);
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 380px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--r-3);
+      padding: var(--s-6) var(--s-5);
+    }
+    .auth-card h1 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--s-1);
+      color: var(--ink);
+    }
+    .auth-card .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 var(--s-5);
+    }
+    .auth-footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: var(--s-5);
+    }
+    .auth-footer a {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .fine-print {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: var(--s-3);
+      text-align: center;
+    }
+    .fine-print a {
+      color: var(--ink-2);
+      text-decoration: underline;
+      text-decoration-color: var(--border-strong);
+      text-underline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth">
+
+    <div class="auth-brand">
+      <span class="brand-mark">D</span>
+      <span>DueQ</span>
+    </div>
+
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p class="sub">Start a household ledger in under a minute.</p>
+
+      <form class="form">
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input class="input" id="name" type="text" autocomplete="name" placeholder="e.g. Quinntyne Brown" value="Quinntyne Brown" />
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input class="input" id="email" type="email" autocomplete="email" placeholder="you@example.com" value="quinntynebrown@gmail.com" />
+        </div>
+
+        <div class="field">
+          <label for="password">Password <span class="hint">(at least 8 characters)</span></label>
+          <input class="input" id="password" type="password" autocomplete="new-password" placeholder="••••••••" value="password123" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: var(--s-2);">Create account</button>
+
+        <p class="fine-print">
+          By creating an account, you agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+        </p>
+
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="sign-in.html">Sign in</a>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

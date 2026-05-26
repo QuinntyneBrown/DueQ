@@ -1,4 +1,6 @@
 using DueQ.Application.Abstractions;
+using DueQ.Application.Auth.Common;
+using DueQ.Infrastructure.Auth;
 using DueQ.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,10 @@ public static class DependencyInjection
             }));
 
         services.AddScoped<IDueQContext>(sp => sp.GetRequiredService<DueQContext>());
+
+        services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+        services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         return services;
     }

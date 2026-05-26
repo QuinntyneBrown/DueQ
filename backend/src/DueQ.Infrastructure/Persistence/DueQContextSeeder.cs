@@ -1,6 +1,7 @@
 using DueQ.Domain.Bills;
 using DueQ.Domain.Households;
 using DueQ.Domain.Payments;
+using DueQ.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace DueQ.Infrastructure.Persistence;
@@ -17,11 +18,32 @@ public static class DueQContextSeeder
         await ResetAndSeedAsync(context, cancellationToken);
     }
 
+    // Dev BCrypt hash for "password123" — mirrors the HasData seed in
+    // UserConfiguration so reset gives the seeded user a known password again,
+    // even after the forgot-password e2e changes it.
+    private const string DevPasswordHash =
+        "$2a$11$tAIORAVHb3Do23LwSg6McecLESIobj0IqukTcC1l9Vsx5m9NLJXXu";
+    private static readonly Guid DevUserId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+
     public static async Task ResetAndSeedAsync(DueQContext context, CancellationToken cancellationToken = default)
     {
+        context.PasswordResetTokens.RemoveRange(context.PasswordResetTokens);
         context.Payments.RemoveRange(context.Payments);
         context.Bills.RemoveRange(context.Bills);
         context.Households.RemoveRange(context.Households);
+
+        // Wipe any registrations created by previous tests; restore the seeded
+        // dev user with the known password so subsequent logins are deterministic.
+        var transientUsers = context.Users.Where(u => u.Id != DevUserId);
+        context.Users.RemoveRange(transientUsers);
+        var devUser = await context.Users.FirstOrDefaultAsync(u => u.Id == DevUserId, cancellationToken);
+        if (devUser is not null)
+        {
+            devUser.PasswordHash = DevPasswordHash;
+            devUser.Email = "quinntynebrown@gmail.com";
+            devUser.Name = "Quinntyne Brown";
+        }
+
         await context.SaveChangesAsync(cancellationToken);
 
         var household = new Household

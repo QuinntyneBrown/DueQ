@@ -8,12 +8,14 @@ using DueQ.Application.Bills.Queries.GetBill;
 using DueQ.Application.Bills.Queries.ListBills;
 using DueQ.Domain.Bills;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DueQ.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class BillsController : ControllerBase
 {
     private readonly IMediator _mediator;

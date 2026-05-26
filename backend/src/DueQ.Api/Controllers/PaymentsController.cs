@@ -3,12 +3,14 @@ using DueQ.Application.Payments.Commands.DeletePayment;
 using DueQ.Application.Payments.Dtos;
 using DueQ.Application.Payments.Queries.ListPayments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DueQ.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class PaymentsController : ControllerBase
 {
     private readonly IMediator _mediator;

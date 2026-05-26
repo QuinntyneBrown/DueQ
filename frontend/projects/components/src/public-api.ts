@@ -40,6 +40,7 @@ export * from './lib/note-card/note-card';
 // Form
 export * from './lib/form-field/form-field';
 export * from './lib/text-input/text-input';
+export * from './lib/checkbox/checkbox';
 export * from './lib/amount-input/amount-input';
 export * from './lib/date-input/date-input';
 export * from './lib/text-area/text-area';

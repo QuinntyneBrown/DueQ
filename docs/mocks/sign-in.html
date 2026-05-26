@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DueQ — Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Auth shell — replaces .app for unauthenticated screens.
+       Centers a single card; no sidebar, no bottom nav. */
+    .auth {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-5) var(--s-4);
+    }
+    .auth-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--s-2);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: var(--s-6);
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 380px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--r-3);
+      padding: var(--s-6) var(--s-5);
+    }
+    .auth-card h1 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--s-1);
+      color: var(--ink);
+    }
+    .auth-card .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 var(--s-5);
+    }
+
+    /* Inline row: remember-me on the left, forgot link on the right */
+    .form-row-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: var(--s-1);
+    }
+    .form-link {
+      font-size: 13px;
+      color: var(--ink-2);
+      font-weight: 500;
+    }
+    .form-link:hover { color: var(--ink); }
+
+    /* Custom checkbox — matches monochrome palette */
+    .checkbox {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-2);
+      cursor: pointer;
+      user-select: none;
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+    .checkbox input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .checkbox .box {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface-2);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      transition: background 0.12s ease, border-color 0.12s ease;
+    }
+    .checkbox .box::after {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid var(--bg);
+      border-bottom: 2px solid var(--bg);
+      transform: rotate(-45deg) translate(1px, -1px);
+      opacity: 0;
+    }
+    .checkbox input:checked + .box {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+    .checkbox input:checked + .box::after { opacity: 1; }
+    .checkbox input:focus-visible + .box {
+      outline: 2px solid rgba(180, 180, 188, 0.55);
+      outline-offset: 2px;
+    }
+
+    .auth-footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: var(--s-5);
+    }
+    .auth-footer a {
+      color: var(--ink);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth">
+
+    <div class="auth-brand">
+      <span class="brand-mark">D</span>
+      <span>DueQ</span>
+    </div>
+
+    <div class="auth-card">
+      <h1>Sign in</h1>
+      <p class="sub">Welcome back. Pick up where you left off.</p>
+
+      <form class="form">
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input class="input" id="email" type="email" autocomplete="email" placeholder="you@example.com" value="quinntynebrown@gmail.com" />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input class="input" id="password" type="password" autocomplete="current-password" placeholder="••••••••" value="password123" />
+        </div>
+
+        <div class="form-row-between">
+          <label class="checkbox" for="remember">
+            <input id="remember" type="checkbox" checked />
+            <span class="box"></span>
+            <span>Remember me</span>
+          </label>
+          <a class="form-link" href="forgot-password.html">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" style="margin-top: var(--s-3);">Sign in</button>
+
+      </form>
+
+      <div class="auth-footer">
+        No account yet? <a href="create-account.html">Create one</a>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

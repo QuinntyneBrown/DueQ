@@ -11,3 +11,6 @@ export { HistoryPage } from './HistoryPage';
 export type { HistoryFilter } from './HistoryPage';
 export { SettingsPage } from './SettingsPage';
 export type { PeopleInput } from './SettingsPage';
+export { SignInPage } from './SignInPage';
+export { CreateAccountPage } from './CreateAccountPage';
+export { ForgotPasswordPage } from './ForgotPasswordPage';

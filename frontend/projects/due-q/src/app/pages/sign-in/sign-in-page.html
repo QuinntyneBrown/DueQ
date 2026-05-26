@@ -1,0 +1,56 @@
+<div class="auth">
+
+  <a class="auth-brand" routerLink="/sign-in" aria-label="DueQ">
+    <lib-brand-mark [ariaHidden]="true" />
+    <span>DueQ</span>
+  </a>
+
+  <div class="auth-card">
+    <h1>Sign in</h1>
+    <p class="sub">Welcome back. Pick up where you left off.</p>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+      <lib-form-field label="Email" for="email">
+        <lib-text-input
+          inputId="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          formControlName="email"
+        />
+      </lib-form-field>
+
+      <lib-form-field label="Password" for="password">
+        <lib-text-input
+          inputId="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="••••••••"
+          formControlName="password"
+        />
+      </lib-form-field>
+
+      <div class="form-row-between">
+        <lib-checkbox inputId="remember" label="Remember me" formControlName="remember" />
+        <a class="form-link" routerLink="/forgot-password">Forgot password?</a>
+      </div>
+
+      @if (errorMessage(); as msg) {
+        <div class="auth-error" role="alert" data-testid="sign-in-error">{{ msg }}</div>
+      }
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg btn-block auth-submit"
+        [disabled]="submitting()"
+      >Sign in</button>
+
+    </form>
+
+    <div class="auth-footer">
+      No account yet? <a routerLink="/create-account">Create one</a>
+    </div>
+  </div>
+
+</div>

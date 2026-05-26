@@ -1,12 +1,14 @@
 using DueQ.Application.Dashboard.Dtos;
 using DueQ.Application.Dashboard.Queries.GetDashboard;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DueQ.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class DashboardController : ControllerBase
 {
     private readonly IMediator _mediator;

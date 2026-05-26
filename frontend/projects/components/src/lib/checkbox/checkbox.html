@@ -1,0 +1,13 @@
+<label class="checkbox" [attr.for]="inputId()">
+  <input
+    type="checkbox"
+    [id]="inputId()"
+    [disabled]="disabled()"
+    [attr.data-testid]="testId()"
+    [ngModel]="value()"
+    (ngModelChange)="onChange($event)"
+    (blur)="onTouched()"
+  />
+  <span class="box"></span>
+  <span>{{ label() }}</span>
+</label>

@@ -2,12 +2,14 @@ using DueQ.Application.Settings.Commands.UpdateSettings;
 using DueQ.Application.Settings.Dtos;
 using DueQ.Application.Settings.Queries.GetSettings;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DueQ.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class SettingsController : ControllerBase
 {
     private readonly IMediator _mediator;

@@ -11,6 +11,9 @@
 export * from './lib/api-base-url.token';
 
 // --- Models ---
+export * from './lib/models/user';
+export * from './lib/models/login-result';
+export * from './lib/models/register-request';
 export * from './lib/models/settings';
 export * from './lib/models/update-settings-request';
 export * from './lib/models/bill-status';
@@ -42,6 +45,11 @@ export * from './lib/services/bills.service';
 export * from './lib/services/payments.service';
 export * from './lib/services/dashboard.service';
 export * from './lib/services/history.service';
+
+// --- Auth ---
+export * from './lib/auth/auth.service';
+export * from './lib/auth/auth-store';
+export * from './lib/auth/auth.interceptor';
 
 // --- Composition helper ---
 export * from './lib/provide-api';

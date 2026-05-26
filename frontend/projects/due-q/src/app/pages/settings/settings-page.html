@@ -34,5 +34,12 @@
     </div>
 
     <lib-button class="save-button" type="submit" size="lg" [block]="true">Save</lib-button>
+
+    <button
+      type="button"
+      class="btn btn-outline btn-block sign-out-button"
+      data-testid="sign-out-button"
+      (click)="signOut()"
+    >Sign out</button>
   </form>
 }

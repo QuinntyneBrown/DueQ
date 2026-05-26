@@ -1,0 +1,51 @@
+:host { display: inline-flex; }
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  color: var(--ink-2);
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .box {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface-2);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: background 0.12s ease, border-color 0.12s ease;
+  }
+
+  .box::after {
+    content: "";
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid var(--bg);
+    border-bottom: 2px solid var(--bg);
+    transform: rotate(-45deg) translate(1px, -1px);
+    opacity: 0;
+  }
+
+  input:checked + .box {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  input:checked + .box::after { opacity: 1; }
+
+  input:focus-visible + .box {
+    outline: 2px solid rgba(180, 180, 188, 0.55);
+    outline-offset: 2px;
+  }
+}
