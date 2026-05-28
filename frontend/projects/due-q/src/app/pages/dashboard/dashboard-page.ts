@@ -71,10 +71,6 @@ export class DashboardPage {
 
   protected readonly balanceAmount = computed(() => Math.abs(this.data()?.balance ?? 0));
 
-  protected readonly behindByTone = computed(() =>
-    (this.data()?.behindByDays ?? 0) > 7 ? 'negative' : 'default',
-  );
-
   protected readonly activityItems = computed<ComponentActivityItem[]>(() => {
     const data = this.data();
     if (!data) return [];
@@ -104,11 +100,6 @@ export class DashboardPage {
       : 'No payments yet';
     const outstanding = `${data.outstandingBillCount} bill${data.outstandingBillCount === 1 ? '' : 's'} outstanding`;
     return `${settled} · ${outstanding}`;
-  });
-
-  protected behindByValue = computed(() => {
-    const days = this.data()?.behindByDays ?? 0;
-    return `${days} day${days === 1 ? '' : 's'}`;
   });
 
   protected formatStatCurrency(value: number | undefined): string {

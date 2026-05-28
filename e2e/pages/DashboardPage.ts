@@ -33,7 +33,7 @@ export class DashboardPage extends BasePage {
     return this.page.getByRole('link', { name: /Record payment/i }).first();
   }
 
-  stat(label: 'This month' | 'Received' | 'Behind by'): Locator {
+  stat(label: 'This month' | 'Received'): Locator {
     return this.page.getByTestId(`stat-${label.toLowerCase().replace(/\s+/g, '-')}`);
   }
 

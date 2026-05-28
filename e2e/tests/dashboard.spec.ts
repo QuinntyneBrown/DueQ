@@ -44,13 +44,12 @@ test.describe('Dashboard', () => {
     await expect(page).toHaveURL(/\/payments\/new$/);
   });
 
-  test('shows three stats: this month, received, behind by', async ({ page }) => {
+  test('shows two stats: this month, received', async ({ page }) => {
     const dashboard = new DashboardPage(page);
     await dashboard.goto();
 
     await expect(dashboard.stat('This month')).toBeVisible();
     await expect(dashboard.stat('Received')).toBeVisible();
-    await expect(dashboard.stat('Behind by')).toBeVisible();
   });
 
   test('renders the recent activity section with at least one row', async ({ page }) => {
