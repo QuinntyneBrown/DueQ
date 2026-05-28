@@ -5,7 +5,8 @@
   "compilerOptions": {
     "paths": {
       "api": ["./dist/api"],
-      "components": ["./dist/components"]
+      "components": ["./dist/components"],
+      "due-q-pages/*": ["./projects/due-q/src/app/pages/*"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -44,6 +45,9 @@
     },
     {
       "path": "./projects/due-q/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/due-q-test-host/tsconfig.app.json"
     }
   ]
 }

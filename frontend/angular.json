@@ -129,6 +129,56 @@
           "builder": "@angular/build:unit-test"
         }
       }
+    },
+    "due-q-test-host": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/due-q-test-host",
+      "sourceRoot": "projects/due-q-test-host/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/due-q-test-host/src/main.ts",
+            "tsConfig": "projects/due-q-test-host/tsconfig.app.json",
+            "index": "projects/due-q-test-host/src/index.html",
+            "inlineStyleLanguage": "scss",
+            "styles": ["projects/due-q/src/styles.scss"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4300
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "due-q-test-host:build:production"
+            },
+            "development": {
+              "buildTarget": "due-q-test-host:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
     }
   }
 }
