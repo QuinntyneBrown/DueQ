@@ -88,8 +88,14 @@ echo [4/4] Starting backend and frontend...
 start "DueQ API (http://localhost:5054)" cmd /k ^
     "cd /d ""%BACKEND%"" && dotnet run --project src\DueQ.Api --launch-profile http --no-build"
 
+rem  --host 0.0.0.0 binds all IPv4 interfaces (incl. 127.0.0.1). By default the
+rem  dev server only binds IPv6 loopback (::1), so browsers that resolve
+rem  "localhost" to 127.0.0.1 get "connection refused". Binding 0.0.0.0 makes
+rem  http://localhost:4200/ work regardless of how localhost resolves.
+rem  --open launches the browser once the first bundle finishes compiling
+rem  (Angular's initial build takes a while - the page 404s/refuses until then).
 start "DueQ Web (http://localhost:4200)" cmd /k ^
-    "cd /d ""%FRONTEND%"" && npx ng serve due-q"
+    "cd /d ""%FRONTEND%"" && npx ng serve due-q --host 0.0.0.0 --port 4200 --open"
 
 echo.
 echo ============================================================
