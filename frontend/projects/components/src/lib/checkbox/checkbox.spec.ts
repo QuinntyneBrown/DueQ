@@ -40,7 +40,19 @@ describe('Checkbox', () => {
     expect(() => component.setDisabledState(true)).not.toThrow();
   });
 
+  it('should reflect setDisabledState through its signals', () => {
+    const isDisabledArg = true;
+    component.setDisabledState(isDisabledArg);
+    expect(component.disabled()).toBe(isDisabledArg);
+  });
+
   it('should call onChange without throwing', () => {
     expect(() => component.onChange(true)).not.toThrow();
+  });
+
+  it('should reflect onChange through its signals', () => {
+    const vArg = true;
+    component.onChange(vArg);
+    expect(component.value()).toBe(vArg);
   });
 });

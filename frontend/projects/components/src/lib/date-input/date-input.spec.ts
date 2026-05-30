@@ -39,7 +39,19 @@ describe('DateInput', () => {
     expect(() => component.setDisabledState(true)).not.toThrow();
   });
 
+  it('should reflect setDisabledState through its signals', () => {
+    const isDisabledArg = true;
+    component.setDisabledState(isDisabledArg);
+    expect(component.disabled()).toBe(isDisabledArg);
+  });
+
   it('should call onChange without throwing', () => {
     expect(() => component.onChange('test-value')).not.toThrow();
+  });
+
+  it('should reflect onChange through its signals', () => {
+    const vArg = 'test-value';
+    component.onChange(vArg);
+    expect(component.value()).toBe(vArg);
   });
 });

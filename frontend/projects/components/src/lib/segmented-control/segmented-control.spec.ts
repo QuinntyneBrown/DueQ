@@ -28,6 +28,12 @@ describe('SegmentedControl', () => {
     expect(() => component.writeValue({} as any)).not.toThrow();
   });
 
+  it('should reflect writeValue through its signals', () => {
+    const valueArg = {} as any;
+    component.writeValue(valueArg);
+    expect(component.value()).toBe(valueArg);
+  });
+
   it('should call registerOnChange without throwing', () => {
     expect(() => component.registerOnChange(() => undefined)).not.toThrow();
   });
@@ -40,7 +46,19 @@ describe('SegmentedControl', () => {
     expect(() => component.setDisabledState(true)).not.toThrow();
   });
 
+  it('should reflect setDisabledState through its signals', () => {
+    const isDisabledArg = true;
+    component.setDisabledState(isDisabledArg);
+    expect(component.disabled()).toBe(isDisabledArg);
+  });
+
   it('should call select without throwing', () => {
     expect(() => component.select({} as any)).not.toThrow();
+  });
+
+  it('should reflect select through its signals', () => {
+    const vArg = {} as any;
+    component.select(vArg);
+    expect(component.value()).toBe(vArg);
   });
 });

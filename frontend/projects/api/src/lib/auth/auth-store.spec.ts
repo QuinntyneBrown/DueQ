@@ -36,8 +36,23 @@ describe('AuthStore', () => {
     expect(() => service.setSession('test-value', {} as any, {} as any)).not.toThrow();
   });
 
+  it('should reflect setSession through its signals', () => {
+    const tokenArg = 'test-value';
+    const userArg = {} as any;
+    const optionsArg = {} as any;
+    service.setSession(tokenArg, userArg, optionsArg);
+    expect(service.token()).toBe(tokenArg);
+    expect(service.user()).toBe(userArg);
+  });
+
   it('should call clear without throwing', () => {
     expect(() => service.clear()).not.toThrow();
+  });
+
+  it('should reflect clear through its signals', () => {
+    service.clear();
+    expect(service.token()).toBe(null);
+    expect(service.user()).toBe(null);
   });
 
   it('should read the token signal', () => {
