@@ -1,0 +1,8 @@
+{
+  "team": "Backend",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "The HTTP API host: controllers/endpoints, request validation, authentication, and composition root. The only backend project that is deployed as a service.",
+  "dependsOn": ["DueQ.Application", "DueQ.Infrastructure"],
+  "tags": ["backend", "api", "host"]
+}

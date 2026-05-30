@@ -1,0 +1,8 @@
+{
+  "team": "Frontend",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "Shared, presentational Angular component library. Reusable UI building blocks with no application-specific business logic.",
+  "dependsOn": [],
+  "tags": ["frontend", "ui", "components"]
+}

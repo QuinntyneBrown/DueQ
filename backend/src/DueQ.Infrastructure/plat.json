@@ -1,0 +1,8 @@
+{
+  "team": "Backend",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "Infrastructure layer: persistence (EF Core), external service integrations, and implementations of the interfaces declared by the application layer.",
+  "dependsOn": ["DueQ.Application", "DueQ.Domain"],
+  "tags": ["backend", "infrastructure", "persistence"]
+}

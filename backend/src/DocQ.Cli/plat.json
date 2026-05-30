@@ -1,0 +1,8 @@
+{
+  "team": "Developer Experience",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "Command-line tooling for documentation and code generation. A developer utility, not part of the runtime application.",
+  "dependsOn": [],
+  "tags": ["cli", "tooling"]
+}

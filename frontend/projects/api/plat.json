@@ -1,0 +1,8 @@
+{
+  "team": "Frontend",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "Generated/typed HTTP client library for the DueQ API. Owns request/response models and service wrappers; contains no UI.",
+  "dependsOn": [],
+  "tags": ["frontend", "api-client"]
+}

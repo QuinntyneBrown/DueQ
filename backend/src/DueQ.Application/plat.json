@@ -1,0 +1,8 @@
+{
+  "team": "Backend",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "Application layer: use cases, commands, queries, and orchestration of domain logic. Depends only on the domain; defines the interfaces that infrastructure implements.",
+  "dependsOn": ["DueQ.Domain"],
+  "tags": ["backend", "application", "cqrs"]
+}

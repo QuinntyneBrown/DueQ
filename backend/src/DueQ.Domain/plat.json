@@ -1,0 +1,8 @@
+{
+  "team": "Backend",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "The domain core: entities, value objects, and business rules. Has no dependencies on other layers and never references infrastructure or the web host.",
+  "dependsOn": [],
+  "tags": ["backend", "domain"]
+}

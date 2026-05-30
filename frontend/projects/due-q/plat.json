@@ -1,0 +1,8 @@
+{
+  "team": "Frontend",
+  "owner": "Quinntyne Brown",
+  "contact": "quinntynebrown@gmail.com",
+  "boundary": "The main DueQ web application: routing, feature pages, and state. Composes the shared component and API libraries; the deployed frontend.",
+  "dependsOn": ["api", "components"],
+  "tags": ["frontend", "application"]
+}
